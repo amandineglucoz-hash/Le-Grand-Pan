@@ -281,6 +281,43 @@
         );
       }
 
+      /* Alert reopen button */
+      .alert__reopen {
+        position: fixed;
+        right: 0;
+        bottom: 80px;
+        width: 56px;
+        height: 56px;
+        background: var(--neutral-200);
+        border-radius: 0;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        z-index: 1000;
+        box-shadow: -4px 4px 16px rgba(35, 24, 20, 0.12);
+        transition: background 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
+        border: none;
+        outline: none;
+      }
+      .alert__reopen.is-visible {
+        display: flex;
+      }
+      .alert__reopen:hover {
+        background: var(--neutral-300, #d5c5ba);
+        transform: translateY(-4px);
+        box-shadow: -6px 4px 20px rgba(0,0,0,0.18);
+      }
+      .alert__reopen:active {
+        transform: translateX(-2px);
+      }
+      .alert__reopen svg {
+        transition: transform 0.3s ease;
+      }
+      .alert__reopen:hover svg {
+        transform: rotate(90deg);
+      }
+
       /* Alert: absolute over the bottom-right of the hero */
       .alert {
         position: fixed;
@@ -530,7 +567,7 @@
         padding: var(--page-pad);
         display: flex;
         gap: 80px;
-        align-items: center;
+        align-items: stretch;
         justify-content: center;
         overflow: hidden;
       }
@@ -543,6 +580,8 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        justify-content: center;
+        align-self: stretch;
         padding-bottom: 48px;
         position: relative;
       }
@@ -551,11 +590,12 @@
          It must "bleed" to the left — achieved by negative margin-left equal to
          (left panel width + padding) to allow overflow to the left edge */
       .menuPage__wordWrap {
-        /* Center the word so image can align exactly under it */
         align-self: center;
         margin-left: 0;
-        /* Figma overlap with image below */
-        margin-bottom: -48px;
+        /* Compensate line-height:0.6 visual overflow above element box:
+           overflow = (1 - 0.6) / 2 * fontSize = 0.2 * clamp(120px,20vw,300px) */
+        margin-top: clamp(24px, 4vw, 60px);
+        margin-bottom: -96px;
         position: relative;
         z-index: 0;
         text-align: center;
@@ -1009,6 +1049,8 @@
         cursor: pointer;
         flex-shrink: 0;
         border: none;
+        text-decoration: none;
+        color: inherit;
         transition: background 0.2s ease, transform 0.15s ease;
       }
       .privPanel__cta:hover {
@@ -1187,14 +1229,7 @@
       }
       /* Dark gradient overlay */
       .follow__gradient {
-        position: absolute;
-        inset: 0;
-        background-image: linear-gradient(
-          178.657deg,
-          rgba(60, 46, 37, 0.4) 32.299%,
-          rgba(31, 20, 13, 0.4) 97.722%
-        );
-        pointer-events: none;
+        display: none;
       }
       /* Content: sits above bg, full-height, flex-col, justify-end */
       .follow__content {
@@ -1548,10 +1583,10 @@
           <div class="infoCard reveal" data-delay="240">
             <h4>Téléphone</h4>
             <div class="big">01 42 50 02 50</div>
-            <div class="chipBtn" role="button" tabindex="0" aria-label="Appeler">
+            <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
               <span>Appeler</span>
               <img alt="" src="./le-grand-pan-assets/Chevron.svg" />
-            </div>
+            </a>
           </div>
         </div>
       </section>
@@ -1609,9 +1644,9 @@
             <div class="privPanel__kicker">Pizzeria</div>
             <div class="privPanel__title">Piennolo</div>
             <p class="privPanel__desc">Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.</p>
-            <div class="privPanel__cta" role="button" tabindex="0" aria-label="Découvrir la carte">
+            <a class="privPanel__cta" href="./le-grand-pan-assets/Menu-piennolo.pdf" target="_blank" rel="noopener noreferrer" aria-label="Découvrir la carte">
               <span>Découvrir la carte</span>
-            </div>
+            </a>
           </div>
         </div>
 
@@ -1834,20 +1869,46 @@
         <span>Commander</span>
       </div>
     </div>
+    <button class="alert__reopen" aria-label="Rouvrir le message" title="Rouvrir le message">
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="10" y1="3" x2="10" y2="17" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+        <line x1="3" y1="10" x2="17" y2="10" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+      </svg>
+    </button>
     <script>
       (function() {
         const alertClose = document.querySelector('.alert__close');
         const alertEl = document.querySelector('.alert');
-        if (alertClose && alertEl) {
-          alertClose.addEventListener('click', () => {
-            alertEl.style.transition = 'opacity 200ms ease, transform 200ms ease';
-            alertEl.style.opacity = '0';
-            alertEl.style.transform = 'scale(0.95)';
-            setTimeout(() => alertEl.remove(), 200);
+        const reopenBtn = document.querySelector('.alert__reopen');
+
+        function hideAlert() {
+          alertEl.style.transition = 'opacity 220ms ease, transform 220ms ease';
+          alertEl.style.opacity = '0';
+          alertEl.style.transform = 'scale(0.95) translateY(6px)';
+          setTimeout(() => {
+            alertEl.style.display = 'none';
+            reopenBtn.classList.add('is-visible');
+          }, 220);
+        }
+
+        function showAlert() {
+          alertEl.style.display = '';
+          alertEl.style.opacity = '0';
+          alertEl.style.transform = 'scale(0.95) translateY(6px)';
+          reopenBtn.classList.remove('is-visible');
+          requestAnimationFrame(() => {
+            alertEl.style.transition = 'opacity 280ms ease, transform 280ms ease';
+            alertEl.style.opacity = '1';
+            alertEl.style.transform = 'scale(1) translateY(0)';
           });
+        }
+
+        if (alertClose && alertEl && reopenBtn) {
+          alertClose.addEventListener('click', hideAlert);
           alertClose.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') alertClose.click();
+            if (e.key === 'Enter' || e.key === ' ') hideAlert();
           });
+          reopenBtn.addEventListener('click', showAlert);
         }
       })();
     </script>
