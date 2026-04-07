@@ -11,6 +11,15 @@
       href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
     />
     <style>
+      /* ===== Custom fonts ===== */
+      @font-face {
+        font-family: 'Bigilla';
+        src: url('./le-grand-pan-assets/Bigilla.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
       /* ===== Figma design tokens ===== */
       :root {
         --neutral-000: #fbf5ee;
@@ -199,6 +208,7 @@
         justify-content: center;
         text-align: center;
         transition: background-color 220ms ease, transform 220ms ease, box-shadow 260ms ease;
+        text-decoration: none;
       }
       .nav-cta:hover,
       .nav-cta:focus-visible {
@@ -1401,10 +1411,9 @@
           <div class="underline" aria-hidden="true"></div>
         </a>
       </div>
-      <button class="nav-cta" type="button"
-        onclick="document.getElementById('reservation')?.scrollIntoView({behavior:'smooth'})">
+      <a class="nav-cta" href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8" target="_blank" rel="noopener noreferrer">
         Réserver
-      </button>
+      </a>
     </nav>
 
     <main id="top">
@@ -1556,7 +1565,7 @@
             <img alt="" src="./le-grand-pan-assets/clock.svg" />
             <p>Nous sommes ouvert !</p>
           </div>
-          <a class="infos__reserverBtn" href="https://www.le-grand-pan.com/reserver" target="_blank" rel="noopener">Réserver</a>
+          <a class="infos__reserverBtn" href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8" target="_blank" rel="noopener noreferrer">Réserver</a>
         </div>
         <!-- Three info cards: Horaires | Adresse | Téléphone -->
         <div class="infoGrid">
@@ -1614,9 +1623,9 @@
             <div class="privPanel__kicker">Salle privée</div>
             <div class="privPanel__title">Privatisation &amp; réservation</div>
             <p class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
-            <div class="privPanel__cta" role="button" tabindex="0" aria-label="Réserver">
-              <span>Réserver</span>
-            </div>
+            <a class="privPanel__cta" href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8" target="_blank" rel="noopener noreferrer" aria-label="Réserver">
+              <span>Privatiser</span>
+            </a>
           </div>
         </div>
 
