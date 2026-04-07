@@ -1,1925 +1,1933 @@
 <!doctype html>
 <html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Le Grand Pan - Preview dynamique</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap"
-    />
-    <style>
-      /* ===== Custom fonts ===== */
-      @font-face {
-        font-family: 'Bigilla';
-        src: url('./le-grand-pan-assets/Bigilla.otf') format('opentype');
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-      /* ===== Figma design tokens ===== */
-      :root {
-        --neutral-000: #fbf5ee;
-        --neutral-100: #f7ebdd;
-        --neutral-200: #eed5ba;
-        --neutral-300: #E3B88E;
-        --neutral-600: #c06336;
-        --neutral-700: #9f4e2f;
-        --neutral-900: #683626;
-        --brand-brown: #321D16;
+  <!-- ================================================
+       SEO — Balises de base
+  ================================================ -->
+  <title>Le Grand Pan — Bistrot Gastronomique à Paris</title>
+  <meta name="description" content="Le Grand Pan, bistrot gastronomique parisien. Cuisine française sincère et raffinée, produits de saison. 20 rue Rosenwald, Paris. Réservez une table." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.le-grand-pan.com/" />
 
-        --corner-radius-xs: 4px;
-        --corner-radius-s: 8px;
-        --corner-radius-full: 999999px;
+  <!-- ================================================
+       SEO — Open Graph (Facebook, LinkedIn…)
+  ================================================ -->
+  <meta property="og:type"        content="restaurant" />
+  <meta property="og:title"       content="Le Grand Pan — Bistrot Gastronomique à Paris" />
+  <meta property="og:description" content="Cuisine française sincère et raffinée, produits de saison. 20 rue Rosenwald, Paris. Réservez une table." />
+  <meta property="og:url"         content="https://www.le-grand-pan.com/" />
+  <meta property="og:image"       content="https://www.le-grand-pan.com/le-grand-pan-assets/image-footer.webp" />
+  <meta property="og:locale"      content="fr_FR" />
+  <meta property="og:site_name"   content="Le Grand Pan" />
 
-        --space-8: 8px;
-        --space-12: 12px;
-        --space-20: 20px;
-        --space-32: 32px;
-        --space-40: 40px;
-        --space-48: 48px;
-        --space-64: 64px;
-        --page-pad: 80px;
+  <!-- ================================================
+       SEO — Twitter Card
+  ================================================ -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Le Grand Pan — Bistrot Gastronomique à Paris" />
+  <meta name="twitter:description" content="Cuisine française sincère et raffinée, produits de saison. 20 rue Rosenwald, Paris." />
+  <meta name="twitter:image"       content="https://www.le-grand-pan.com/le-grand-pan-assets/image-footer.webp" />
 
-        --font-body: 'Geist', Inter, system-ui, -apple-system, sans-serif;
-        --font-display: 'Bigilla', 'Times New Roman', Georgia, serif;
-        --font-condensed: 'Barlow Semi Condensed', 'Arial Narrow', Arial, sans-serif;
+  <!-- ================================================
+       SEO — Schema.org JSON-LD (données structurées)
+  ================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Le Grand Pan",
+    "description": "Bistrot gastronomique parisien. Cuisine française sincère et raffinée, produits de saison.",
+    "url": "https://www.le-grand-pan.com",
+    "telephone": "+33142500250",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "20 Rue Rosenwald",
+      "addressLocality": "Paris",
+      "postalCode": "75015",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 48.8330814,
+      "longitude": 2.3057029
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "12:00",
+        "closes": "14:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "19:30",
+        "closes": "23:00"
+      }
+    ],
+    "servesCuisine": "French",
+    "priceRange": "€€",
+    "sameAs": [
+      "https://www.instagram.com/restaurant_legrandpan/"
+    ],
+    "image": "https://www.le-grand-pan.com/le-grand-pan-assets/image-footer.webp"
+  }
+  </script>
 
-        --fs-h1: 64px;
-        --fs-h2: 56px;
-        --fs-h3: 48px;
-        --fs-h5: 24px;
-        --fs-h6: 20px;
-        --fs-p1: 18px;
-        --fs-p2: 16px;
-        --fs-p3: 14px;
-        --fs-p4: 12px;
-      }
+  <!-- ================================================
+       Fonts — Google Fonts (Geist)
+  ================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" />
 
-      * { box-sizing: border-box; margin: 0; padding: 0; }
+  <style>
+    /* ================================================
+       FONTS — Self-hosted (Bigilla)
+    ================================================ */
+    @font-face {
+      font-family: 'Bigilla';
+      src: url('./le-grand-pan-assets/Bigilla.otf') format('opentype');
+      font-weight: normal;
+      font-style: normal;
+      font-display: swap;
+    }
 
-      html, body {
-        background: var(--neutral-000);
-        color: var(--brand-brown);
-        font-family: var(--font-body);
-        font-weight: 400;
-        scroll-behavior: smooth;
-      }
+    /* ================================================
+       DESIGN TOKENS
+    ================================================ */
+    :root {
+      /* Palette */
+      --neutral-000: #fbf5ee;
+      --neutral-100: #f7ebdd;
+      --neutral-200: #eed5ba;
+      --neutral-300: #E3B88E;
+      --neutral-600: #c06336;
+      --neutral-700: #9f4e2f;
+      --neutral-900: #683626;
+      --brand-brown:  #321D16;
 
-      img { display: block; max-width: 100%; }
+      /* Corner radius */
+      --corner-radius-xs:   4px;
+      --corner-radius-s:    8px;
+      --corner-radius-full: 999999px;
 
-      /* ===== Reveal animations ===== */
-      :root { --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1); }
+      /* Spacing */
+      --space-8:   8px;
+      --space-12:  12px;
+      --space-20:  20px;
+      --space-32:  32px;
+      --space-40:  40px;
+      --space-48:  48px;
+      --space-64:  64px;
+      --page-pad:  80px;
 
-      /* Base: fade + rise */
-      .reveal {
-        opacity: 0;
-        transform: translateY(28px);
-        transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      /* Fade only (no movement) */
-      .reveal--fade {
-        transform: none;
-        transition: opacity 800ms var(--ease-out-expo);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      /* Slide from left */
-      .reveal--left {
-        transform: translateX(-36px);
-        transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      /* Slide from right */
-      .reveal--right {
-        transform: translateX(36px);
-        transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      /* Scale up */
-      .reveal--scale {
-        transform: scale(0.93);
-        transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
-        transition-delay: var(--reveal-delay, 0ms);
-      }
-      /* Visible state (all variants) */
-      .reveal.is-visible,
-      .reveal--fade.is-visible,
-      .reveal--left.is-visible,
-      .reveal--right.is-visible,
-      .reveal--scale.is-visible {
-        opacity: 1;
-        transform: none;
-      }
+      /* Typography — families */
+      --font-body:      'Geist', Inter, system-ui, -apple-system, sans-serif;
+      --font-display:   'Bigilla', 'Times New Roman', Georgia, serif;
+      --font-condensed: 'Barlow Semi Condensed', 'Arial Narrow', Arial, sans-serif;
 
-      main { padding-bottom: 0; }
+      /* Typography — sizes */
+      --fs-h1: 64px;
+      --fs-h2: 56px;
+      --fs-h3: 48px;
+      --fs-h5: 24px;
+      --fs-h6: 20px;
+      --fs-p1: 18px;
+      --fs-p2: 16px;
+      --fs-p3: 14px;
+      --fs-p4: 12px;
 
-      /* ===== SCROLL-OVER EFFECT (like thisisstudiox) ===== */
-      /* Header stays behind — sections slide over it */
-      .header {
-        position: sticky !important;
-        top: 0;
-        z-index: 0;
-      }
-      /* All sections sit above the sticky hero */
-      .welcome, #menu, #address, .priv, .about, .follow {
-        position: relative;
-        z-index: 2;
-      }
-      /* First section: rounded corners + subtle shadow to "lift" over hero */
-      .welcome {
-        border-radius: 0;
-        box-shadow: 0 -8px 40px rgba(50, 29, 22, 0.13);
-        margin-top: -24px;
-      }
+      /* Animations */
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
 
-      /* ===== STICKY NAV ===== */
-      .sticky-menu {
-        position: fixed;
-        left: 50%;
-        bottom: 22.49px;
-        transform: translateX(-50%);
-        z-index: 999;
-        background: var(--brand-brown);
-        border-radius: var(--corner-radius-s);
-        padding: 8px 8px 8px 40px;
-        box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.15);
-        display: flex;
-        align-items: center;
-        gap: 40px;
-        overflow: hidden;
-      }
-      .nav-tabs {
-        display: flex;
-        gap: 64px;
-        align-items: center;
-      }
-      .nav-pill {
-        height: 28px;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-        gap: 4px;
-        text-decoration: none;
-        color: var(--neutral-000);
-        flex-shrink: 0;
-      }
-      .nav-pill span {
-        font-family: var(--font-body);
-        font-size: var(--fs-p2);
-        text-transform: uppercase;
-        font-weight: 300;
-        line-height: 1.2;
-        font-feature-settings: 'case';
-        white-space: nowrap;
-      }
-      .nav-pill .underline {
-        height: 1px;
-        width: 100%;
-        background: var(--neutral-100);
-        transform: scaleX(0);
-        transform-origin: left center;
-        transition: transform 240ms ease;
-      }
-      .nav-pill:hover .underline,
-      .nav-pill:focus-visible .underline {
-        transform: scaleX(1);
-      }
-      .nav-cta {
-        height: 48px;
-        background: var(--neutral-600);
-        border-radius: var(--corner-radius-xs);
-        padding: 0 var(--space-20);
-        border: 0;
-        color: var(--neutral-000);
-        font-family: var(--font-body);
-        font-size: var(--fs-p1);
-        text-transform: uppercase;
-        font-weight: 300;
-        cursor: pointer;
-        line-height: 1.2;
-        white-space: nowrap;
-        flex-shrink: 0;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        transition: background-color 220ms ease, transform 220ms ease, box-shadow 260ms ease;
-        text-decoration: none;
-      }
-      .nav-cta:hover,
-      .nav-cta:focus-visible {
-        background: #80402c;
-        transform: translateY(-1px);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
-        animation: reservePulse 900ms ease-out;
-      }
-      @keyframes reservePulse {
-        0% {
-          box-shadow: 0 0 0 0 rgba(128, 64, 44, 0.35);
-        }
-        100% {
-          box-shadow: 0 0 0 12px rgba(128, 64, 44, 0);
-        }
-      }
+    /* ================================================
+       RESET & BASE
+    ================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-      /* ===== HEADER ===== */
-      /* The header is position:relative so the alert (position:absolute) sits
-         at the bottom-right of the hero photo area */
-      .header {
-        position: relative;
-        background: var(--neutral-000);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        padding: 20px 12px 12px;
-        overflow: clip;
-        --hero-progress: 0;
-        z-index: 1;
-      }
-      /* Logo: full-width SVG banner — aspect ratio from Figma 290.65 / 36.19 */
-      .header__logo {
-        width: 100%;
-        aspect-ratio: 290.650634765625 / 36.1890983581543;
-        position: relative;
-        flex-shrink: 0;
-      }
-      .header__logo img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-      }
-      /* Hero photo: full-width, aspect 1416/671.69 */
-      .header__hero {
-        width: 100%;
-        aspect-ratio: 1416 / 671.6929321289062;
-        position: relative;
-        flex-shrink: 0;
-        overflow: hidden;
-        isolation: isolate;
-      }
-      .header__hero img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        pointer-events: none;
-        display: block;
-        transform: translate3d(0, calc(var(--hero-progress) * -90px), 0)
-          scale(calc(1 + (var(--hero-progress) * 0.16)));
-        transform-origin: center center;
-        will-change: transform;
-      }
-      .header__hero::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        pointer-events: none;
-        z-index: 2;
-        background: linear-gradient(
-          to bottom,
-          rgba(20, 10, 6, 0) 35%,
-          rgba(20, 10, 6, calc(var(--hero-progress) * 0.28)) 100%
-        );
-      }
+    html, body {
+      background:   var(--neutral-000);
+      color:        var(--brand-brown);
+      font-family:  var(--font-body);
+      font-weight:  400;
+      scroll-behavior: smooth;
+    }
 
-      /* Alert reopen button */
-      .alert__reopen {
-        position: fixed;
-        right: 0;
-        bottom: 80px;
-        width: 56px;
-        height: 56px;
-        background: var(--neutral-200);
-        border-radius: 0;
-        display: none;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        z-index: 1000;
-        box-shadow: -4px 4px 16px rgba(35, 24, 20, 0.12);
-        transition: background 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
-        border: none;
-        outline: none;
-      }
-      .alert__reopen.is-visible {
-        display: flex;
-      }
-      .alert__reopen:hover {
-        background: var(--neutral-300, #d5c5ba);
-        transform: translateY(-4px);
-        box-shadow: -6px 4px 20px rgba(0,0,0,0.18);
-      }
-      .alert__reopen:active {
-        transform: translateX(-2px);
-      }
-      .alert__reopen svg {
-        transition: transform 0.3s ease;
-      }
-      .alert__reopen:hover svg {
-        transform: rotate(90deg);
-      }
+    img { display: block; max-width: 100%; }
+    main { padding-bottom: 0; }
 
-      /* Alert: absolute over the bottom-right of the hero */
-      .alert {
-        position: fixed;
-        right: 34px;
-        bottom: 22.49px;
-        width: 310px;
-        background: var(--neutral-200);
-        padding: 48px 32px;
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-        overflow: hidden;
-        z-index: 1000;
-      }
-      .alert__close {
-        position: absolute;
-        top: 12px;
-        right: 12px;
-        width: 12px;
-        height: 12px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: transform 180ms ease;
-      }
-      .alert__close svg {
-        display: block;
-        transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      .alert__close:hover svg,
-      .alert__close:focus-visible svg {
-        transform: rotate(360deg);
-      }
-      /* Brand block inside alert */
-      .alert__brandRow {
-        display: flex;
-        flex-direction: column;
-        gap: 13.707px;
-        align-items: center;
-        width: 100%;
-        flex-shrink: 0;
-      }
-      .alert__brandLogo {
-        width: 200px;
-        aspect-ratio: 270 / 50.488;
-        position: relative;
-        flex-shrink: 0;
-      }
-      .alert__brandLogo img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-      }
-      .alert__loc {
-        display: flex;
-        align-items: center;
-        gap: 8.567px;
-        height: 15.222px;
-        flex-shrink: 0;
-      }
-      .alert__locText {
-        font-family: var(--font-condensed);
-        font-weight: 500;
-        font-size: 10.28px;
-        letter-spacing: 1.028px;
-        text-transform: uppercase;
-        color: var(--brand-brown);
-        line-height: normal;
-        white-space: nowrap;
-      }
-      .alert__locSep {
-        width: 2.331px;
-        height: 2.403px;
-        display: block;
-        flex-shrink: 0;
-      }
-      /* Decorative line */
-      .alert__lineWrap {
-        width: 167px;
-        height: 1px;
-        border-top: 1.5px dashed var(--brand-brown);
-        opacity: 0.4;
-        flex-shrink: 0;
-      }
-      .alert__lineWrap img {
-        display: none;
-      }
-      .alert__text {
-        font-family: var(--font-body);
-        font-size: var(--fs-p2);
-        color: var(--neutral-900);
-        text-transform: uppercase;
-        text-align: center;
-        line-height: 1.2;
-        font-weight: 400;
-        flex-shrink: 0;
-      }
-      .alert__list {
-        width: 197px;
-        text-align: center;
-        font-family: var(--font-body);
-        font-size: var(--fs-p2);
-        color: var(--neutral-900);
-        flex-shrink: 0;
-      }
-      .alert__list p { margin: 0; line-height: 1.3; font-size: var(--fs-p2); }
-      .alert__cta {
-        height: 40px;
-        background: var(--neutral-100);
-        border-radius: var(--corner-radius-xs);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 24px;
-        cursor: pointer;
-        align-self: center;
-        flex-shrink: 0;
-        transition: background 0.2s ease, transform 0.15s ease;
-      }
-      .alert__cta:hover {
-        background: var(--neutral-300);
-        transform: translateY(-1px);
-      }
-      .alert__cta:active {
-        transform: translateY(0);
-      }
-      .alert__cta span {
-        font-family: var(--font-body);
-        font-size: var(--fs-p3);
-        text-transform: uppercase;
-        color: var(--neutral-700);
-        line-height: 1.2;
-        font-weight: 400;
-        white-space: nowrap;
-      }
+    /* ================================================
+       REVEAL ANIMATIONS (scroll-triggered)
+    ================================================ */
 
-      /* ===== WELCOME ===== */
-      .welcome {
-        background: var(--neutral-000);
-        padding: calc(var(--page-pad) + 80px) var(--page-pad) var(--page-pad);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 80px;
-        overflow: hidden;
-        min-height: 1098px;
-        justify-content: center;
-        margin-top: -30px;
-        position: relative;
-        z-index: 10;
-      }
-      .welcome__heading {
-        font-family: var(--font-display);
-        text-transform: uppercase;
-        line-height: 1;
-        font-size: var(--fs-h1);
-        text-align: center;
-        display: flex;
-        flex-direction: column;
-        width: 634px;
-        max-width: 90vw;
-        flex-shrink: 0;
-      }
-      .welcome__heading .line1 { color: var(--neutral-700); }
-      .welcome__heading .line2 { color: var(--brand-brown); }
-      .welcome__text {
-        max-width: 634px;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        gap: 32px;
-        text-align: center;
-        color: var(--brand-brown);
-        flex-shrink: 0;
-      }
-      .welcome__text .subtitle {
-        font-size: var(--fs-h6);
-        text-transform: uppercase;
-        font-weight: 300;
-        line-height: 1.2;
-        color: var(--brand-brown);
-      }
-      .welcome__text .body-p {
-        font-size: var(--fs-p1);
-        line-height: 1.2;
-        color: var(--brand-brown);
-      }
-      /* Photo + stamp container */
-      .welcome__media {
-        position: relative;
-        padding-bottom: 86px; /* Reserve space for stamp crossing below photo */
-        display: flex;
-        align-items: flex-start;
-        justify-content: center;
-        width: min(900px, 92vw);
-        flex-shrink: 0;
-      }
-      /* Skewed photo wrapper — clips parallax overflow */
-      .welcome__photoWrap {
-        transform: skewX(0.34deg);
-        width: min(800px, 100%);
-        height: 343.75px;
-        overflow: hidden;
-        flex-shrink: 0;
-        position: relative;
-        z-index: 0;
-      }
-      /* Photo inside wrapper — taller to allow parallax movement */
-      .welcome__photo {
-        width: 100%;
-        height: calc(100% + 80px);
-        object-fit: cover;
-        display: block;
-        transform: translateY(var(--px-welcome, -40px));
-        will-change: transform;
-      }
-      /* Rotating stamp — centered on the image */
-      .welcome__stamp {
-        position: absolute;
-        top: 100%;
-        left: 50%;
-        width: 231.767px;
-        height: 171.556px;
-        transform: translate(-50%, -160px) rotate(7.32deg); /* Figma overlap: -48px */
-        pointer-events: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1;
-      }
-      .welcome__stamp img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-      }
+    /* Base: fade + rise */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Fade only */
+    .reveal--fade {
+      opacity: 0;
+      transition: opacity 800ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Slide from left */
+    .reveal--left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Slide from right */
+    .reveal--right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Scale up */
+    .reveal--scale {
+      opacity: 0;
+      transform: scale(0.93);
+      transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Visible state — all variants */
+    .reveal.is-visible,
+    .reveal--fade.is-visible,
+    .reveal--left.is-visible,
+    .reveal--right.is-visible,
+    .reveal--scale.is-visible {
+      opacity: 1;
+      transform: none;
+    }
 
-      /* ===== MENU SECTION ===== */
-      /* Figma: bg-[#f7ebdd], flex, gap-80, p-80, overflow-clip */
-      .menuPage {
-        background: var(--neutral-100);
-        padding: var(--page-pad);
-        display: flex;
-        gap: 80px;
-        align-items: stretch;
-        justify-content: center;
-        overflow: hidden;
-      }
+    /* ================================================
+       LAYOUT — Scroll-over effect
+       Header stays behind; sections slide over it
+    ================================================ */
+    .header {
+      position: sticky !important;
+      top: 0;
+      z-index: 0;
+    }
+    .welcome, #menu, #address, .priv, .about, .follow {
+      position: relative;
+      z-index: 2;
+    }
+    .welcome {
+      border-radius: 0;
+      box-shadow: 0 -8px 40px rgba(50, 29, 22, 0.13);
+      margin-top: -24px;
+    }
 
-      /* Left column: holds the giant MENU word + photo */
-      /* Figma: w-[634px], pb-[48px], flex-col items-center */
-      .menuPage__left {
-        flex: 0 0 auto;
-        width: clamp(300px, 44vw, 634px);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        align-self: stretch;
-        padding-bottom: 48px;
-        position: relative;
-      }
+    /* ================================================
+       STICKY NAV
+    ================================================ */
+    .sticky-menu {
+      position: fixed;
+      left: 50%;
+      bottom: 22.49px;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: var(--brand-brown);
+      border-radius: var(--corner-radius-s);
+      padding: 8px 8px 8px 40px;
+      box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 64px;
+      align-items: center;
+    }
+    .nav-pill {
+      height: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--neutral-000);
+      flex-shrink: 0;
+    }
+    .nav-pill span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      text-transform: uppercase;
+      font-weight: 300;
+      line-height: 1.2;
+      font-feature-settings: 'case';
+      white-space: nowrap;
+    }
+    .nav-pill .underline {
+      height: 1px;
+      width: 100%;
+      background: var(--neutral-100);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 240ms ease;
+    }
+    .nav-pill:hover .underline,
+    .nav-pill:focus-visible .underline {
+      transform: scaleX(1);
+    }
+    .nav-cta {
+      height: 48px;
+      background: var(--neutral-600);
+      border-radius: var(--corner-radius-xs);
+      padding: 0 var(--space-20);
+      border: 0;
+      color: var(--neutral-000);
+      font-family: var(--font-body);
+      font-size: var(--fs-p1);
+      text-transform: uppercase;
+      font-weight: 300;
+      cursor: pointer;
+      line-height: 1.2;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 220ms ease, transform 220ms ease, box-shadow 260ms ease;
+    }
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      background: #80402c;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+      animation: reservePulse 900ms ease-out;
+    }
+    @keyframes reservePulse {
+      0%   { box-shadow: 0 0 0 0 rgba(128, 64, 44, 0.35); }
+      100% { box-shadow: 0 0 0 12px rgba(128, 64, 44, 0); }
+    }
 
-      /* MENU word: Figma text-[300px], line-height none, mb-[-48px]
-         It must "bleed" to the left — achieved by negative margin-left equal to
-         (left panel width + padding) to allow overflow to the left edge */
-      .menuPage__wordWrap {
-        align-self: center;
-        margin-left: 0;
-        /* Compensate line-height:0.6 visual overflow above element box:
-           overflow = (1 - 0.6) / 2 * fontSize = 0.2 * clamp(120px,20vw,300px) */
-        margin-top: clamp(24px, 4vw, 60px);
-        margin-bottom: -96px;
-        position: relative;
-        z-index: 0;
-        text-align: center;
-        white-space: nowrap;
-      }
-      .menuPage__word {
-        font-family: var(--font-display);
-        font-size: clamp(120px, 20vw, 300px);
-        text-transform: uppercase;
-        color: var(--neutral-700);
-        line-height: 0.6;
-        white-space: nowrap;
-      }
+    /* ================================================
+       HEADER (hero)
+    ================================================ */
+    .header {
+      position: relative;
+      background: var(--neutral-000);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 12px 12px;
+      overflow: clip;
+      --hero-progress: 0;
+      z-index: 1;
+    }
+    .header__logo {
+      width: 100%;
+      aspect-ratio: 290.650634765625 / 36.1890983581543;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .header__logo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .header__hero {
+      width: 100%;
+      aspect-ratio: 1416 / 671.6929321289062;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .header__hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+      transform: translate3d(0, calc(var(--hero-progress) * -90px), 0)
+                 scale(calc(1 + (var(--hero-progress) * 0.16)));
+      transform-origin: center center;
+      will-change: transform;
+    }
+    .header__hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        to bottom,
+        rgba(20, 10, 6, 0) 35%,
+        rgba(20, 10, 6, calc(var(--hero-progress) * 0.28)) 100%
+      );
+    }
 
-      /* Photo below MENU word */
-      /* Figma: skew-x-[0.34deg], h-[550px], w-[400px], mb-[-48px], z-index above word */
-      .menuPage__imgWrap {
-        transform: skewX(0.34deg);
-        width: 400px;
-        max-width: 100%;
-        height: 550px;
-        margin-bottom: 0;
-        flex-shrink: 0;
-        corner-radius: 0px;
-        position: relative;
-        z-index: 1;
-        overflow: hidden;
-      }
-      .menuPage__imgWrap img {
-        width: 100%;
-        height: calc(100% + 80px);
-        object-fit: cover;
-        display: block;
-        transform: translateY(var(--px-menu, -40px));
-        will-change: transform;
-      }
+    /* ================================================
+       ALERT (popover notification)
+    ================================================ */
+    .alert {
+      position: fixed;
+      right: 34px;
+      bottom: 22.49px;
+      width: 310px;
+      background: var(--neutral-200);
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    .alert__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 12px;
+      height: 12px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .alert__close svg {
+      display: block;
+      transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .alert__close:hover svg,
+    .alert__close:focus-visible svg {
+      transform: rotate(360deg);
+    }
+    .alert__brandRow {
+      display: flex;
+      flex-direction: column;
+      gap: 13.707px;
+      align-items: center;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .alert__brandLogo {
+      width: 200px;
+      aspect-ratio: 270 / 50.488;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .alert__brandLogo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .alert__loc {
+      display: flex;
+      align-items: center;
+      gap: 8.567px;
+      height: 15.222px;
+      flex-shrink: 0;
+    }
+    .alert__locText {
+      font-family: var(--font-condensed);
+      font-weight: 500;
+      font-size: 10.28px;
+      letter-spacing: 1.028px;
+      text-transform: uppercase;
+      color: var(--brand-brown);
+      line-height: normal;
+      white-space: nowrap;
+    }
+    .alert__locSep {
+      width: 2.331px;
+      height: 2.403px;
+      display: block;
+      flex-shrink: 0;
+    }
+    .alert__lineWrap {
+      width: 167px;
+      height: 1px;
+      border-top: 1.5px dashed var(--brand-brown);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+    .alert__text {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      color: var(--neutral-900);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+    .alert__list {
+      width: 197px;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      color: var(--neutral-900);
+      flex-shrink: 0;
+    }
+    .alert__list p {
+      margin: 0;
+      line-height: 1.3;
+      font-size: var(--fs-p2);
+    }
+    .alert__cta {
+      height: 40px;
+      background: var(--neutral-100);
+      border-radius: var(--corner-radius-xs);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      cursor: pointer;
+      align-self: center;
+      flex-shrink: 0;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .alert__cta:hover  { background: var(--neutral-300); transform: translateY(-1px); }
+    .alert__cta:active { transform: translateY(0); }
+    .alert__cta span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p3);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1.2;
+      font-weight: 400;
+      white-space: nowrap;
+    }
 
-      /* Right: two columns side-by-side */
-      .menuCols {
-        flex: 1 1 auto;
-        display: flex;
-        gap: 80px;
-        align-items: flex-start;
-        min-width: 0;
-      }
-      .menuCol {
-        flex: 1 1 0;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-64);
-      }
-      .menuCol__titleRow {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-        width: 100%;
-        flex-shrink: 0;
-      }
-      /* Figma: font-weight:light(300), h3=48px, uppercase, color brand-brown */
-      .menuCol__title {
-        font-family: var(--font-body);
-        font-weight: 300;
-        text-transform: uppercase;
-        font-size: var(--fs-h3);
-        line-height: 1.2;
-        color: var(--brand-brown);
-      }
-      /* Figma-like 1px dotted rule under Midi/Soir title */
-      .menuCol__rule {
-        height: 1px;
-        width: 100%;
-        border-top: 1px dotted var(--neutral-900);
-        opacity: 0.8;
-        flex-shrink: 0;
-      }
-      .menuCol__rule img {
-        display: none;
-      }
-      .menuBlock {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-      .menuBlock__heading {
-        font-size: var(--fs-p1);
-        text-transform: uppercase;
-        color: var(--neutral-700);
-        line-height: 1.2;
-        font-weight: 400;
-      }
-      .menuBlock__text {
-        font-size: var(--fs-p2);
-        line-height: 1.3;
-        color: var(--brand-brown);
-      }
-      .formulasWrap {
-        display: flex;
-        flex-direction: column;
-        gap: 20px;
-      }
-      .formulaRow {
-        display: flex;
-        justify-content: space-between;
-        gap: 12px;
-        white-space: nowrap;
-        font-size: var(--fs-p2);
-        color: var(--brand-brown);
-        line-height: 1.3;
-      }
-      .menuList {
-        padding-left: 24px;
-        color: var(--brand-brown);
-        font-size: var(--fs-p2);
-        line-height: 1.3;
-        list-style: disc;
-      }
-      .menuList li { margin-bottom: 0; }
+    /* Alert reopen button ("+") */
+    .alert__reopen {
+      position: fixed;
+      right: 0;
+      bottom: 80px;
+      width: 56px;
+      height: 56px;
+      background: var(--neutral-200);
+      border-radius: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: -4px 4px 16px rgba(35, 24, 20, 0.12);
+      border: none;
+      outline: none;
+      transition: background 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
+    }
+    .alert__reopen.is-visible { display: flex; }
+    .alert__reopen:hover {
+      background: var(--neutral-300);
+      transform: translateX(-4px);
+      box-shadow: -6px 4px 20px rgba(0, 0, 0, 0.18);
+    }
+    .alert__reopen:active { transform: translateX(-2px); }
+    .alert__reopen svg { transition: transform 0.3s ease; }
+    .alert__reopen:hover svg { transform: rotate(90deg); }
 
-      /* ===== PHOTO SLIDER ===== */
-      .photoSlider {
-        position: relative;
-        z-index: 2;
-        height: 800px;
-        overflow-x: auto;
-        overflow-y: clip;
-        display: flex;
-        align-items: stretch;
-        scrollbar-width: thin;
-        width: 100%;
-        cursor: grab;
-      }
-      .photoSlider:active { cursor: grabbing; }
-      .photoSlide {
-        flex: 0 0 auto;
-        height: 800px;
-        position: relative;
-        overflow: hidden;
-      }
-      .photoSlide img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        pointer-events: none;
-        display: block;
-      }
+    /* ================================================
+       WELCOME SECTION
+    ================================================ */
+    .welcome {
+      background: var(--neutral-000);
+      padding: calc(var(--page-pad) + 80px) var(--page-pad) var(--page-pad);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 80px;
+      overflow: hidden;
+      min-height: 1098px;
+      justify-content: center;
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+    }
+    .welcome__heading {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      line-height: 1;
+      font-size: var(--fs-h1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      width: 634px;
+      max-width: 90vw;
+      flex-shrink: 0;
+    }
+    .welcome__heading .line1 { color: var(--neutral-700); }
+    .welcome__heading .line2 { color: var(--brand-brown); }
+    .welcome__text {
+      max-width: 634px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      text-align: center;
+      color: var(--brand-brown);
+      flex-shrink: 0;
+    }
+    .welcome__text .subtitle {
+      font-size: var(--fs-h6);
+      text-transform: uppercase;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .welcome__text .body-p {
+      font-size: var(--fs-p1);
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .welcome__media {
+      position: relative;
+      padding-bottom: 86px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: min(900px, 92vw);
+      flex-shrink: 0;
+    }
+    /* Skewed photo wrapper — clips parallax overflow */
+    .welcome__photoWrap {
+      transform: skewX(0.34deg);
+      width: min(800px, 100%);
+      height: 343.75px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 0;
+    }
+    .welcome__photo {
+      width: 100%;
+      height: calc(100% + 80px);
+      object-fit: cover;
+      display: block;
+      transform: translateY(var(--px-welcome, -40px));
+      will-change: transform;
+    }
+    .welcome__stamp {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 231.767px;
+      height: 171.556px;
+      transform: translate(-50%, -160px) rotate(7.32deg);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .welcome__stamp img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
 
-      /* ===== INFOS SECTION ===== */
-      /* Figma: bg neutral-000, flex-col, gap-48, p-80, items-center, overflow-clip */
-      .infos {
-        background: var(--neutral-000);
-        padding: var(--page-pad);
-        display: flex;
-        flex-direction: column;
-        gap: 48px;
-        align-items: center;
-        overflow: hidden;
-        justify-content: center;
-      }
-      /* Title area: 970px wide, flex-col, gap-20, items-center, h-100px */
-      .infos__titleRow {
-        width: min(970px, 92vw);
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        min-height: 100px;
-        justify-content: center;
-        flex-shrink: 0;
-      }
+    /* ================================================
+       MENU SECTION
+    ================================================ */
+    .menuPage {
+      background: var(--neutral-100);
+      padding: var(--page-pad);
+      display: flex;
+      gap: 80px;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Left column: giant MENU word + photo */
+    .menuPage__left {
+      flex: 0 0 auto;
+      width: clamp(300px, 44vw, 634px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      align-self: stretch;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .menuPage__wordWrap {
+      align-self: center;
+      margin-left: 0;
+      /* Compensate line-height:0.6 visual overflow: (1 - 0.6) / 2 × fontSize */
+      margin-top: clamp(24px, 4vw, 60px);
+      margin-bottom: -96px;
+      position: relative;
+      z-index: 0;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .menuPage__word {
+      font-family: var(--font-display);
+      font-size: clamp(120px, 20vw, 300px);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 0.6;
+      white-space: nowrap;
+    }
+    .menuPage__imgWrap {
+      transform: skewX(0.34deg);
+      width: 400px;
+      max-width: 100%;
+      height: 550px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .menuPage__imgWrap img {
+      width: 100%;
+      height: calc(100% + 80px);
+      object-fit: cover;
+      display: block;
+      transform: translateY(var(--px-menu, -40px));
+      will-change: transform;
+    }
+    /* Right: two columns side-by-side */
+    .menuCols {
+      flex: 1 1 auto;
+      display: flex;
+      gap: 80px;
+      align-items: flex-start;
+      min-width: 0;
+    }
+    .menuCol {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-64);
+    }
+    .menuCol__titleRow {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .menuCol__title {
+      font-family: var(--font-body);
+      font-weight: 300;
+      text-transform: uppercase;
+      font-size: var(--fs-h3);
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .menuCol__rule {
+      height: 1px;
+      width: 100%;
+      border-top: 1px dotted var(--neutral-900);
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+    .menuBlock {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .menuBlock__heading {
+      font-size: var(--fs-p1);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+    .menuBlock__text {
+      font-size: var(--fs-p2);
+      line-height: 1.3;
+      color: var(--brand-brown);
+    }
+    .formulasWrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .formulaRow {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      white-space: nowrap;
+      font-size: var(--fs-p2);
+      color: var(--brand-brown);
+      line-height: 1.3;
+    }
+    .menuList {
+      padding-left: 24px;
+      color: var(--brand-brown);
+      font-size: var(--fs-p2);
+      line-height: 1.3;
+      list-style: disc;
+    }
 
-      /* Le Grand Pan logo: w-456px, h-55px */
-      .infos__logo {
-        width: 456px;
-        max-width: 80vw;
-        height: 55px;
-        position: relative;
-        flex-shrink: 0;
-      }
-      .infos__logo img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-      }
-      /* Bistrot • Paris row: gap-20, h-35px */
-      .infos__locRow {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        height: 35px;
-        flex-shrink: 0;
-      }
-      .infos__locBig {
-        font-family: var(--font-condensed);
-        font-size: 24px;
-        letter-spacing: 2.4px;
-        text-transform: uppercase;
-        color: var(--neutral-900);
-        white-space: nowrap;
-        font-weight: 500;
-        line-height: normal;
-      }
-      
-      .infos__locDot { width: 5.526px; height: 5.526px; display: block; }
-      /* "Nous sommes ouvert" bar */
-      .openBar {
-        border-top: 1px dashed var(--neutral-900);
-        border-bottom: 1px dashed var(--neutral-900);
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: space-between;
-        padding: var(--space-12) 12px;
-        width: 100%;
-        flex-shrink: 0;
-        box-sizing: border-box;
-      }
-      .openBar__left {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        flex-shrink: 0;
-      }
-      .openBar p {
-        font-size: var(--fs-p1);
-        color: var(--brand-brown);
-        white-space: nowrap;
-        line-height: 1.2;
-        font-weight: 400;
-      }
-      .openBar img { width: 20px; height: 20px; object-fit: contain; display: block; flex-shrink: 0; }
-      /* RÉSERVER button */
-      .infos__reserverBtn {
-        height: 48px;
-        background: var(--neutral-600);
-        color: #fbf5ee;
-        border: none;
-        border-radius: 4px;
-        padding: 0 24px;
-        font-size: var(--fs-p3);
-        font-family: var(--font-body);
-        font-weight: 300;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        cursor: pointer;
-        white-space: nowrap;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s ease, transform 0.15s ease;
-        text-decoration: none;
-      }
-      .infos__reserverBtn:hover {
-        background: #6a3424;
-        transform: translateY(-1px);
-      }
-      .infos__reserverBtn:active {
-        background: #5a2b1e;
-        transform: translateY(0);
-      }
-      /* Info cards row: justify-between, h-244px, w-full */
-      .infoGrid {
-        display: flex;
-        justify-content: space-between;
-        gap: 20px;
-        width: 100%;
-        min-height: 244px;
-        align-items: center;
-        flex-shrink: 0;
-      }
-      /* Each card: w-320px, flex-col, items-center, gap-32, h-244px, text-center, justify-center */
-      .infoCard {
-        flex: 0 0 320px;
-        max-width: 320px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: var(--space-32);
-        text-align: center;
-        height: 244px;
-        justify-content: center;
-      }
-      .infoCard h4 {
-        font-size: var(--fs-h6);
-        text-transform: uppercase;
-        font-weight: 400;
-        color: var(--neutral-700);
-        line-height: 1.2;
-      }
-      .infoCard .small {
-        font-size: var(--fs-p1);
-        color: var(--brand-brown);
-        line-height: 1.2;
-        text-align: center;
-      }
-      .infoCard .big {
-        font-family: var(--font-display);
-        font-size: var(--fs-h2);
-        text-transform: uppercase;
-        line-height: 1;
-        color: var(--brand-brown);
-        font-weight: 700;
-        text-align: center;
-      }
-      /* Address card: gap-20 */
-      .infoCard--address { gap: var(--space-20); }
-      /* Chip buttons */
-      .chipBtn {
-        height: 40px;
-        background: var(--neutral-100);
-        border-radius: var(--corner-radius-xs);
-        padding: 0 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        cursor: pointer;
-        flex-shrink: 0;
-        text-decoration: none;
-        color: inherit;
-      }
-      .chipBtn span {
-        font-size: var(--fs-p3);
-        text-transform: uppercase;
-        color: var(--neutral-700);
-        font-weight: 300;
-        white-space: nowrap;
-        line-height: 1.2;
-      }
-      .chipBtn img { width: 20px; height: 20px; object-fit: contain; display: block; }
-      .chipBtn {
-        transition: background 0.2s ease, transform 0.15s ease;
-      }
-      .chipBtn:hover {
-        background: var(--neutral-200, #e8ddd5);
-        transform: translateY(-1px);
-      }
-      .chipBtn:active {
-        background: var(--neutral-300, #d5c5ba);
-        transform: translateY(0);
-      }
+    /* ================================================
+       PHOTO SLIDER
+    ================================================ */
+    .photoSlider {
+      position: relative;
+      z-index: 2;
+      height: 800px;
+      overflow-x: auto;
+      overflow-y: clip;
+      display: flex;
+      align-items: stretch;
+      scrollbar-width: thin;
+      width: 100%;
+      cursor: grab;
+    }
+    .photoSlider:active { cursor: grabbing; }
+    .photoSlide {
+      flex: 0 0 auto;
+      height: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+    .photoSlide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+    }
 
-      /* ===== PRIVATISATION ===== */
-      /* Figma: bg neutral-700(#9f4e2f), gap-20, items-start, justify-center, p-12 */
-      .priv {
-        background: var(--neutral-700);
-        padding: 12px;
-        display: flex;
-        gap: 20px;
-        align-items: flex-start;
-        justify-content: center;
-      }
-      /* Each panel: flex-1, flex-col, gap-12, position:relative */
-      .privPanel {
-        flex: 1 1 0;
-        min-width: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        position: relative;
-      }
-      /* Image box: h-400px, w-full, overflow:hidden, relative */
-      .privPanel__imgBox {
-        height: 400px;
-        width: 100%;
-        position: relative;
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-      .privPanel__imgBox img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        pointer-events: none;
-        display: block;
-      }
-      /* Logo overlay inside left panel image */
-      /* Figma: absolute, left-[15px], top-[18.88px], w-[117.973px], h-[43px] */
-      .privPanel__logoOverlay {
-        position: absolute;
-        top: 18.88px;
-        left: 15px;
-        width: 117.973px;
-        height: 43px;
-        pointer-events: none;
-        z-index: 2;
-      }
-      .privPanel__logoOverlay img { width: 100%; height: 100%; object-fit: contain; display: block; }
-      /* Content below image */
-      .privPanel__content {
-        padding: 20px 80px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-        text-align: center;
-        border-radius: 4px;
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-      /* Rotated divider line */
-      .privPanel__dividerWrap {
-        width: 80px;
-        height: 1px;
-        align-self: center;
-        flex-shrink: 0;
-        display: flex;
-        align-items: center;
-      }
-      .privPanel__kicker {
-        font-family: var(--font-body);
-        font-size: var(--fs-p4);
-        text-transform: uppercase;
-        color: var(--neutral-200);
-        line-height: 1.2;
-        font-weight: 400;
-      }
-      .privPanel__title {
-        font-family: var(--font-display);
-        font-size: var(--fs-h2);
-        text-transform: uppercase;
-        color: var(--neutral-100);
-        line-height: 1;
-        text-align: center;
-        font-weight: 700;
-      }
-      .privPanel__desc {
-        font-family: var(--font-body);
-        font-size: var(--fs-p2);
-        color: var(--neutral-100);
-        line-height: 1.3;
-        text-align: center;
-        max-width: 500px;
-        font-weight: 300;
-      }
-      .privPanel__cta {
-        height: 40px;
-        background: var(--neutral-100);
-        border-radius: var(--corner-radius-xs);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 8px;
-        padding: 0 20px;
-        cursor: pointer;
-        flex-shrink: 0;
-        border: none;
-        text-decoration: none;
-        color: inherit;
-        transition: background 0.2s ease, transform 0.15s ease;
-      }
-      .privPanel__cta:hover {
-        background: var(--neutral-200);
-        transform: translateY(-1px);
-      }
-      .privPanel__cta:active {
-        background: #dfc4a5;
-        transform: translateY(0);
-      }
-      .privPanel__cta span {
-        font-family: var(--font-body);
-        font-size: var(--fs-p3);
-        text-transform: uppercase;
-        color: var(--neutral-700);
-        font-weight: 400;
-        line-height: 1.2;
-        white-space: nowrap;
-      }
-      /* Divider between panels — vertical on desktop, horizontal on mobile */
-      .priv__vdivider {
-        align-self: stretch;
-        flex-shrink: 0;
-        width: 1px;
-        border-left: 1px dashed var(--neutral-200);
-      }
+    /* ================================================
+       INFOS SECTION (Adresse / Horaires / Téléphone)
+    ================================================ */
+    .infos {
+      background: var(--neutral-000);
+      padding: var(--page-pad);
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      align-items: center;
+      overflow: hidden;
+      justify-content: center;
+    }
+    .infos__titleRow {
+      width: min(970px, 92vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      min-height: 100px;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .infos__logo {
+      width: 456px;
+      max-width: 80vw;
+      height: 55px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .infos__logo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .infos__locRow {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+    .infos__locBig {
+      font-family: var(--font-condensed);
+      font-size: 24px;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: var(--neutral-900);
+      white-space: nowrap;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .infos__locDot { width: 5.526px; height: 5.526px; display: block; }
+    /* "Nous sommes ouvert" bar */
+    .openBar {
+      border-top: 1px dashed var(--neutral-900);
+      border-bottom: 1px dashed var(--neutral-900);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-12) 12px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .openBar__left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .openBar p {
+      font-size: var(--fs-p1);
+      color: var(--brand-brown);
+      white-space: nowrap;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+    .openBar img { width: 20px; height: 20px; object-fit: contain; display: block; flex-shrink: 0; }
+    /* Réserver button */
+    .infos__reserverBtn {
+      height: 48px;
+      background: var(--neutral-600);
+      color: var(--neutral-000);
+      border: none;
+      border-radius: var(--corner-radius-xs);
+      padding: 0 24px;
+      font-size: var(--fs-p3);
+      font-family: var(--font-body);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .infos__reserverBtn:hover  { background: #6a3424; transform: translateY(-1px); }
+    .infos__reserverBtn:active { background: #5a2b1e; transform: translateY(0); }
+    /* Info cards grid */
+    .infoGrid {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      min-height: 244px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .infoCard {
+      flex: 0 0 320px;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-32);
+      text-align: center;
+      height: 244px;
+      justify-content: center;
+    }
+    .infoCard--address { gap: var(--space-20); }
+    .infoCard h4 {
+      font-size: var(--fs-h6);
+      text-transform: uppercase;
+      font-weight: 400;
+      color: var(--neutral-700);
+      line-height: 1.2;
+    }
+    .infoCard .small {
+      font-size: var(--fs-p1);
+      color: var(--brand-brown);
+      line-height: 1.2;
+      text-align: center;
+    }
+    .infoCard .big {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--brand-brown);
+      font-weight: 700;
+      text-align: center;
+    }
+    /* Chip buttons (Google Map, Appeler…) */
+    .chipBtn {
+      height: 40px;
+      background: var(--neutral-100);
+      border-radius: var(--corner-radius-xs);
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .chipBtn span {
+      font-size: var(--fs-p3);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      font-weight: 300;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+    .chipBtn img  { width: 20px; height: 20px; object-fit: contain; display: block; }
+    .chipBtn:hover  { background: var(--neutral-200); transform: translateY(-1px); }
+    .chipBtn:active { background: var(--neutral-300); transform: translateY(0); }
 
-      /* ===== ABOUT / CHEF ===== */
-      /* Figma: bg neutral-000, flex, gap-80, items-center, justify-center,
-         overflow-clip, pb-80, pt-80, px-80 */
-      .about {
-        background: var(--neutral-000);
-        padding: var(--page-pad);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 80px;
-        overflow: hidden;
-      }
-      /* Media: flex, items-end, pr-200 (for stamp overlap) */
-      .about__media {
-        flex: 0 0 auto;
-        position: relative;
-        display: flex;
-        align-items: flex-end;
-        padding-right: 200px;
-      }
-      /* Rotated oval photo frame */
-      /* Figma: rotate-[-4.49deg], border 1px neutral-700, rounded-[3000px], p-20 */
-      .about__photoWrap {
-        transform: rotate(-4.49deg);
-        border: 1px solid var(--neutral-700);
-        border-radius: 3000px;
-        padding: 20px;
-        display: flex;
-        margin-right: -200px;
-        flex-shrink: 0;
-      }
-      /* Figma: h-600px, w-490px, rounded-[300px], object-cover */
-      .about__photo {
-        width: 490px;
-        height: 600px;
-        border-radius: 300px;
-        object-fit: cover;
-        pointer-events: none;
-        display: block;
-      }
-      /* Stamp: flex child aligned bottom-right, overlapping photo right edge */
-      /* Figma: h-385px, w-264px, rotate(7.83deg), pb-52px, pt-12px */
+    /* ================================================
+       PRIVATISATION & PIENNOLO
+    ================================================ */
+    .priv {
+      background: var(--neutral-700);
+      padding: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .privPanel {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+    .privPanel__imgBox {
+      height: 400px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .privPanel__imgBox img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+    }
+    .privPanel__logoOverlay {
+      position: absolute;
+      top: 18.88px;
+      left: 15px;
+      width: 117.973px;
+      height: 43px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .privPanel__logoOverlay img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .privPanel__content {
+      padding: 20px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .privPanel__dividerWrap {
+      width: 80px;
+      height: 1px;
+      align-self: center;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+    .privPanel__kicker {
+      font-family: var(--font-body);
+      font-size: var(--fs-p4);
+      text-transform: uppercase;
+      color: var(--neutral-200);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+    .privPanel__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      text-transform: uppercase;
+      color: var(--neutral-100);
+      line-height: 1;
+      text-align: center;
+      font-weight: 700;
+    }
+    .privPanel__desc {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      color: var(--neutral-100);
+      line-height: 1.3;
+      text-align: center;
+      max-width: 500px;
+      font-weight: 300;
+    }
+    .privPanel__cta {
+      height: 40px;
+      background: var(--neutral-100);
+      border-radius: var(--corner-radius-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+      border: none;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .privPanel__cta:hover  { background: var(--neutral-200); transform: translateY(-1px); }
+    .privPanel__cta:active { background: #dfc4a5; transform: translateY(0); }
+    .privPanel__cta span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p3);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    /* Divider between panels */
+    .priv__vdivider {
+      align-self: stretch;
+      flex-shrink: 0;
+      width: 1px;
+      border-left: 1px dashed var(--neutral-200);
+    }
+
+    /* ================================================
+       ABOUT / CHEF SECTION
+    ================================================ */
+    .about {
+      background: var(--neutral-000);
+      padding: var(--page-pad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      overflow: hidden;
+    }
+    .about__media {
+      flex: 0 0 auto;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding-right: 200px;
+    }
+    .about__photoWrap {
+      transform: rotate(-4.49deg);
+      border: 1px solid var(--neutral-700);
+      border-radius: 3000px;
+      padding: 20px;
+      display: flex;
+      margin-right: -200px;
+      flex-shrink: 0;
+    }
+    .about__photo {
+      width: 490px;
+      height: 600px;
+      border-radius: 300px;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+    }
+    .about__stampWrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 264px;
+      height: 385px;
+      margin-right: -200px;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 52px;
+      padding-top: 12px;
+      transform: rotate(7.83deg);
+    }
+    .about__stampWrap img { display: block; }
+    .about__stampStar {
+      width: 140px;
+      height: 140px;
+      margin-bottom: -40px;
+      object-fit: contain;
+      transform: rotate(7.32deg) translateY(var(--px-star, 0px));
+      will-change: transform;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 0;
+    }
+    .about__stampEllipse {
+      width: 218px;
+      height: 218px;
+      object-fit: contain;
+      flex-shrink: 0;
+      transform: translateY(var(--px-plate, 0px));
+      will-change: transform;
+      position: relative;
+      z-index: 1;
+    }
+    .about__text {
+      flex: 0 0 auto;
+      width: 621px;
+      max-width: 48vw;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-32);
+    }
+    .about__textInner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .about__kicker {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--fs-h5);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1.2;
+    }
+    .about__body p {
+      font-size: var(--fs-p1);
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .about__body p + p { margin-top: 1em; }
+    .about__signatureWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .about__signature {
+      transform: rotate(-5.17deg);
+      width: 252px;
+      height: 80px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ================================================
+       FOLLOW / FOOTER SECTION
+    ================================================ */
+    .follow {
+      position: relative;
+      height: 727px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .follow__bgWrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .follow__bg {
+      width: 100%;
+      height: calc(100% + 120px);
+      margin-top: -60px;
+      object-fit: cover;
+      display: block;
+      transform: translateY(var(--px-footer, 0px));
+      will-change: transform;
+    }
+    .follow__gradient { display: none; }
+    .follow__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .follow__titleRow {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+    .follow__title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      color: var(--neutral-000);
+      font-size: var(--fs-h1);
+      line-height: 1;
+      text-align: center;
+      font-weight: 700;
+    }
+    .follow__cta {
+      background: var(--neutral-600);
+      border-radius: var(--corner-radius-full);
+      padding: var(--space-20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+    .follow__cta:hover {
+      background: var(--neutral-300);
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+    .follow__footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 40px;
+      height: 74px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .follow__footerLogo {
+      width: 195px;
+      height: 24.914px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .follow__footerLogo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .follow__footerLinks {
+      display: flex;
+      gap: 40px;
+      font-family: var(--font-body);
+      font-size: var(--fs-p4);
+      color: var(--neutral-100);
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+    .follow__footerLinks a {
+      color: var(--neutral-100);
+      text-decoration: none;
+    }
+    .follow__footerLinks a:hover { text-decoration: underline; }
+
+    /* ================================================
+       RESPONSIVE — Tablette (≤ 1100px)
+    ================================================ */
+    @media (max-width: 1100px) {
+      :root { --page-pad: 40px; }
+
+      .menuPage       { flex-direction: column; }
+      .menuPage__left { max-width: 100%; width: 100%; align-items: center; }
+      .menuPage__wordWrap { margin-left: 0; }
+      .menuPage__imgWrap  { width: min(400px, 90vw); height: auto; aspect-ratio: 400/550; }
+      .menuCols { flex-wrap: wrap; }
+      .menuCol  { min-width: 280px; }
+
+      .about { flex-direction: column; }
+      .about__media { padding-right: 0; position: relative; }
+      .about__photoWrap { margin-right: 0; }
       .about__stampWrap {
-        position: relative;
-        flex-shrink: 0;
-        width: 264px;
-        height: 385px;
-        margin-right: -200px;
-        pointer-events: none;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-bottom: 52px;
-        padding-top: 12px;
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin-right: 0;
         transform: rotate(7.83deg);
+        width: 200px;
+        height: 300px;
+        padding-bottom: 30px;
+        padding-top: 8px;
       }
-      .about__stampWrap img { display: block; }
-      .about__stampStar {
-        width: 140px;
-        height: 140px;
-        margin-bottom: -40px;
-        object-fit: contain;
-        transform: rotate(7.32deg) translateY(var(--px-star, 0px));
-        will-change: transform;
-        flex-shrink: 0;
-        position: relative;
-        z-index: 0; /* under plate */
-      }
-      .about__stampEllipse {
-        width: 218px;
-        height: 218px;
-        object-fit: contain;
-        flex-shrink: 0;
-        transform: translateY(var(--px-plate, 0px));
-        will-change: transform;
-        position: relative;
-        z-index: 1; /* over star */
-      }
-      /* Text side */
-      .about__text {
-        flex: 0 0 auto;
-        width: 621px;
-        max-width: 48vw;
-        display: flex;
-        flex-direction: column;
-        gap: var(--space-32);
-      }
-      .about__textInner {
-        display: flex;
-        flex-direction: column;
-        gap: 40px;
-      }
-      /* Kicker: font-weight 300 (light), h5=24px, uppercase, neutral-700 */
-      .about__kicker {
-        font-family: var(--font-body);
-        font-weight: 300;
-        font-size: var(--fs-h5);
-        text-transform: uppercase;
-        color: var(--neutral-700);
-        line-height: 1.2;
-      }
-      .about__body p {
-        font-size: var(--fs-p1);
-        line-height: 1.2;
-        color: var(--brand-brown);
-      }
-      .about__body p + p { margin-top: 1em; }
-      /* Signature image: rotate-[-5.17deg], w-252px, h-80px */
-      .about__signatureWrap {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-      }
-      .about__signature {
-        transform: rotate(-5.17deg);
-        width: 252px;
-        height: 80px;
-        object-fit: cover;
-        display: block;
-      }
+      .about__text { max-width: 100%; width: 100%; }
 
-      /* ===== FOLLOW / SOCIAL ===== */
-      /* Figma: flex-col, h-727px, items-start, justify-end, overflow-clip,
-         pb-[727px] (all content above), relative */
-      .follow {
-        position: relative;
-        height: 727px;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-      /* Blurred background image layer */
-      .follow__bgWrap {
-        position: absolute;
-        inset: 0;
-        overflow: hidden;
-        pointer-events: none;
-      }
-      .follow__bg {
-        width: 100%;
-        height: calc(100% + 120px);
-        margin-top: -60px;
-        object-fit: cover;
-        display: block;
-        transform: translateY(var(--px-footer, 0px));
-        will-change: transform;
-      }
-      /* Dark gradient overlay */
-      .follow__gradient {
-        display: none;
-      }
-      /* Content: sits above bg, full-height, flex-col, justify-end */
-      .follow__content {
-        position: relative;
-        z-index: 1;
-        display: flex;
-        flex-direction: column;
-        height: 100%;
-        justify-content: flex-end;
-      }
-      /* Center section: flex-1, flex-col, items-center, justify-center, gap-32 */
-      .follow__titleRow {
-        flex: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        gap: 32px;
-      }
-      /* "SUIVEZ-NOUS!" heading: h1=64px, display font, neutral-000, uppercase */
-      .follow__title {
-        font-family: var(--font-display);
-        text-transform: uppercase;
-        color: var(--neutral-000);
-        font-size: var(--fs-h1);
-        line-height: 1;
-        text-align: center;
-        font-weight: 700;
-      }
-      /* Round Instagram CTA button */
-      .follow__cta {
-        background: var(--neutral-600);
-        border-radius: var(--corner-radius-full);
-        padding: var(--space-20);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        flex-shrink: 0;
-        text-decoration: none;
-        transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
-      }
-      .follow__cta:hover {
-        background: var(--neutral-300);
-        transform: scale(1.1);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.35);
-      }
-      .follow__cta img { width: 32px; height: 32px; object-fit: contain; display: block; }
-      /* Footer bar: border-top neutral-100, h-74px, p-40, justify-between */
-      .follow__footer {
-        border-top: 1px solid rgba(255, 255, 255, 0.2);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 24px;
-        padding: 40px;
-        height: 74px;
-        overflow: hidden;
-        flex-shrink: 0;
-      }
-      /* Footer logo: w-195px, h-24.914px */
-      .follow__footerLogo {
-        width: 195px;
-        height: 24.914px;
-        position: relative;
-        flex-shrink: 0;
-      }
-      .follow__footerLogo img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-      }
-      /* Footer links: gap-40, font-size 12px, neutral-100, nowrap */
-      .follow__footerLinks {
-        display: flex;
-        gap: 40px;
-        font-family: var(--font-body);
-        font-size: var(--fs-p4);
-        color: var(--neutral-100);
-        white-space: nowrap;
-        line-height: 1.2;
-      }
-      .follow__footerLinks a {
-        color: var(--neutral-100);
-        text-decoration: none;
-      }
+      .infoGrid { flex-direction: column; min-height: auto; }
+      .infoCard { max-width: 100%; flex: 1 1 auto; height: auto; }
 
-      /* ===== RESPONSIVE ===== */
-      @media (max-width: 1100px) {
-        :root { --page-pad: 40px; }
-        .menuPage { flex-direction: column; }
-        .menuPage__left { max-width: 100%; width: 100%; align-items: center; }
-        .menuPage__wordWrap { margin-left: 0; }
-        .menuPage__imgWrap { width: min(400px, 90vw); height: auto; aspect-ratio: 400/550; }
-        .menuCols { flex-wrap: wrap; }
-        .menuCol { min-width: 280px; }
-        .about { flex-direction: column; }
-        .about__media { padding-right: 0; position: relative; }
-        .about__photoWrap { margin-right: 0; }
-        .about__stampWrap {
-          position: absolute;
-          bottom: 0;
-          right: 0;
-          margin-right: 0;
-          transform: rotate(7.83deg);
-          width: 200px;
-          height: 300px;
-          padding-bottom: 30px;
-          padding-top: 8px;
-        }
-        .about__text { max-width: 100%; width: 100%; }
-        .infoGrid { flex-direction: column; min-height: auto; }
-        .infoCard { max-width: 100%; flex: 1 1 auto; height: auto; }
-        .priv { flex-direction: column; align-items: center; }
-        .priv__vdivider {
-          width: 100%;
-          height: 0;
-          align-self: auto;
-          border-left: none;
-          border-top: 1px dashed var(--neutral-200);
-        }
-        .privPanel { width: 100%; max-width: 600px; }
-        .privPanel__content { padding: 20px 24px; }
+      .priv { flex-direction: column; align-items: center; }
+      .priv__vdivider {
+        width: 100%;
+        height: 0;
+        align-self: auto;
+        border-left: none;
+        border-top: 1px dashed var(--neutral-200);
       }
-      @media (max-width: 768px) {
-        :root { --page-pad: 24px; }
-        .welcome { min-height: auto; gap: 40px; }
-        .welcome__heading { font-size: 48px; }
-        .welcome__photoWrap { height: 220px; }
-        .welcome__stamp { display: none; }
-        .menuPage__word { font-size: clamp(80px, 22vw, 200px); }
-        .menuPage__wordWrap { margin-left: 0; }
-        .photoSlider, .photoSlide { height: 520px; }
-        .infos__logo { width: min(300px, 80vw); }
-        .infoCard .big { font-size: 36px; }
-        .openBar { flex-direction: column; align-items: flex-start; gap: 16px; padding: 16px; }
-        .openBar__left { width: 100%; }
-        .infos__reserverBtn { width: 100%; justify-content: center; }
-        .infoGrid { flex-direction: column; align-items: center; gap: 32px; min-height: auto; }
-        .infoCard { max-width: 100%; flex: 1 1 auto; height: auto; width: 100%; }
-        .alert { right: 8px; bottom: 90px; width: min(310px, calc(100vw - 16px)); padding: 32px 20px; }
-        .follow { height: 580px; }
-        .follow__footer { padding: 20px 24px; flex-direction: column; align-items: flex-start; height: auto; }
-        .follow__footerLinks { flex-wrap: wrap; gap: 12px 20px; }
-        .nav-tabs { gap: 28px; }
-        .nav-pill span { font-size: 14px; }
-        .nav-cta { height: 44px; padding: 0 14px; font-size: 14px; }
-        .privPanel__content { padding: 20px; }
-        .about__photo { width: 300px; height: 366px; }
-        .about__stampWrap { width: 160px; }
-        .about__stampStar { width: 110px; height: 110px; }
-        .about__stampEllipse { width: 160px; height: 160px; }
-      }
-    </style>
-  </head>
-  <body>
-    <!-- ===== STICKY NAV ===== -->
-    <nav class="sticky-menu" aria-label="Navigation sticky">
-      <div class="nav-tabs">
-        <a class="nav-pill" href="#menu">
-          <span>Menu</span>
-          <div class="underline" aria-hidden="true"></div>
-        </a>
-        <a class="nav-pill" href="#address">
-          <span>Adresse</span>
-          <div class="underline" aria-hidden="true"></div>
-        </a>
-      </div>
-      <a class="nav-cta" href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8" target="_blank" rel="noopener noreferrer">
-        Réserver
+      .privPanel { width: 100%; max-width: 600px; }
+      .privPanel__content { padding: 20px 24px; }
+    }
+
+    /* ================================================
+       RESPONSIVE — Mobile (≤ 768px)
+    ================================================ */
+    @media (max-width: 768px) {
+      :root { --page-pad: 24px; }
+
+      .welcome           { min-height: auto; gap: 40px; }
+      .welcome__heading  { font-size: 48px; }
+      .welcome__photoWrap { height: 220px; }
+      .welcome__stamp    { display: none; }
+
+      .menuPage__word    { font-size: clamp(80px, 22vw, 200px); }
+      .menuPage__wordWrap { margin-left: 0; }
+
+      .photoSlider, .photoSlide { height: 520px; }
+
+      .infos__logo       { width: min(300px, 80vw); }
+      .infoCard .big     { font-size: 36px; }
+      .openBar           { flex-direction: column; align-items: flex-start; gap: 16px; padding: 16px; }
+      .openBar__left     { width: 100%; }
+      .infos__reserverBtn { width: 100%; justify-content: center; }
+      .infoGrid          { flex-direction: column; align-items: center; gap: 32px; min-height: auto; }
+      .infoCard          { max-width: 100%; flex: 1 1 auto; height: auto; width: 100%; }
+
+      .alert             { right: 8px; bottom: 90px; width: min(310px, calc(100vw - 16px)); padding: 32px 20px; }
+
+      .follow            { height: 580px; }
+      .follow__footer    { padding: 20px 24px; flex-direction: column; align-items: flex-start; height: auto; }
+      .follow__footerLinks { flex-wrap: wrap; gap: 12px 20px; }
+
+      .nav-tabs          { gap: 28px; }
+      .nav-pill span     { font-size: 14px; }
+      .nav-cta           { height: 44px; padding: 0 14px; font-size: 14px; }
+
+      .privPanel__content { padding: 20px; }
+
+      .about__photo      { width: 300px; height: 366px; }
+      .about__stampWrap  { width: 160px; }
+      .about__stampStar  { width: 110px; height: 110px; }
+      .about__stampEllipse { width: 160px; height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ================================================
+       STICKY NAV
+  ================================================ -->
+  <nav class="sticky-menu" aria-label="Navigation principale">
+    <div class="nav-tabs">
+      <a class="nav-pill" href="#menu">
+        <span>Menu</span>
+        <div class="underline" aria-hidden="true"></div>
       </a>
-    </nav>
+      <a class="nav-pill" href="#address">
+        <span>Adresse</span>
+        <div class="underline" aria-hidden="true"></div>
+      </a>
+    </div>
+    <a class="nav-cta"
+       href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
+       target="_blank" rel="noopener noreferrer">
+      Réserver
+    </a>
+  </nav>
 
-    <main id="top">
-      <!-- ===== HEADER ===== -->
-      <!-- Figma: bg neutral-000, flex-col, items-center, gap-20, p-20/12/12, overflow-clip
-           Alert is absolute bottom-[29.95px] right-[34px] inside this container -->
-      <header class="header">
-        <!-- Full-width "Le Grand Pan" wordmark SVG banner -->
-        <div class="header__logo">
-          <img alt="Le Grand Pan" src="./le-grand-pan-assets/title.svg" />
-        </div>
-        <!-- Full-width hero photo below logo -->
-        <div class="header__hero">
-          <img alt="" src="./le-grand-pan-assets/Img-header-2.webp" />
-        </div>
-      </header>
+  <main id="top">
 
-      <!-- ===== WELCOME ===== -->
-      <!-- Figma: bg neutral-000, flex-col, items-center, gap-80, p-80,
-           h-1098px, justify-center, overflow-clip -->
-      <section class="welcome">
-        <!-- "BIENVENUE / A TABLE" heading -->
-        <div class="welcome__heading reveal" data-delay="0">
-          <span class="line1">bienvenue</span>
-          <span class="line2">a table</span>
-        </div>
-        <!-- Subtitle + body copy -->
-        <div class="welcome__text reveal" data-delay="120">
-          <p class="subtitle">Au Grand Pan, la gastronomie française <br /> se vit et se partage.</p>
-          <p class="body-p">Des produits de saison, une cuisine sincère et raffinée, <br /> où chaque assiette raconte une histoire de goût.</p>
-        </div>
-        <!-- Skewed food photo with rotating stamp overlay -->
-        <div class="welcome__media reveal--scale" data-delay="200">
-          <div class="welcome__photoWrap">
-            <img class="welcome__photo" alt="" src="./le-grand-pan-assets/Image-bienvenue-2.webp" />
-          </div>
-          <!-- Stamp: rotate 7.32deg, mb-[-87px] in Figma = positioned at bottom -->
-          <div class="welcome__stamp" aria-hidden="true">
-            <img alt="" src="./le-grand-pan-assets/Stamp.svg" />
-          </div>
-        </div>
-      </section>
+    <!-- ================================================
+         HEADER — Logo + Photo hero
+    ================================================ -->
+    <header class="header">
+      <div class="header__logo">
+        <img alt="Le Grand Pan" src="./le-grand-pan-assets/title.svg" />
+      </div>
+      <div class="header__hero">
+        <img alt="Vue du restaurant Le Grand Pan" src="./le-grand-pan-assets/Img-header-2.png" />
+      </div>
+    </header>
 
-      <!-- ===== MENU ===== -->
-      <!-- Figma: bg #f7ebdd, flex, gap-80, items-center, justify-center, p-80, overflow-clip -->
-      <section id="menu" class="menuPage">
-        <!-- Left: giant MENU word + photo -->
-        <!-- Figma: w-634px, pb-48px, flex-col, items-center, relative -->
-        <div class="menuPage__left">
-          <!-- MENU word: 300px font, bleeds left past padding -->
-          <div class="menuPage__wordWrap reveal--left" data-delay="0">
-            <div class="menuPage__word">menu</div>
-          </div>
-          <!-- Photo below MENU word, skewed slightly, overlaps word via z-index -->
-          <div class="menuPage__imgWrap reveal--scale" data-delay="100">
-            <img alt="" src="./le-grand-pan-assets/Image-menu.webp" />
-          </div>
+    <!-- ================================================
+         BIENVENUE
+    ================================================ -->
+    <section class="welcome" aria-label="Bienvenue">
+      <h1 class="welcome__heading reveal" data-delay="0">
+        <span class="line1">bienvenue</span>
+        <span class="line2">a table</span>
+      </h1>
+      <div class="welcome__text reveal" data-delay="120">
+        <p class="subtitle">Au Grand Pan, la gastronomie française <br />se vit et se partage.</p>
+        <p class="body-p">Des produits de saison, une cuisine sincère et raffinée, <br />où chaque assiette raconte une histoire de goût.</p>
+      </div>
+      <div class="welcome__media reveal--scale" data-delay="200">
+        <div class="welcome__photoWrap">
+          <img class="welcome__photo" alt="Plat du restaurant Le Grand Pan" src="./le-grand-pan-assets/Image-bienvenue-2.webp" />
         </div>
-        <!-- Right: MIDI + SOIR columns -->
-        <div class="menuCols">
-          <!-- MIDI column -->
-          <div class="menuCol reveal" data-delay="0">
-            <div class="menuCol__titleRow">
-              <div class="menuCol__title">Midi</div>
-              <!-- Decorative SVG rule: Line2 from Figma -->
-              <div class="menuCol__rule" aria-hidden="true">
-                
-              </div>
-            </div>
-            <div class="menuBlock">
-              <div class="menuBlock__heading">Formules</div>
-              <div class="formulasWrap">
-                <div class="formulaRow"><span>Entrée + Plat</span><span>— 25€</span></div>
-                <div class="formulaRow"><span>Plat + dessert</span><span>— 26€</span></div>
-                <div class="formulaRow"><span>Entrée + Plat + dessert</span><span>— 34€</span></div>
-              </div>
-            </div>
-            <div class="menuBlock">
-              <div class="menuBlock__heading">Suggestion du chef</div>
-              <p class="menuBlock__text">Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
-            </div>
-            <div class="menuBlock">
-              <div class="menuBlock__heading">Les classiques</div>
-              <ul class="menuList">
-                <li>Côte de veau</li>
-                <li>Côte de boeuf</li>
-                <li>Côte de porc</li>
-                <li>Saint-Jaques en hiver</li>
-                <li>Homard en été</li>
-              </ul>
-            </div>
-          </div>
-          <!-- SOIR column -->
-          <div class="menuCol reveal" data-delay="150">
-            <div class="menuCol__titleRow">
-              <div class="menuCol__title">soir</div>
-              <!-- Same decorative rule SVG as MIDI -->
-              <div class="menuCol__rule" aria-hidden="true">
-                
-              </div>
-            </div>
-            <div class="menuBlock">
-              <div class="menuBlock__heading">Suggestion du chef</div>
-              <p class="menuBlock__text">Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
-            </div>
-            <div class="menuBlock">
-              <div class="menuBlock__heading">Les classiques</div>
-              <ul class="menuList">
-                <li>Côte de veau</li>
-                <li>Côte de boeuf</li>
-                <li>Côte de porc</li>
-                <li>Saint-Jaques en hiver</li>
-                <li>Homard en été</li>
-              </ul>
-            </div>
-          </div>
+        <div class="welcome__stamp" aria-hidden="true">
+          <img alt="" src="./le-grand-pan-assets/Stamp.svg" />
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ===== PHOTO SLIDER ===== -->
-      <!-- Figma: h-800px, overflow-x:auto, overflow-y:clip, flex, items-center -->
-      <div class="photoSlider" aria-label="Galerie photos">
-        <div class="photoSlide" style="width:550px"><img alt="" src="./le-grand-pan-assets/image-1.webp" /></div>
-        <div class="photoSlide" style="width:550px"><img alt="" src="./le-grand-pan-assets/image-2.webp" /></div>
-        <div class="photoSlide" style="width:550px"><img alt="" src="./le-grand-pan-assets/image-3.webp" /></div>
-        <div class="photoSlide" style="width:550px"><img alt="" src="./le-grand-pan-assets/image-4.webp" /></div>
-        <div class="photoSlide" style="width:530px"><img alt="" src="./le-grand-pan-assets/image-5.webp" /></div>
-        <div class="photoSlide" style="width:640px"><img alt="" src="./le-grand-pan-assets/image-6.webp" /></div>
-        <div class="photoSlide" style="width:550px"><img alt="" src="./le-grand-pan-assets/image-7.webp" /></div>
-        <div class="photoSlide" style="width:640px"><img alt="" src="./le-grand-pan-assets/image-8.webp" /></div>
-        <div class="photoSlide" style="width:570px"><img alt="" src="./le-grand-pan-assets/image-9.webp" /></div>
-        <div class="photoSlide" style="width:550px"><img alt="" src="./le-grand-pan-assets/image-10.webp" /></div>
-        <div class="photoSlide" style="width:640px"><img alt="" src="./le-grand-pan-assets/image-11.webp" /></div>
+    <!-- ================================================
+         MENU
+    ================================================ -->
+    <section id="menu" class="menuPage" aria-label="Notre menu">
+      <!-- Colonne gauche : mot MENU + photo -->
+      <div class="menuPage__left">
+        <div class="menuPage__wordWrap reveal--left" data-delay="0">
+          <div class="menuPage__word" aria-hidden="true">menu</div>
+        </div>
+        <div class="menuPage__imgWrap reveal--scale" data-delay="100">
+          <img alt="Plat signature du Grand Pan" src="./le-grand-pan-assets/Image-menu.webp" />
+        </div>
       </div>
 
-      <!-- ===== INFOS ===== -->
-      <!-- Figma: bg neutral-000, flex-col, gap-48, p-80, items-center, justify-center, overflow-clip -->
-      <section class="infos" id="address">
-        <!-- Title area: Le Grand Pan wordmark + Bistrot • Paris -->
-        <div class="infos__titleRow reveal" data-delay="0">
-          <!-- Large "Le Grand Pan" SVG logo (different variant — wider) -->
-          <div class="infos__logo">
-            <img alt="Le Grand Pan" src="./le-grand-pan-assets/Logo.svg" />
+      <!-- Colonnes droite : Midi + Soir -->
+      <div class="menuCols">
+        <!-- MIDI -->
+        <div class="menuCol reveal" data-delay="0">
+          <div class="menuCol__titleRow">
+            <h2 class="menuCol__title">Midi</h2>
+            <div class="menuCol__rule" aria-hidden="true"></div>
           </div>
-        </div>
-        <!-- "Nous sommes ouvert !" bar -->
-        <div class="openBar reveal" data-delay="100">
-          <div class="openBar__left">
-            <img alt="" src="./le-grand-pan-assets/clock.svg" />
-            <p>Nous sommes ouvert !</p>
-          </div>
-          <a class="infos__reserverBtn" href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8" target="_blank" rel="noopener noreferrer">Réserver</a>
-        </div>
-        <!-- Three info cards: Horaires | Adresse | Téléphone -->
-        <div class="infoGrid">
-          <!-- Card 1: Opening hours -->
-          <div class="infoCard reveal" data-delay="0">
-            <h4>Heures d'ouverture</h4>
-            <div style="display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;">
-              <p class="small">Lun - Ven</p>
-              <!-- Big display font hours -->
-              <div class="big">12h-14h/<br>19h30-23h</div>
-            </div>
-            <p class="small">Dim-Samedi - Fermé</p>
-          </div>
-          <!-- Card 2: Address -->
-          <div class="infoCard infoCard--address reveal" data-delay="120">
-            <h4>Adresse</h4>
-            <p class="small"> 20 Rue Rosenwald<br />Paris</p>
-            <a class="chipBtn" href="https://www.google.com/maps/place/Le+Grand+Pan/@48.8330814,2.303128,16z/data=!3m1!4b1!4m6!3m5!1s0x47e670468b32e705:0xfef30b10e3f3dbfe!8m2!3d48.8330814!4d2.3057029!16s%2Fg%2F1vxcvqxn?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D" target="_blank" rel="noopener noreferrer" aria-label="Ouvrir Google Maps">
-              <span>google map</span>
-              <img alt="" src="./le-grand-pan-assets/MapPin.svg" />
-            </a>
-          </div>
-          <!-- Card 3: Phone -->
-          <div class="infoCard reveal" data-delay="240">
-            <h4>Téléphone</h4>
-            <div class="big">01 42 50 02 50</div>
-            <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
-              <span>Appeler</span>
-              <img alt="" src="./le-grand-pan-assets/Chevron.svg" />
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== PRIVATISATION & PIENNOLO ===== -->
-      <!-- Figma: bg neutral-700 (#9f4e2f), flex, gap-20, items-start, justify-center, p-12 -->
-      <section class="priv" aria-label="Privatisation et Piennolo">
-
-        <!-- LEFT PANEL: Privatisation -->
-        <div class="privPanel reveal--left" data-delay="0">
-          <!-- Image with "Calque_1" logo overlay -->
-          <div class="privPanel__imgBox">
-            <img alt="" src="./le-grand-pan-assets/img-lasuite.webp" />
-            <!-- Logo overlay: absolute top-[18.88px] left-[15px] w-[117.973px] h-[43px] -->
-            <div class="privPanel__logoOverlay" aria-hidden="true">
-              <img alt="La Suite" src="./le-grand-pan-assets/logo-lasuite.svg" style="object-fit:contain;width:100%;height:100%;" />
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Formules</h3>
+            <div class="formulasWrap">
+              <div class="formulaRow"><span>Entrée + Plat</span><span>— 25€</span></div>
+              <div class="formulaRow"><span>Plat + dessert</span><span>— 26€</span></div>
+              <div class="formulaRow"><span>Entrée + Plat + dessert</span><span>— 34€</span></div>
             </div>
           </div>
-          <!-- Text content below image -->
-          <div class="privPanel__content">
-            <!-- Vertical divider line ornament -->
-            <div class="privPanel__dividerWrap" aria-hidden="true">
-              <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
-            </div>
-            <div class="privPanel__kicker">Salle privée</div>
-            <div class="privPanel__title">Privatisation &amp; réservation</div>
-            <p class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
-            <a class="privPanel__cta" href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8" target="_blank" rel="noopener noreferrer" aria-label="Réserver">
-              <span>Privatiser</span>
-            </a>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Suggestion du chef</h3>
+            <p class="menuBlock__text">Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
+          </div>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Les classiques</h3>
+            <ul class="menuList">
+              <li>Côte de veau</li>
+              <li>Côte de boeuf</li>
+              <li>Côte de porc</li>
+              <li>Saint-Jaques en hiver</li>
+              <li>Homard en été</li>
+            </ul>
           </div>
         </div>
 
-        <!-- DIVIDER between panels (CSS border — vertical on desktop, horizontal on mobile) -->
-        <div class="priv__vdivider" aria-hidden="true"></div>
-
-        <!-- RIGHT PANEL: Piennolo -->
-        <div class="privPanel reveal--right" data-delay="100">
-          <!-- Image (Rectangle1) — no logo overlay -->
-          <div class="privPanel__imgBox">
-            <img alt="" src="./le-grand-pan-assets/image-piennolo.webp" />
+        <!-- SOIR -->
+        <div class="menuCol reveal" data-delay="150">
+          <div class="menuCol__titleRow">
+            <h2 class="menuCol__title">Soir</h2>
+            <div class="menuCol__rule" aria-hidden="true"></div>
           </div>
-          <!-- Logo carré: absolute, near the top-left of the image area
-               Figma: absolute bottom-[636.98px] left-[10px] — measured from bottom
-               of the section which is complex; simplify to top of the image -->
-          <div style="position:absolute;top:18px;left:10px;width:72px;height:72px;padding:8.64px;display:flex;align-items:center;justify-content:center;z-index:2;" aria-hidden="true">
-            <img alt="Piennolo" src="./le-grand-pan-assets/logo-piennolo.svg" style="width:49.239px;height:57.604px;object-fit:contain;display:block;" />
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Suggestion du chef</h3>
+            <p class="menuBlock__text">Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
           </div>
-          <!-- Text content below image -->
-          <div class="privPanel__content">
-            <!-- Vertical divider ornament -->
-            <div class="privPanel__dividerWrap" aria-hidden="true">
-              <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
-            </div>
-            <div class="privPanel__kicker">Pizzeria</div>
-            <div class="privPanel__title">Piennolo</div>
-            <p class="privPanel__desc">Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.</p>
-            <a class="privPanel__cta" href="./le-grand-pan-assets/Menu-piennolo.pdf" target="_blank" rel="noopener noreferrer" aria-label="Découvrir la carte">
-              <span>Découvrir la carte</span>
-            </a>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Les classiques</h3>
+            <ul class="menuList">
+              <li>Côte de veau</li>
+              <li>Côte de boeuf</li>
+              <li>Côte de porc</li>
+              <li>Saint-Jaques en hiver</li>
+              <li>Homard en été</li>
+            </ul>
           </div>
         </div>
-
-      </section>
-
-      <!-- ===== ABOUT / CHEF ===== -->
-      <!-- Figma: bg neutral-000, flex, gap-80, items-center, justify-center,
-           overflow-clip, pb-80, pt-80, px-80 -->
-      <section class="about">
-        <!-- Media: oval photo (rotated -4.49deg) + stamp overlay (rotated +11.86deg) -->
-        <div class="about__media reveal--left" data-delay="0">
-          <!-- Oval photo: border neutral-700, border-radius 3000px, p-20 -->
-          <div class="about__photoWrap">
-            <img class="about__photo" alt="" src="./le-grand-pan-assets/img-restaurateurs.webp" />
-          </div>
-          <!-- Decorative stamp: star + ellipse stacked, rotate 11.86deg -->
-          <div class="about__stampWrap" aria-hidden="true">
-            <!-- Star2: rotate 7.32deg, ~140px -->
-            <img class="about__stampStar" alt="" src="./le-grand-pan-assets/Star-1.webp" />
-            <!-- Ellipse9: ~218px circle -->
-            <img class="about__stampEllipse" alt="" src="./le-grand-pan-assets/plate.webp" />
-          </div>
-        </div>
-        <!-- Text side: kicker + body + signature -->
-        <div class="about__text reveal--right" data-delay="120">
-          <div class="about__textInner">
-            <!-- Kicker: "Titre" — this is the Figma label, weight 300, h5=24px -->
-            <p class="about__kicker">Un parcours, une passion</p>
-            <!-- Chef biography paragraphs -->
-            <div class="about__body">
-              <p>Après avoir grandi à Brive auprès de parents bouchers, Benoît Gauthier s'est alors orienté vers la cuisine en partant en école hôtelière à Souillac pour se former. Grand bien lui a pris !</p>
-              <p>Quelques années et quelques restaurants plus tard, après s'être formé auprès de grands chefs, il ouvre en 2007 son premier restaurant <strong style="font-weight:600">Le Grand Pan</strong>, qui est vite devenu l'un des <strong style="font-weight:600">bistrots / gastro phares de la capitale</strong>.</p>
-              <p>En 2013, le chef du Grand Pan voit double et traverse la rue pour ouvrir Le Petit Pan, réputé pour ses tapas et la diffusion des grands évènements sportifs.</p>
-              <p>Ne s'arrêtant pas en si bon chemin, il ouvre en 2017 <strong style="font-weight:600">"La Suite",</strong> un lieu hybride conjuguant art de recevoir et convivialité pour permettre aux groupes de se retrouver autour de bons plats et bons vins.</p>
-            </div>
-          </div>
-          <!-- Signature image: rotated -5.17deg, 252×80px -->
-          <div class="about__signatureWrap">
-            <img class="about__signature" alt="" src="./le-grand-pan-assets/signature.webp" />
-          </div>
-        </div>
-      </section>
-
-      <!-- ===== FOLLOW / SOCIAL ===== -->
-      <!-- Figma: h-727px, flex-col, items-start, justify-end, overflow-clip, relative -->
-      <section class="follow">
-        <!-- Blurred background image -->
-        <div class="follow__bgWrap">
-          <img class="follow__bg" alt="" src="./le-grand-pan-assets/image-footer.webp" />
-          <div class="follow__gradient" aria-hidden="true"></div>
-        </div>
-        <!-- Foreground content: title + Instagram CTA + footer bar -->
-        <div class="follow__content">
-          <!-- Center: "SUIVEZ-NOUS !" + round Instagram button -->
-          <div class="follow__titleRow reveal--scale" data-delay="0">
-            <div class="follow__title">suivez-nous !</div>
-            <a class="follow__cta" href="https://www.instagram.com/restaurant_legrandpan/" target="_blank" rel="noopener noreferrer" aria-label="Suivre sur Instagram">
-              <!-- Instagram logo SVG (Vector5) -->
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <rect x="2" y="2" width="20" height="20" rx="6" stroke="#fbf5ee" stroke-width="1.8"/>
-  <circle cx="12" cy="12" r="4.5" stroke="#fbf5ee" stroke-width="1.8"/>
-  <circle cx="17.5" cy="6.5" r="1" fill="#fbf5ee"/>
-</svg>
-            </a>
-          </div>
-          <!-- Footer bar: logo left, legal links right -->
-          <div class="follow__footer reveal--fade" data-delay="200" id="reservation">
-            <div class="follow__footerLogo">
-              <img alt="Le Grand Pan" src="./le-grand-pan-assets/LeGrandPan-light.svg" />
-            </div>
-            <div class="follow__footerLinks">
-              <a href="#">Mentions légales</a>
-              <a href="#">Politique de confidentialité</a>
-              <a href="#">Contact</a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <script>
-      // ===== Hero parallax + scroll-over effect =====
-      const headerEl = document.querySelector('.header');
-      function updateHeroParallax() {
-        if (!headerEl) return;
-        const headerH = headerEl.offsetHeight;
-        const progress = Math.max(0, Math.min(1, window.scrollY / (headerH * 0.75)));
-        headerEl.style.setProperty('--hero-progress', progress);
-      }
-      window.addEventListener('scroll', updateHeroParallax, { passive: true });
-      updateHeroParallax();
-
-      // ===== Content parallax =====
-      const pxWelcomeWrap = document.querySelector('.welcome__photoWrap');
-      const pxWelcomeImg  = document.querySelector('.welcome__photo');
-      const pxMenuWrap    = document.querySelector('.menuPage__imgWrap');
-      const pxMenuImg     = pxMenuWrap ? pxMenuWrap.querySelector('img') : null;
-      const pxAboutWrap   = document.querySelector('.about__stampWrap');
-      const pxStarImg     = pxAboutWrap ? pxAboutWrap.querySelector('.about__stampStar') : null;
-      const pxPlateImg    = pxAboutWrap ? pxAboutWrap.querySelector('.about__stampEllipse') : null;
-      const pxFollowWrap  = document.querySelector('.follow__bgWrap');
-      const pxFooterImg   = pxFollowWrap ? pxFollowWrap.querySelector('.follow__bg') : null;
-
-      function updateContentParallax() {
-        const vh = window.innerHeight;
-        // [wrap, element, css-prop, strength, range]
-        [
-          [pxWelcomeWrap, pxWelcomeImg, '--px-welcome', 0.12, 40],
-          [pxMenuWrap,    pxMenuImg,    '--px-menu',    0.12, 40],
-          [pxAboutWrap,   pxStarImg,    '--px-star',    0.18, 40],
-          [pxAboutWrap,   pxPlateImg,   '--px-plate',   0.08, 25],
-          [pxFollowWrap,  pxFooterImg,  '--px-footer',  0.15, 60],
-        ].forEach(([wrap, el, prop, strength, range]) => {
-          if (!wrap || !el) return;
-          const rect = wrap.getBoundingClientRect();
-          const centerOffset = (rect.top + rect.height / 2) - vh / 2;
-          const offset = Math.max(-range, Math.min(range, centerOffset * strength));
-          el.style.setProperty(prop, offset + 'px');
-        });
-      }
-      window.addEventListener('scroll', updateContentParallax, { passive: true });
-      updateContentParallax();
-
-      // ===== Reveal on scroll =====
-      const revealEls = document.querySelectorAll(
-        '.reveal, .reveal--fade, .reveal--left, .reveal--right, .reveal--scale'
-      );
-      const revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            const el = entry.target;
-            const delay = el.dataset.delay || '0';
-            el.style.setProperty('--reveal-delay', delay + 'ms');
-            el.classList.add('is-visible');
-            revealObserver.unobserve(el); // fire once
-          });
-        },
-        { threshold: 0.1, rootMargin: '0px 0px -40px 0px' }
-      );
-      revealEls.forEach((el) => revealObserver.observe(el));
-
-      // ===== Photo slider: auto-scroll + drag + pause on hover =====
-      (() => {
-        const slider = document.querySelector('.photoSlider');
-        if (!slider) return;
-
-        let isPaused = false;
-        let isDragging = false;
-        let startX = 0, startScrollLeft = 0;
-        let rafId = null;
-        const speed = 0.6; // px per frame
-
-        function autoScroll() {
-          if (!isPaused && !isDragging) {
-            slider.scrollLeft += speed;
-            // Infinite loop: reset when we've scrolled past half (duplicated content)
-            if (slider.scrollLeft >= slider.scrollWidth / 2) {
-              slider.scrollLeft = 0;
-            }
-          }
-          rafId = requestAnimationFrame(autoScroll);
-        }
-
-        // Duplicate slides for seamless infinite loop
-        const slides = Array.from(slider.children);
-        slides.forEach(slide => slider.appendChild(slide.cloneNode(true)));
-
-        // Start auto-scroll
-        rafId = requestAnimationFrame(autoScroll);
-
-        // Pause on hover
-        slider.addEventListener('mouseenter', () => { isPaused = true; });
-        slider.addEventListener('mouseleave', () => { isPaused = false; });
-
-        // Drag to scroll
-        slider.addEventListener('pointerdown', (e) => {
-          isDragging = true;
-          slider.setPointerCapture(e.pointerId);
-          startX = e.clientX;
-          startScrollLeft = slider.scrollLeft;
-          slider.style.cursor = 'grabbing';
-        });
-        slider.addEventListener('pointerup', (e) => {
-          isDragging = false;
-          try { slider.releasePointerCapture(e.pointerId); } catch (_) {}
-          slider.style.cursor = 'grab';
-        });
-        slider.addEventListener('pointercancel', () => {
-          isDragging = false;
-          slider.style.cursor = 'grab';
-        });
-        slider.addEventListener('pointermove', (e) => {
-          if (!isDragging) return;
-          slider.scrollLeft = startScrollLeft - (e.clientX - startX);
-        });
-      })();
-
-    </script>
-
-    <!-- Alert bubble — fixed, above all sections (z-index: 1000, outside header stacking context) -->
-    <div class="alert" aria-label="Message d'information">
-      <div class="alert__close" role="button" tabindex="0" aria-label="Fermer">
-        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"><line x1="1" y1="1" x2="15" y2="15" stroke="#321d16" stroke-width="1.5" stroke-linecap="round"/><line x1="15" y1="1" x2="1" y2="15" stroke="#321d16" stroke-width="1.5" stroke-linecap="round"/></svg>
       </div>
-      <div class="alert__brandRow">
-        <div class="alert__brandLogo">
+    </section>
+
+    <!-- ================================================
+         GALERIE PHOTOS (slider)
+    ================================================ -->
+    <div class="photoSlider" role="region" aria-label="Galerie photos">
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-1.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-2.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-3.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-4.webp" /></div>
+      <div class="photoSlide" style="width:530px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-5.webp" /></div>
+      <div class="photoSlide" style="width:640px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-6.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-7.webp" /></div>
+      <div class="photoSlide" style="width:640px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-8.webp" /></div>
+      <div class="photoSlide" style="width:570px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-9.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-10.webp" /></div>
+      <div class="photoSlide" style="width:640px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-11.webp" /></div>
+    </div>
+
+    <!-- ================================================
+         INFOS — Horaires / Adresse / Téléphone
+    ================================================ -->
+    <section class="infos" id="address" aria-label="Informations pratiques">
+      <div class="infos__titleRow reveal" data-delay="0">
+        <div class="infos__logo">
           <img alt="Le Grand Pan" src="./le-grand-pan-assets/Logo.svg" />
         </div>
       </div>
-      <div class="alert__lineWrap" aria-hidden="true"></div>
-      <div class="alert__text">Pour les fêtes de fin d'année, découvrez nos spécialité maison :</div>
-      <div class="alert__list">
-        <p>Saumon gravlax- 100€ /kg</p>
-        <p>Foie gras - 135€ /kg</p>
-        <p>&nbsp;</p>
-        <p>Commandes ouverte<br /><strong style="font-family:var(--font-body);font-weight:600;font-size:var(--fs-p2);line-height:1.2;">jusqu'au 15 décembre</strong></p>
+
+      <div class="openBar reveal" data-delay="100">
+        <div class="openBar__left">
+          <img alt="" src="./le-grand-pan-assets/clock.svg" aria-hidden="true" />
+          <p>Nous sommes ouvert !</p>
+        </div>
+        <a class="infos__reserverBtn"
+           href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
+           target="_blank" rel="noopener noreferrer">
+          Réserver
+        </a>
       </div>
-      <div class="alert__cta" role="button" tabindex="0" aria-label="Commander">
-        <span>Commander</span>
+
+      <div class="infoGrid">
+        <!-- Horaires -->
+        <div class="infoCard reveal" data-delay="0">
+          <h3 class="infoCard-title" style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Heures d'ouverture</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;">
+            <p class="small">Lun - Ven</p>
+            <div class="big">12h-14h/<br>19h30-23h</div>
+          </div>
+          <p class="small">Dim-Samedi - Fermé</p>
+        </div>
+
+        <!-- Adresse -->
+        <div class="infoCard infoCard--address reveal" data-delay="120">
+          <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Adresse</h3>
+          <address style="font-style:normal;">
+            <p class="small">20 Rue Rosenwald<br />Paris</p>
+          </address>
+          <a class="chipBtn"
+             href="https://www.google.com/maps/place/Le+Grand+Pan/@48.8330814,2.303128,16z/data=!3m1!4b1!4m6!3m5!1s0x47e670468b32e705:0xfef30b10e3f3dbfe!8m2!3d48.8330814!4d2.3057029!16s%2Fg%2F1vxcvqxn?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D"
+             target="_blank" rel="noopener noreferrer" aria-label="Ouvrir dans Google Maps">
+            <span>Google Map</span>
+            <img alt="" src="./le-grand-pan-assets/MapPin.svg" aria-hidden="true" />
+          </a>
+        </div>
+
+        <!-- Téléphone -->
+        <div class="infoCard reveal" data-delay="240">
+          <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Téléphone</h3>
+          <div class="big">01 42 50 02 50</div>
+          <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
+            <span>Appeler</span>
+            <img alt="" src="./le-grand-pan-assets/Chevron.svg" aria-hidden="true" />
+          </a>
+        </div>
       </div>
-    </div>
-    <button class="alert__reopen" aria-label="Rouvrir le message" title="Rouvrir le message">
-      <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <line x1="10" y1="3" x2="10" y2="17" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
-        <line x1="3" y1="10" x2="17" y2="10" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+    </section>
+
+    <!-- ================================================
+         PRIVATISATION & PIENNOLO
+    ================================================ -->
+    <section class="priv" aria-label="Privatisation et Piennolo">
+
+      <!-- Panneau gauche : La Suite / Privatisation -->
+      <article class="privPanel reveal--left" data-delay="0">
+        <div class="privPanel__imgBox">
+          <img alt="La Suite — salle privatisable" src="./le-grand-pan-assets/img-lasuite.png" />
+          <div class="privPanel__logoOverlay" aria-hidden="true">
+            <img alt="La Suite" src="./le-grand-pan-assets/logo-lasuite.svg" style="object-fit:contain;width:100%;height:100%;" />
+          </div>
+        </div>
+        <div class="privPanel__content">
+          <div class="privPanel__dividerWrap" aria-hidden="true">
+            <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
+          </div>
+          <p class="privPanel__kicker">Salle privée</p>
+          <h2 class="privPanel__title">Privatisation &amp; réservation</h2>
+          <p class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
+          <a class="privPanel__cta"
+             href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
+             target="_blank" rel="noopener noreferrer">
+            <span>Privatiser</span>
+          </a>
+        </div>
+      </article>
+
+      <div class="priv__vdivider" aria-hidden="true"></div>
+
+      <!-- Panneau droit : Piennolo -->
+      <article class="privPanel reveal--right" data-delay="100">
+        <div class="privPanel__imgBox">
+          <img alt="Piennolo — pizzeria italienne" src="./le-grand-pan-assets/image-piennolo.webp" />
+          <div style="position:absolute;top:18px;left:10px;width:72px;height:72px;padding:8.64px;display:flex;align-items:center;justify-content:center;z-index:2;" aria-hidden="true">
+            <img alt="Piennolo" src="./le-grand-pan-assets/logo-piennolo.svg" style="width:49.239px;height:57.604px;object-fit:contain;display:block;" />
+          </div>
+        </div>
+        <div class="privPanel__content">
+          <div class="privPanel__dividerWrap" aria-hidden="true">
+            <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
+          </div>
+          <p class="privPanel__kicker">Pizzeria</p>
+          <h2 class="privPanel__title">Piennolo</h2>
+          <p class="privPanel__desc">Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.</p>
+          <a class="privPanel__cta" href="./le-grand-pan-assets/Menu-piennolo.pdf" target="_blank" rel="noopener noreferrer">
+            <span>Découvrir la carte</span>
+          </a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ================================================
+         ABOUT / CHEF
+    ================================================ -->
+    <section class="about" aria-label="Notre histoire">
+      <!-- Photo portrait -->
+      <div class="about__media reveal--left" data-delay="0">
+        <div class="about__photoWrap">
+          <img class="about__photo" alt="Benoît Gauthier, chef du Grand Pan" src="./le-grand-pan-assets/img-restaurateurs.png" />
+        </div>
+        <div class="about__stampWrap" aria-hidden="true">
+          <img class="about__stampStar" alt="" src="./le-grand-pan-assets/Star-1.webp" />
+          <img class="about__stampEllipse" alt="" src="./le-grand-pan-assets/plate.webp" />
+        </div>
+      </div>
+
+      <!-- Biographie -->
+      <div class="about__text reveal--right" data-delay="120">
+        <div class="about__textInner">
+          <p class="about__kicker">Un parcours, une passion</p>
+          <div class="about__body">
+            <p>Après avoir grandi à Brive auprès de parents bouchers, Benoît Gauthier s'est alors orienté vers la cuisine en partant en école hôtelière à Souillac pour se former. Grand bien lui a pris !</p>
+            <p>Quelques années et quelques restaurants plus tard, après s'être formé auprès de grands chefs, il ouvre en 2007 son premier restaurant <strong style="font-weight:600">Le Grand Pan</strong>, qui est vite devenu l'un des <strong style="font-weight:600">bistrots / gastro phares de la capitale</strong>.</p>
+            <p>En 2013, le chef du Grand Pan voit double et traverse la rue pour ouvrir Le Petit Pan, réputé pour ses tapas et la diffusion des grands évènements sportifs.</p>
+            <p>Ne s'arrêtant pas en si bon chemin, il ouvre en 2017 <strong style="font-weight:600">"La Suite",</strong> un lieu hybride conjuguant art de recevoir et convivialité pour permettre aux groupes de se retrouver autour de bons plats et bons vins.</p>
+          </div>
+        </div>
+        <div class="about__signatureWrap">
+          <img class="about__signature" alt="Signature Benoît Gauthier" src="./le-grand-pan-assets/signature.webp" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         FOLLOW / FOOTER
+    ================================================ -->
+    <section class="follow" aria-label="Suivez-nous">
+      <div class="follow__bgWrap">
+        <img class="follow__bg" alt="" src="./le-grand-pan-assets/image-footer.webp" aria-hidden="true" />
+        <div class="follow__gradient" aria-hidden="true"></div>
+      </div>
+      <div class="follow__content">
+        <div class="follow__titleRow reveal--scale" data-delay="0">
+          <p class="follow__title">suivez-nous !</p>
+          <a class="follow__cta"
+             href="https://www.instagram.com/restaurant_legrandpan/"
+             target="_blank" rel="noopener noreferrer"
+             aria-label="Suivre Le Grand Pan sur Instagram">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect x="2" y="2" width="20" height="20" rx="6" stroke="#fbf5ee" stroke-width="1.8"/>
+              <circle cx="12" cy="12" r="4.5" stroke="#fbf5ee" stroke-width="1.8"/>
+              <circle cx="17.5" cy="6.5" r="1" fill="#fbf5ee"/>
+            </svg>
+          </a>
+        </div>
+        <footer class="follow__footer reveal--fade" data-delay="200" id="reservation">
+          <div class="follow__footerLogo">
+            <img alt="Le Grand Pan" src="./le-grand-pan-assets/LeGrandPan-light.svg" />
+          </div>
+          <nav class="follow__footerLinks" aria-label="Liens légaux">
+            <a href="#">Mentions légales</a>
+            <a href="#">Politique de confidentialité</a>
+            <a href="#">Contact</a>
+          </nav>
+        </footer>
+      </div>
+    </section>
+
+  </main><!-- /#top -->
+
+  <!-- ================================================
+       ALERT (notification promotionnelle)
+  ================================================ -->
+  <div class="alert" role="dialog" aria-label="Message d'information" aria-modal="false">
+    <button class="alert__close" aria-label="Fermer le message">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <line x1="1" y1="1" x2="15" y2="15" stroke="#321d16" stroke-width="1.5" stroke-linecap="round"/>
+        <line x1="15" y1="1" x2="1" y2="15" stroke="#321d16" stroke-width="1.5" stroke-linecap="round"/>
       </svg>
     </button>
-    <script>
-      (function() {
-        const alertClose = document.querySelector('.alert__close');
-        const alertEl = document.querySelector('.alert');
-        const reopenBtn = document.querySelector('.alert__reopen');
+    <div class="alert__brandRow">
+      <div class="alert__brandLogo">
+        <img alt="Le Grand Pan" src="./le-grand-pan-assets/Logo.svg" />
+      </div>
+    </div>
+    <div class="alert__lineWrap" aria-hidden="true"></div>
+    <p class="alert__text">Pour les fêtes de fin d'année, découvrez nos spécialités maison :</p>
+    <div class="alert__list">
+      <p>Saumon gravlax — 100€ /kg</p>
+      <p>Foie gras — 135€ /kg</p>
+      <p>&nbsp;</p>
+      <p>Commandes ouvertes<br /><strong style="font-weight:600;">jusqu'au 15 décembre</strong></p>
+    </div>
+    <div class="alert__cta" role="button" tabindex="0" aria-label="Commander">
+      <span>Commander</span>
+    </div>
+  </div>
 
-        function hideAlert() {
-          alertEl.style.transition = 'opacity 220ms ease, transform 220ms ease';
-          alertEl.style.opacity = '0';
-          alertEl.style.transform = 'scale(0.95) translateY(6px)';
-          setTimeout(() => {
-            alertEl.style.display = 'none';
-            reopenBtn.classList.add('is-visible');
-          }, 220);
-        }
+  <!-- Bouton "+" pour rouvrir l'alert -->
+  <button class="alert__reopen" aria-label="Rouvrir le message promotionnel">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="10" y1="3" x2="10" y2="17" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="3" y1="10" x2="17" y2="10" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </button>
 
-        function showAlert() {
-          alertEl.style.display = '';
-          alertEl.style.opacity = '0';
-          alertEl.style.transform = 'scale(0.95) translateY(6px)';
-          reopenBtn.classList.remove('is-visible');
-          requestAnimationFrame(() => {
-            alertEl.style.transition = 'opacity 280ms ease, transform 280ms ease';
-            alertEl.style.opacity = '1';
-            alertEl.style.transform = 'scale(1) translateY(0)';
-          });
-        }
+  <!-- ================================================
+       SCRIPTS
+  ================================================ -->
+  <script>
+    // ── Hero parallax (scroll-over effect) ──────────────────────
+    const headerEl = document.querySelector('.header');
+    function updateHeroParallax() {
+      if (!headerEl) return;
+      const progress = Math.max(0, Math.min(1, window.scrollY / (headerEl.offsetHeight * 0.75)));
+      headerEl.style.setProperty('--hero-progress', progress);
+    }
+    window.addEventListener('scroll', updateHeroParallax, { passive: true });
+    updateHeroParallax();
 
-        if (alertClose && alertEl && reopenBtn) {
-          alertClose.addEventListener('click', hideAlert);
-          alertClose.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') hideAlert();
-          });
-          reopenBtn.addEventListener('click', showAlert);
+    // ── Content parallax ─────────────────────────────────────────
+    const pxWelcomeWrap = document.querySelector('.welcome__photoWrap');
+    const pxWelcomeImg  = document.querySelector('.welcome__photo');
+    const pxMenuWrap    = document.querySelector('.menuPage__imgWrap');
+    const pxMenuImg     = pxMenuWrap?.querySelector('img') ?? null;
+    const pxAboutWrap   = document.querySelector('.about__stampWrap');
+    const pxStarImg     = pxAboutWrap?.querySelector('.about__stampStar') ?? null;
+    const pxPlateImg    = pxAboutWrap?.querySelector('.about__stampEllipse') ?? null;
+    const pxFollowWrap  = document.querySelector('.follow__bgWrap');
+    const pxFooterImg   = pxFollowWrap?.querySelector('.follow__bg') ?? null;
+
+    function updateContentParallax() {
+      const vh = window.innerHeight;
+      // [container, element, CSS property, strength, max range]
+      [
+        [pxWelcomeWrap, pxWelcomeImg, '--px-welcome', 0.12, 40],
+        [pxMenuWrap,    pxMenuImg,    '--px-menu',    0.12, 40],
+        [pxAboutWrap,   pxStarImg,    '--px-star',    0.18, 40],
+        [pxAboutWrap,   pxPlateImg,   '--px-plate',   0.08, 25],
+        [pxFollowWrap,  pxFooterImg,  '--px-footer',  0.15, 60],
+      ].forEach(([wrap, el, prop, strength, range]) => {
+        if (!wrap || !el) return;
+        const rect = wrap.getBoundingClientRect();
+        const offset = Math.max(-range, Math.min(range,
+          ((rect.top + rect.height / 2) - vh / 2) * strength
+        ));
+        el.style.setProperty(prop, offset + 'px');
+      });
+    }
+    window.addEventListener('scroll', updateContentParallax, { passive: true });
+    updateContentParallax();
+
+    // ── Reveal on scroll ─────────────────────────────────────────
+    const revealEls = document.querySelectorAll(
+      '.reveal, .reveal--fade, .reveal--left, .reveal--right, .reveal--scale'
+    );
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.style.setProperty('--reveal-delay', (el.dataset.delay ?? '0') + 'ms');
+        el.classList.add('is-visible');
+        revealObserver.unobserve(el);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach((el) => revealObserver.observe(el));
+
+    // ── Photo slider (auto-scroll + drag) ────────────────────────
+    (() => {
+      const slider = document.querySelector('.photoSlider');
+      if (!slider) return;
+
+      let isPaused = false, isDragging = false;
+      let startX = 0, startScrollLeft = 0;
+      const speed = 0.6; // px/frame
+
+      // Duplicate slides for seamless infinite loop
+      Array.from(slider.children).forEach(slide => slider.appendChild(slide.cloneNode(true)));
+
+      function autoScroll() {
+        if (!isPaused && !isDragging) {
+          slider.scrollLeft += speed;
+          if (slider.scrollLeft >= slider.scrollWidth / 2) slider.scrollLeft = 0;
         }
-      })();
-    </script>
-  </body>
+        requestAnimationFrame(autoScroll);
+      }
+      requestAnimationFrame(autoScroll);
+
+      slider.addEventListener('mouseenter',  () => { isPaused = true; });
+      slider.addEventListener('mouseleave',  () => { isPaused = false; });
+
+      slider.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        slider.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startScrollLeft = slider.scrollLeft;
+        slider.style.cursor = 'grabbing';
+      });
+      slider.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        slider.scrollLeft = startScrollLeft - (e.clientX - startX);
+      });
+      slider.addEventListener('pointerup', (e) => {
+        isDragging = false;
+        try { slider.releasePointerCapture(e.pointerId); } catch (_) {}
+        slider.style.cursor = 'grab';
+      });
+      slider.addEventListener('pointercancel', () => {
+        isDragging = false;
+        slider.style.cursor = 'grab';
+      });
+    })();
+
+    // ── Alert open / close ───────────────────────────────────────
+    (function () {
+      const alertEl   = document.querySelector('.alert');
+      const closeBtn  = document.querySelector('.alert__close');
+      const reopenBtn = document.querySelector('.alert__reopen');
+
+      function hideAlert() {
+        alertEl.style.transition = 'opacity 220ms ease, transform 220ms ease';
+        alertEl.style.opacity    = '0';
+        alertEl.style.transform  = 'scale(0.95) translateY(6px)';
+        setTimeout(() => {
+          alertEl.style.display = 'none';
+          reopenBtn.classList.add('is-visible');
+        }, 220);
+      }
+
+      function showAlert() {
+        alertEl.style.display   = '';
+        alertEl.style.opacity   = '0';
+        alertEl.style.transform = 'scale(0.95) translateY(6px)';
+        reopenBtn.classList.remove('is-visible');
+        requestAnimationFrame(() => {
+          alertEl.style.transition = 'opacity 280ms ease, transform 280ms ease';
+          alertEl.style.opacity    = '1';
+          alertEl.style.transform  = 'scale(1) translateY(0)';
+        });
+      }
+
+      if (closeBtn && alertEl && reopenBtn) {
+        closeBtn.addEventListener('click',   hideAlert);
+        closeBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') hideAlert(); });
+        reopenBtn.addEventListener('click',  showAlert);
+      }
+    })();
+  </script>
+
+</body>
 </html>
