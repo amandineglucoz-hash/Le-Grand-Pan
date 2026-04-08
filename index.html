@@ -1379,7 +1379,7 @@
       .about__stampWrap {
         position: absolute;
         bottom: 0;
-        right: 0;
+        right: -20px;
         margin-right: 0;
         transform: rotate(7.83deg);
         width: 200px;
@@ -1415,8 +1415,29 @@
       .welcome__photoWrap { height: 220px; }
       .welcome__stamp    { display: none; }
 
-      .menuPage__word    { font-size: clamp(80px, 22vw, 200px); }
-      .menuPage__wordWrap { margin-left: 0; }
+      /* ── Menu section — espacements maquette Figma ── */
+      .menuPage {
+        padding: 80px 12px;       /* py:80 px:12 — Figma */
+        gap: 48px;                /* espace image ↔ colonnes */
+      }
+      .menuPage__left    { padding-bottom: 32px; }
+      .menuPage__wordWrap {
+        margin-top: 0;
+        margin-bottom: -32px;     /* chevauchement mot/image — Figma mb:-32 */
+      }
+      .menuPage__word    { font-size: clamp(80px, 22vw, 164px); }
+      .menuPage__imgWrap {
+        width: 100%;              /* pleine largeur — Figma */
+        max-width: none;
+      }
+      .menuCols {
+        flex-direction: column;   /* Midi puis Soir empilés */
+        gap: 32px;                /* gap colonnes — Figma */
+      }
+      .menuCol {
+        gap: 32px;                /* gap blocs internes — Figma */
+        min-width: 0;
+      }
 
       .photoSlider {
         height: 260px;
@@ -1454,10 +1475,11 @@
 
       .privPanel__content { padding: 20px; }
 
-      .about__photo      { width: 300px; height: 366px; }
-      .about__stampWrap  { width: 160px; }
-      .about__stampStar  { width: 110px; height: 110px; }
-      .about__stampEllipse { width: 160px; height: 160px; }
+      .about__photo        { width: 300px; height: 366px; }
+      .about__photoWrap    { padding: 8px; }          /* contour plus proche — 8px */
+      .about__stampWrap    { width: 110px; height: 160px; padding-bottom: 16px; }
+      .about__stampStar    { width: 70px; height: 70px; margin-bottom: -24px; }
+      .about__stampEllipse { width: 105px; height: 105px; }
     }
   </style>
 </head>
@@ -1658,7 +1680,7 @@
         <div class="infoCard reveal" data-delay="240">
           <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Téléphone</h3>
           <div class="big">01 42 50 02 50</div>
-          <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
+          <a class="chipBtn" aria-label="Appeler le 01 42 50 02 50">
             <span>Appeler</span>
             <img alt="" src="./le-grand-pan-assets/Chevron.svg" aria-hidden="true" />
           </a>
