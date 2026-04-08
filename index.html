@@ -1354,8 +1354,19 @@
     .follow__footerLinks a {
       color: var(--neutral-100);
       text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
     }
-    .follow__footerLinks a:hover { text-decoration: underline; }
+    .follow__footerLinks a::after {
+      content: '';
+      height: 1px;
+      background: var(--neutral-100);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 240ms ease;
+    }
+    .follow__footerLinks a:hover::after { transform: scaleX(1); }
 
     /* ================================================
        RESPONSIVE — Tablette (≤ 1100px)
@@ -1713,7 +1724,6 @@
           Réserver
         </a>
       </div>
-
       <div class="infoGrid">
         <!-- Horaires -->
         <div class="infoCard reveal" data-delay="0">
@@ -1866,9 +1876,8 @@
           <img alt="Le Grand Pan" src="./le-grand-pan-assets/LeGrandPan-light.svg" />
         </div>
         <nav class="follow__footerLinks" aria-label="Liens légaux">
-          <a href="#">Mentions légales</a>
-          <a href="#">Politique de confidentialité</a>
-          <a href="#">Contact</a>
+          <a href="./mentions-legales.html">Mentions légales</a>
+          <a href="mailto:contact@legrandpan.fr">Contact</a>
         </nav>
       </footer>
     </div>
