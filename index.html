@@ -1400,11 +1400,36 @@
     }
 
     /* ================================================
+       RESPONSIVE — Tablette (769px – 1200px)
+       Signature : passage en colonne pour éviter le contenu coupé
+    ================================================ */
+    @media (min-width: 769px) and (max-width: 1560px) {
+      .about {
+        flex-direction: column;
+        align-items: center;
+        overflow: visible;
+        gap: 48px;
+      }
+      .about__media {
+        padding-right: 200px;       /* garde l'espace pour le stamp */
+      }
+      .about__text {
+        width: 100%;
+        max-width: 640px;
+      }
+    }
+
+    /* ================================================
        RESPONSIVE — Mobile (≤ 768px)
     ================================================ */
     @media (max-width: 768px) {
       :root { --page-pad: 24px; }
 
+      /* Header hero plein écran mobile */
+      .header__hero {
+        aspect-ratio: unset;
+        height: 100dvh;
+      }
       .welcome           { min-height: auto; gap: 40px; }
       .welcome__heading  { font-size: 48px; }
       .welcome__photoWrap { height: 220px; }
@@ -1504,6 +1529,9 @@
       .nav-cta           { height: 44px; padding: 0 14px; font-size: 14px; }
 
       .privPanel__content { padding: 20px; }
+      /* Images ratio naturel sur mobile */
+      .privPanel__imgBox     { height: auto; }
+      .privPanel__imgBox img { position: static; width: 100%; height: auto; inset: auto; object-fit: unset; }
 
       .about__photo        { width: 300px; height: 366px; }
       .about__photoWrap    { padding: 8px; }          /* contour plus proche — 8px */
@@ -1546,7 +1574,10 @@
         <img alt="Le Grand Pan" src="./le-grand-pan-assets/title.svg" />
       </div>
       <div class="header__hero">
-        <img alt="Vue du restaurant Le Grand Pan" src="./le-grand-pan-assets/Img-header-2.webp" />
+        <picture>
+          <source media="(max-width: 768px)" srcset="./le-grand-pan-assets/Img-header-mobile.webp" />
+          <img alt="Vue du restaurant Le Grand Pan" src="./le-grand-pan-assets/Img-header-2.webp" />
+        </picture>
       </div>
     </header>
 
