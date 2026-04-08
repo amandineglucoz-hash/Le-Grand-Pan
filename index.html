@@ -1413,7 +1413,14 @@
       .welcome           { min-height: auto; gap: 40px; }
       .welcome__heading  { font-size: 48px; }
       .welcome__photoWrap { height: 220px; }
-      .welcome__stamp    { display: none; }
+      .welcome__stamp {
+        width: 150px;
+        height: 111px;
+        top: auto;                             /* annule top:100% du desktop */
+        bottom: 72px;                          /* ancré dans la zone photo */
+        left: 50%;
+        transform: translate(-50%, 0) rotate(7.32deg);
+      }
 
       /* ── Menu section — espacements maquette Figma ── */
       .menuPage {
@@ -1440,12 +1447,12 @@
       }
 
       .photoSlider {
-        height: 260px;
+        height: 600px;
         align-items: stretch;
         overflow-y: clip;
       }
       .photoSlide {
-        height: 260px;
+        height: 600px;
         width: 80vw !important;
       }
       .photoSlide img {
@@ -1464,10 +1471,31 @@
 
       .alert             { right: 8px; bottom: 90px; width: min(310px, calc(100vw - 16px)); padding: 32px 20px; }
 
-      .follow            { height: 580px; }
-      main               { margin-bottom: 580px; }
-      .follow__footer    { padding: 20px 24px; flex-direction: column; align-items: flex-start; height: auto; }
-      .follow__footerLinks { flex-wrap: wrap; gap: 12px 20px; }
+      /* ── Footer mobile — plein écran, safe area iOS ── */
+      .follow {
+        height: 100dvh;                              /* plein écran dynamique */
+        padding-bottom: env(safe-area-inset-bottom); /* image passe sous le navigateur Safari */
+      }
+      main { margin-bottom: 100dvh; }               /* scroll space = hauteur footer */
+
+      .follow__footer {
+        flex-direction: column;                      /* logo puis liens empilés */
+        align-items: center;                         /* tout centré */
+        justify-content: center;
+        height: auto;
+        padding: 40px 12px;                          /* Figma: px-12 py-40 */
+        gap: 20px;
+        overflow: visible;
+      }
+      .follow__footerLogo {
+        position: static;                            /* sort du positionnement absolu */
+      }
+      .follow__footerLinks {
+        flex-wrap: wrap;
+        justify-content: center;                     /* liens centrés */
+        gap: 12px 16px;
+        white-space: normal;
+      }
 
       .nav-tabs          { gap: 28px; }
       .nav-pill span     { font-size: 14px; }
@@ -1680,7 +1708,7 @@
         <div class="infoCard reveal" data-delay="240">
           <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Téléphone</h3>
           <div class="big">01 42 50 02 50</div>
-          <a class="chipBtn" aria-label="Appeler le 01 42 50 02 50">
+          <a class="chipBtn" href="+330142500250" aria-label="Appeler le 01 42 50 02 50">
             <span>Appeler</span>
             <img alt="" src="./le-grand-pan-assets/Chevron.svg" aria-hidden="true" />
           </a>
