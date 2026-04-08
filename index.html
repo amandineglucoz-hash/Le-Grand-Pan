@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
 
   <!-- ================================================
        SEO — Balises de base
@@ -1469,7 +1470,7 @@
       .infoGrid          { flex-direction: column; align-items: center; gap: 32px; min-height: auto; }
       .infoCard          { max-width: 100%; flex: 1 1 auto; height: auto; width: 100%; }
 
-      .alert             { right: 8px; bottom: 90px; width: min(310px, calc(100vw - 16px)); padding: 32px 20px; }
+      .alert             { right: 8px; bottom: 140px; width: min(310px, calc(100vw - 16px)); padding: 32px 20px; }
 
       /* ── Footer mobile — plein écran, safe area iOS ── */
       .follow {
@@ -1479,22 +1480,26 @@
       main { margin-bottom: 100dvh; }               /* scroll space = hauteur footer */
 
       .follow__footer {
-        flex-direction: column;                      /* logo puis liens empilés */
-        align-items: center;                         /* tout centré */
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
         height: auto;
-        padding: 40px 12px;                          /* Figma: px-12 py-40 */
+        padding: 40px 12px 110px;   /* 110px = sticky nav (≈64px) + son offset bottom (22px) + marge */
         gap: 20px;
         overflow: visible;
       }
+      /* Logo : on garde position: relative (base CSS) — l'img absolue reste visible */
       .follow__footerLogo {
-        position: static;                            /* sort du positionnement absolu */
+        width: 195px;
+        height: 24.914px;
+        flex-shrink: 0;
       }
       .follow__footerLinks {
         flex-wrap: wrap;
-        justify-content: center;                     /* liens centrés */
-        gap: 12px 16px;
+        justify-content: space-between;   /* Figma: justify-between */
+        gap: 12px 0;
         white-space: normal;
+        width: 100%;
       }
 
       .nav-tabs          { gap: 28px; }
@@ -1707,8 +1712,8 @@
         <!-- Téléphone -->
         <div class="infoCard reveal" data-delay="240">
           <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Téléphone</h3>
-          <div class="big">01 42 50 02 50</div>
-          <a class="chipBtn" href="+330142500250" aria-label="Appeler le 01 42 50 02 50">
+          <div class="big" style="pointer-events:none;-webkit-user-select:none;user-select:none;">01 42 50 02 50</div>
+          <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
             <span>Appeler</span>
             <img alt="" src="./le-grand-pan-assets/Chevron.svg" aria-hidden="true" />
           </a>
@@ -2011,6 +2016,12 @@
         closeBtn.addEventListener('click',   hideAlert);
         closeBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') hideAlert(); });
         reopenBtn.addEventListener('click',  showAlert);
+
+        /* Fermée par défaut sur mobile */
+        if (window.matchMedia('(max-width: 768px)').matches) {
+          alertEl.style.display = 'none';
+          reopenBtn.classList.add('is-visible');
+        }
       }
     })();
   </script>
