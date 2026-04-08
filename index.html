@@ -160,6 +160,7 @@
       font-family:  var(--font-body);
       font-weight:  400;
       scroll-behavior: smooth;
+      overflow-x: hidden;           /* bloque le scroll horizontal parasite sur toute la page */
     }
 
     img { display: block; max-width: 100%; }
@@ -1428,7 +1429,7 @@
       /* Header hero plein écran mobile */
       .header__hero {
         aspect-ratio: unset;
-        height: 100dvh;
+        height: calc(100dvh - 32px);
       }
       .welcome           { min-height: auto; gap: 40px; }
       .welcome__heading  { font-size: 48px; }
