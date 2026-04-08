@@ -1418,7 +1418,7 @@
         width: 150px;
         height: 111px;
         top: auto;                             /* annule top:100% du desktop */
-        bottom: 72px;                          /* ancré dans la zone photo */
+        bottom: -8px;                          /* 72px − 80px = −8px */
         left: 50%;
         transform: translate(-50%, 0) rotate(7.32deg);
       }
@@ -1476,7 +1476,7 @@
       /* ── Footer mobile — plein écran, safe area iOS ── */
       .follow {
         height: 100dvh;                              /* plein écran dynamique */
-        padding-bottom: env(safe-area-inset-bottom); /* image passe sous le navigateur Safari */
+        /* pas de padding-bottom ici → la photo s'étend derrière la barre du navigateur */
       }
       main { margin-bottom: 100dvh; }               /* scroll space = hauteur footer */
 
@@ -1485,7 +1485,8 @@
         align-items: center;
         justify-content: flex-start;
         height: auto;
-        padding: 40px 12px 110px;   /* 110px = sticky nav (≈64px) + son offset bottom (22px) + marge */
+        /* padding-bottom : sticky nav (≈64px) + offset (2px) + safe area iOS */
+        padding: 40px 12px calc(90px + env(safe-area-inset-bottom));
         gap: 20px;
         overflow: visible;
       }
@@ -1503,6 +1504,7 @@
         width: 100%;
       }
 
+      .sticky-menu       { bottom: 2px; }          /* redescendu de 20px vs desktop (22px→2px) */
       .nav-tabs          { gap: 28px; }
       .nav-pill span     { font-size: 14px; }
       .nav-cta           { height: 44px; padding: 0 14px; font-size: 14px; }
@@ -1743,8 +1745,8 @@
           <h2 class="privPanel__title">Privatisation &amp; réservation</h2>
           <p class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
           <a class="privPanel__cta"
-             href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
-             target="_blank" rel="noopener noreferrer">
+             href="mailto:contact@legrandpan.fr"
+             aria-label="Privatiser — envoyer un email">
             <span>Privatiser</span>
           </a>
         </div>
@@ -1865,9 +1867,9 @@
       <p>&nbsp;</p>
       <p>Commandes ouvertes<br /><strong style="font-weight:600;">jusqu'au 15 décembre</strong></p>
     </div>
-    <div class="alert__cta" role="button" tabindex="0" aria-label="Commander">
+    <a class="alert__cta" href="mailto:contact@legrandpan.fr" aria-label="Commander">
       <span>Commander</span>
-    </div>
+    </a>
   </div>
 
   <!-- Bouton "+" pour rouvrir l'alert -->
