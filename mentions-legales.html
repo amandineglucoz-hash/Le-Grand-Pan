@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="format-detection" content="telephone=no" />
+  <title>Mentions légales — Le Grand Pan</title>
+  <meta name="robots" content="noindex" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <style>
+    /* ================================================
+       TOKENS — reprend les mêmes variables que index.html
+    ================================================ */
+    :root {
+      --brand-brown:   #321d16;
+      --neutral-000:   #fbf5ee;
+      --neutral-100:   #f7ebdd;
+      --neutral-200:   #eed5ba;
+      --neutral-300:   #d4a97a;
+      --neutral-600:   #c06336;
+      --neutral-700:   #9f4e2f;
+      --neutral-900:   #321d16;
+
+      --font-display:  'Bigilla', Georgia, serif;
+      --font-body:     'Geist', Inter, system-ui, -apple-system, sans-serif;
+      --font-condensed:'Barlow Semi Condensed', sans-serif;
+
+      --fs-h1:   64px;
+      --fs-h3:   48px;
+      --fs-p1:   18px;
+      --fs-p2:   16px;
+      --fs-p4:   12px;
+
+      --page-pad: 80px;
+      --corner-radius-s:    8px;
+      --corner-radius-xs:   4px;
+      --corner-radius-full: 9999px;
+    }
+
+    @font-face {
+      font-family: 'Bigilla';
+      src: url('./le-grand-pan-assets/Bigilla-Bold.woff2') format('woff2');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body {
+      background: var(--neutral-000);
+      color: var(--brand-brown);
+      font-family: var(--font-body);
+      font-weight: 400;
+      scroll-behavior: smooth;
+      overflow-x: clip;
+    }
+    img { display: block; max-width: 100%; }
+
+    /* ================================================
+       STICKY NAV — identique à index.html
+    ================================================ */
+    .sticky-menu {
+      position: fixed;
+      left: 50%;
+      bottom: 22.49px;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: var(--brand-brown);
+      border-radius: var(--corner-radius-s);
+      padding: 8px 8px 8px 40px;
+      box-shadow: 0px 4px 6px 0px rgba(0,0,0,0.15);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+    .nav-tabs { display: flex; gap: 64px; align-items: center; }
+    .nav-pill {
+      height: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--neutral-000);
+      flex-shrink: 0;
+    }
+    .nav-pill span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      text-transform: uppercase;
+      font-weight: 300;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    .nav-pill .underline {
+      height: 1px;
+      width: 100%;
+      background: var(--neutral-100);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 240ms ease;
+    }
+    .nav-pill:hover .underline,
+    .nav-pill:focus-visible .underline { transform: scaleX(1); }
+    .nav-cta {
+      height: 48px;
+      background: var(--neutral-600);
+      border-radius: var(--corner-radius-xs);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      font-family: var(--font-body);
+      font-size: var(--fs-p1);
+      font-weight: 300;
+      text-transform: uppercase;
+      color: var(--neutral-000);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 220ms ease;
+    }
+    .nav-cta:hover { background: #80402c; }
+
+    /* ================================================
+       TITRE DE PAGE
+    ================================================ */
+    .ml-header {
+      background: var(--neutral-000);
+      padding: 80px var(--page-pad) 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .ml-header__logo {
+      width: 456px;
+      max-width: 80vw;
+    }
+    .ml-header__logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .ml-header__sub {
+      display: flex;
+      gap: 20px;
+      align-items: center;
+      font-family: var(--font-condensed);
+      font-size: 24px;
+      font-weight: 500;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: var(--brand-brown);
+    }
+    .ml-header__dot {
+      width: 5.526px;
+      height: 5.526px;
+      border-radius: 50%;
+      background: var(--brand-brown);
+      flex-shrink: 0;
+    }
+
+    /* ================================================
+       CONTENU
+    ================================================ */
+    .ml-content {
+      background: var(--neutral-000);
+      padding: 80px var(--page-pad) 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;          /* centre le contenu horizontalement */
+      gap: 80px;
+    }
+    .ml-content > * {
+      width: 100%;
+      max-width: 860px;             /* largeur max lisible, centrée */
+    }
+    .ml-h1 {
+      font-family: var(--font-display);
+      font-size: clamp(36px, 6vw, 64px);
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1;
+    }
+    .ml-section {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      color: var(--brand-brown);
+    }
+    .ml-section h2 {
+      font-family: var(--font-body);
+      font-size: clamp(24px, 4vw, 48px);
+      font-weight: 300;
+      text-transform: uppercase;
+      line-height: 1.2;
+    }
+    .ml-section p {
+      font-family: var(--font-body);
+      font-size: clamp(15px, 1.5vw, 18px);
+      font-weight: 400;
+      line-height: 1.6;
+    }
+    .ml-section p + p { margin-top: 1em; }
+    .ml-section a { color: var(--brand-brown); }
+    .ml-section strong { font-weight: 600; }
+
+    /* ================================================
+       FOOTER — identique à index.html
+    ================================================ */
+    .follow {
+      position: relative;
+      height: 727px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .follow__bgWrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+    }
+    .follow__bg {
+      width: 100%;
+      height: calc(100% + 120px);
+      margin-top: -60px;
+      object-fit: cover;
+      display: block;
+    }
+    .follow__gradient { display: none; }
+    .follow__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .follow__titleRow {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+    .follow__title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      color: var(--neutral-000);
+      font-size: var(--fs-h1);
+      line-height: 1;
+      text-align: center;
+      font-weight: 700;
+    }
+    .follow__cta {
+      background: var(--neutral-600);
+      border-radius: var(--corner-radius-full);
+      padding: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease;
+    }
+    .follow__cta:hover { background: var(--neutral-300); transform: scale(1.1); }
+    .follow__footer {
+      border-top: 1px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 40px;
+      height: 74px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .follow__footerLogo {
+      width: 195px;
+      height: 24.914px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .follow__footerLogo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .follow__footerLinks {
+      display: flex;
+      gap: 40px;
+      font-family: var(--font-body);
+      font-size: var(--fs-p4);
+      color: var(--neutral-100);
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+    .follow__footerLinks a {
+      color: var(--neutral-100);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .follow__footerLinks a::after {
+      content: '';
+      height: 1px;
+      background: var(--neutral-100);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 240ms ease;
+    }
+    .follow__footerLinks a:hover::after { transform: scaleX(1); }
+
+    /* ================================================
+       RESPONSIVE
+    ================================================ */
+    @media (max-width: 768px) {
+      :root { --page-pad: 24px; }
+
+      .ml-header { padding: 40px var(--page-pad) 0; }
+
+      .ml-content { padding: 48px var(--page-pad) 80px; gap: 48px; }
+
+      .sticky-menu { bottom: 2px; }
+      .nav-tabs { gap: 28px; }
+      .nav-pill span { font-size: 14px; }
+      .nav-cta { height: 44px; padding: 0 14px; font-size: 14px; }
+
+      .follow {
+        height: 100dvh;
+      }
+      .follow__footer {
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        padding: 32px 12px calc(90px + env(safe-area-inset-bottom));
+        gap: 16px;
+        overflow: visible;
+      }
+      .follow__footerLogo { width: 195px; height: 24.914px; flex-shrink: 0; }
+      .follow__footerLogo img { position: static; width: 160px; height: auto; }
+      .follow__footerLinks {
+        flex-wrap: wrap;
+        justify-content: space-between;
+        gap: 12px 0;
+        white-space: normal;
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- STICKY NAV -->
+  <nav class="sticky-menu" aria-label="Navigation principale">
+    <div class="nav-tabs">
+      <a class="nav-pill" href="./index.html#menu">
+        <span>Menu</span>
+        <span class="underline" aria-hidden="true"></span>
+      </a>
+      <a class="nav-pill" href="./index.html#address">
+        <span>Adresse</span>
+        <span class="underline" aria-hidden="true"></span>
+      </a>
+    </div>
+    <a class="nav-cta"
+       href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
+       target="_blank" rel="noopener noreferrer">
+      Réserver
+    </a>
+  </nav>
+
+  <!-- TITRE -->
+  <div class="ml-header">
+    <div class="ml-header__logo">
+      <img alt="Le Grand Pan" src="./le-grand-pan-assets/Logo.svg" />
+    </div>
+  </div>
+
+  <!-- CONTENU -->
+  <main class="ml-content">
+    <h1 class="ml-h1">Mentions légales</h1>
+
+    <section class="ml-section">
+      <h2>Informations légales</h2>
+      <div>
+        <p>La simple utilisation et/ou consultation du site <a href="https://www.legrandpan.fr" target="_blank" rel="noopener">www.legrandpan.fr</a>, le <a href="https://www.petitpan.fr" target="_blank" rel="noopener">www.petitpan.fr</a> ou <a href="https://www.lasuitedugrandpan.fr" target="_blank" rel="noopener">www.lasuitedugrandpan.fr</a> implique, de façon automatique et inconditionnelle, votre acceptation pleine et entière de l'ensemble des présentes conditions d'utilisation.</p>
+        <p>Les informations en consultation sur ce site sont proposées sous réserve d'erreur, d'inexactitude ou d'omission affectant les informations. Elles peuvent faire l'objet de modification ou de suppression à tout moment et sans préavis ni indemnités quelconques.</p>
+      </div>
+    </section>
+
+    <section class="ml-section">
+      <h2>Responsabilité</h2>
+      <div>
+        <p>De manière générale, le Grand Pan, Le Petit Pan et La Suite du Grand Pan ne peuvent être tenus pour responsables en cas de problème d'ordre technique de quelque nature que ce soit affectant la diffusion de son site. Le Grand Pan, Le Petit Pan et La Suite du Grand Pan se réservent la possibilité de modifier, d'interrompre temporairement ou de façon permanente, tout ou partie de son site, sans préavis ni indemnité quelconques. Elle ne pourra en aucun cas être tenue pour responsable à votre encontre ou à l'encontre d'un tiers de toute modification, interruption, suspension ou suppression du site.</p>
+        <p>L'utilisation des informations contenues sur le présent site relève de la seule responsabilité de son utilisateur. Toutes les ressources contenues dans ce site, textes, visuels et illustrations (schémas, dessins, photographies et animations) sont communiqués à titre purement informatif et ne peuvent en rien engager la responsabilité de l'agence.</p>
+        <p>Le Grand Pan, Le Petit Pan et La Suite du Grand Pan ne saurait être tenus responsables d'un dommage ou virus qui pourrait infecter votre ordinateur ou tout matériel informatique, suite à une utilisation ou accès au site ou téléchargement provenant de ce site.</p>
+      </div>
+    </section>
+
+    <section class="ml-section">
+      <h2>Crédits</h2>
+      <div>
+        <p><strong>Conception et réalisation graphique :</strong> agence Glucoz <a href="http://www.glucoz.fr" target="_blank" rel="noopener">www.glucoz.fr</a> - 31 rue du Caire - 75002 Paris - 01 45 41 11 15<br>
+        <strong>Développement :</strong> fièrement propulsé avec Roz by <a href="https://www.glucoz.fr/" target="_blank" rel="noopener">Glucoz</a><br>
+        <strong>Rédaction :</strong> agence Glucoz <a href="http://www.glucoz.fr" target="_blank" rel="noopener">www.glucoz.fr</a><br>
+        <strong>Crédits photographiques :</strong> ©Pierre Lucet Penato</p>
+        <p>Conformément à l'article 34 de la Loi « Informatique et Libertés » n° 78-17 du 6 janvier 1978, vous disposez d'un droit d'accès, de modification, de rectification et de suppression des données qui vous concernent. Vous pouvez à tout moment vous opposer gratuitement et sans motif à l'utilisation des données que vous avez fournies. Pour exercer ce droit, envoyez un mail à <a href="mailto:contact@legrandpan.fr">contact@legrandpan.fr</a></p>
+        <p>Pour plus d'informations, veuillez consulter le site de la CNIL : <a href="https://www.cnil.fr" target="_blank" rel="noopener">www.cnil.fr</a></p>
+      </div>
+    </section>
+
+    <section class="ml-section">
+      <h2>Éditeur et responsable<br>de la communication</h2>
+      <p><strong>Benoit Gauthier</strong> — Courriel : <a href="mailto:contact@legrandpan.fr">contact@legrandpan.fr</a></p>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <section class="follow" aria-label="Suivez-nous !">
+    <div class="follow__bgWrap">
+      <img class="follow__bg" alt="" src="./le-grand-pan-assets/Image-footer.webp" aria-hidden="true" />
+    </div>
+    <div class="follow__content">
+      <div class="follow__titleRow">
+        <p class="follow__title">suivez-nous !</p>
+        <a class="follow__cta" href="https://www.instagram.com/legrandpan_paris/" target="_blank" rel="noopener noreferrer" aria-label="Suivez-nous sur Instagram">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M16 2.88c4.27 0 4.77.02 6.46.09 1.56.07 2.4.33 2.96.55.74.29 1.28.63 1.84 1.19.56.56.9 1.1 1.19 1.84.22.56.48 1.41.55 2.96.07 1.69.09 2.19.09 6.46s-.02 4.77-.09 6.46c-.07 1.56-.33 2.4-.55 2.96-.29.74-.63 1.28-1.19 1.84-.56.56-1.1.9-1.84 1.19-.56.22-1.41.48-2.96.55-1.69.07-2.19.09-6.46.09s-4.77-.02-6.46-.09c-1.56-.07-2.4-.33-2.96-.55a4.94 4.94 0 0 1-1.84-1.19 4.94 4.94 0 0 1-1.19-1.84c-.22-.56-.48-1.41-.55-2.96C2.9 20.77 2.88 20.27 2.88 16s.02-4.77.09-6.46c.07-1.56.33-2.4.55-2.96.29-.74.63-1.28 1.19-1.84A4.94 4.94 0 0 1 6.55 3.52c.56-.22 1.41-.48 2.96-.55C11.2 2.9 11.7 2.88 16 2.88Zm0-2.88C11.66 0 11.12.02 9.41.09 7.71.16 6.54.43 5.52.81a7.82 7.82 0 0 0-2.83 1.84A7.82 7.82 0 0 0 .85 5.48C.47 6.5.2 7.67.13 9.37.06 11.08 0 11.62 0 16c0 4.38.02 4.92.09 6.63.07 1.7.34 2.87.72 3.89a7.82 7.82 0 0 0 1.84 2.83 7.82 7.82 0 0 0 2.83 1.84c1.02.38 2.19.65 3.89.72C11.08 31.98 11.62 32 16 32c4.38 0 4.92-.02 6.63-.09 1.7-.07 2.87-.34 3.89-.72a7.82 7.82 0 0 0 2.83-1.84 7.82 7.82 0 0 0 1.84-2.83c.38-1.02.65-2.19.72-3.89.07-1.71.09-2.25.09-6.63 0-4.38-.02-4.92-.09-6.63-.07-1.7-.34-2.87-.72-3.89A7.82 7.82 0 0 0 29.35 2.65 7.82 7.82 0 0 0 26.52.81C25.5.43 24.33.16 22.63.09 20.92.02 20.38 0 16 0Z" fill="white"/>
+            <path d="M16 7.78a8.22 8.22 0 1 0 0 16.44A8.22 8.22 0 0 0 16 7.78Zm0 13.56a5.34 5.34 0 1 1 0-10.68 5.34 5.34 0 0 1 0 10.68ZM26.46 7.46a1.92 1.92 0 1 1-3.84 0 1.92 1.92 0 0 1 3.84 0Z" fill="white"/>
+          </svg>
+        </a>
+      </div>
+      <footer class="follow__footer">
+        <div class="follow__footerLogo">
+          <img alt="Le Grand Pan" src="./le-grand-pan-assets/LeGrandPan-light.svg" />
+        </div>
+        <nav class="follow__footerLinks" aria-label="Liens légaux">
+          <a href="./mentions-legales.html">Mentions légales</a>
+          <a href="mailto:contact@legrandpan.fr">Contact</a>
+        </nav>
+      </footer>
+    </div>
+  </section>
+
+</body>
+</html>
