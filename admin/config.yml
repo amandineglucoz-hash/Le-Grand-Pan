@@ -1,0 +1,133 @@
+backend:
+  name: github
+  repo: amandineglucoz-hash/Le-Grand-Pan
+  branch: main
+
+media_folder: "le-grand-pan-assets"
+public_folder: "le-grand-pan-assets"
+
+locale: fr
+
+collections:
+  - name: "modale"
+    label: "Modale alerte"
+    files:
+      - name: "modale"
+        label: "Modale alerte"
+        file: "content/modale.json"
+        fields:
+          - { label: "Afficher la modale", name: "active", widget: "boolean", default: true, hint: "Désactiver pour masquer sans supprimer le contenu" }
+          - { label: "Titre", name: "titre", widget: "string" }
+          - { label: "Contenu (plats, prix...)", name: "contenu", widget: "text", hint: "Une ligne par article" }
+          - { label: "Sous-texte (date limite, info)", name: "sous_texte", widget: "string", required: false }
+          - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
+          - { label: "Lien du bouton", name: "bouton_lien", widget: "string", hint: "Ex: mailto:contact@legrandpan.fr ou une URL" }
+
+  - name: "accueil"
+    label: "Page d'accueil"
+    files:
+      - name: "hero"
+        label: "Hero & Introduction"
+        file: "content/hero.json"
+        fields:
+          - { label: "Image principale (header)", name: "image_header", widget: "image", hint: "1920x1080px recommandé" }
+          - { label: "Titre principal", name: "titre", widget: "string" }
+          - { label: "Texte d'accroche", name: "texte", widget: "text" }
+          - { label: "Photo d'ambiance (section bienvenue)", name: "image_bienvenue", widget: "image" }
+          - label: "Bouton de réservation"
+            name: "bouton_reservation"
+            widget: "object"
+            fields:
+              - { label: "Texte", name: "label", widget: "string" }
+              - { label: "Lien", name: "lien", widget: "string" }
+
+      - name: "menu"
+        label: "Menu du restaurant"
+        file: "content/menu.json"
+        fields:
+          - { label: "Image du menu", name: "image_menu", widget: "image" }
+          - label: "Midi"
+            name: "midi"
+            widget: "object"
+            fields:
+              - label: "Formules"
+                name: "formules"
+                widget: "list"
+                field: { label: "Formule", name: "texte", widget: "string" }
+              - { label: "Suggestion du chef", name: "suggestion", widget: "text" }
+              - label: "Les classiques"
+                name: "classiques"
+                widget: "list"
+                field: { label: "Plat", name: "nom", widget: "string" }
+          - label: "Soir"
+            name: "soir"
+            widget: "object"
+            fields:
+              - { label: "Suggestion du chef", name: "suggestion", widget: "text" }
+              - label: "Les classiques"
+                name: "classiques"
+                widget: "list"
+                field: { label: "Plat", name: "nom", widget: "string" }
+
+      - name: "galerie"
+        label: "Galerie photos (slider)"
+        file: "content/galerie.json"
+        fields:
+          - label: "Photos du slider"
+            name: "photos"
+            widget: "list"
+            hint: "Ajouter, supprimer ou réordonner les photos"
+            fields:
+              - { label: "Photo", name: "image", widget: "image", hint: "800x800px recommandé" }
+              - { label: "Description (alt)", name: "alt", widget: "string", default: "Photo du restaurant Le Grand Pan" }
+
+      - name: "infos"
+        label: "Infos pratiques"
+        file: "content/infos.json"
+        fields:
+          - { label: "Statut ouverture (ex: Nous sommes ouverts !)", name: "statut", widget: "string" }
+          - label: "Horaires semaine"
+            name: "horaires_semaine"
+            widget: "object"
+            fields:
+              - { label: "Jours", name: "jours", widget: "string", default: "Lun - Ven" }
+              - { label: "Horaires", name: "heures", widget: "string", default: "12h-14h / 19h30-23h" }
+          - label: "Week-end"
+            name: "horaires_weekend"
+            widget: "object"
+            fields:
+              - { label: "Jours", name: "jours", widget: "string", default: "Dim - Samedi" }
+              - { label: "Statut", name: "statut", widget: "string", default: "Fermé" }
+          - { label: "Adresse", name: "adresse", widget: "string", default: "20 Rue Rosenwald" }
+          - { label: "Téléphone", name: "telephone", widget: "string", default: "01 42 50 02 50" }
+          - label: "Bouton réservation"
+            name: "bouton_reservation"
+            widget: "object"
+            fields:
+              - { label: "Texte", name: "label", widget: "string" }
+              - { label: "Lien", name: "lien", widget: "string" }
+
+      - name: "restaurateurs"
+        label: "Nos restaurants (La Suite & Piennolo)"
+        file: "content/restaurateurs.json"
+        fields:
+          - label: "La Suite"
+            name: "lasuite"
+            widget: "object"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Tag", name: "tag", widget: "string", default: "Salle privée" }
+              - { label: "Titre", name: "titre", widget: "string", default: "Privatisation & réservation" }
+              - { label: "Texte", name: "texte", widget: "text" }
+              - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
+              - { label: "Lien du bouton", name: "bouton_lien", widget: "string" }
+          - label: "Piennolo"
+            name: "piennolo"
+            widget: "object"
+            fields:
+              - { label: "Image", name: "image", widget: "image" }
+              - { label: "Tag", name: "tag", widget: "string", default: "Pizzeria" }
+              - { label: "Titre", name: "titre", widget: "string", default: "Piennolo" }
+              - { label: "Texte", name: "texte", widget: "text" }
+              - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
+              - { label: "Lien du bouton", name: "bouton_lien", widget: "string" }
