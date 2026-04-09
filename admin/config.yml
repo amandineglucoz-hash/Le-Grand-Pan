@@ -3,6 +3,7 @@ backend:
   repo: amandineglucoz-hash/Le-Grand-Pan
   branch: main
   auth_type: pkce
+  base_url: https://amandineglucoz-hash.github.io/Le-Grand-Pan
 
 
 media_folder: "le-grand-pan-assets"
