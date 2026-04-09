@@ -118,27 +118,29 @@
       <div class="section" id="section-hero">
         <h2>Hero & Introduction</h2>
         <div class="divider">Image header</div>
-        <div class="field">
-          <label>Grande photo en haut de page</label>
-          <div class="img-upload-zone" onclick="triggerUpload('hero-img-header-file')">
-            <img id="hero-img-header-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="hero-img-header-label"><span>+ Changer l'image</span></div>
-            <button class="img-change-btn" style="display:none;" id="hero-img-header-btn">Changer</button>
-            <input type="file" id="hero-img-header-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-header','hero_image_header')">
+        <div class="row2">
+          <div class="field">
+            <label>Desktop</label>
+            <div class="img-upload-zone" onclick="triggerUpload('hero-img-header-file')">
+              <img id="hero-img-header-preview" class="preview" src="" style="display:none;">
+              <div class="upload-label" id="hero-img-header-label"><span>+ Changer l'image</span></div>
+              <button class="img-change-btn" style="display:none;" id="hero-img-header-btn">Changer</button>
+              <input type="file" id="hero-img-header-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-header','hero_image_header')">
+            </div>
+            <p class="hint">1920×1080px — WebP ou JPG</p>
+            <input type="hidden" id="hero_image_header" value="le-grand-pan-assets/Img-header-2.webp">
           </div>
-          <p class="hint">1920×1080px — WebP ou JPG recommandé</p>
-          <input type="hidden" id="hero_image_header" value="le-grand-pan-assets/Img-header-2.webp">
-        </div>
-        <div class="field">
-          <label>Image header mobile</label>
-          <div class="img-upload-zone" onclick="triggerUpload('hero-img-header-mobile-file')">
-            <img id="hero-img-header-mobile-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="hero-img-header-mobile-label"><span>+ Changer l'image</span></div>
-            <button class="img-change-btn" style="display:none;" id="hero-img-header-mobile-btn">Changer</button>
-            <input type="file" id="hero-img-header-mobile-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-header-mobile','hero_image_header_mobile')">
+          <div class="field">
+            <label>Mobile</label>
+            <div class="img-upload-zone" onclick="triggerUpload('hero-img-header-mobile-file')">
+              <img id="hero-img-header-mobile-preview" class="preview" src="" style="display:none;">
+              <div class="upload-label" id="hero-img-header-mobile-label"><span>+ Changer l'image</span></div>
+              <button class="img-change-btn" style="display:none;" id="hero-img-header-mobile-btn">Changer</button>
+              <input type="file" id="hero-img-header-mobile-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-header-mobile','hero_image_header_mobile')">
+            </div>
+            <p class="hint">750×1334px — WebP ou JPG (portrait)</p>
+            <input type="hidden" id="hero_image_header_mobile" value="le-grand-pan-assets/Img-header-mobile.webp">
           </div>
-          <p class="hint">750×1334px — WebP ou JPG recommandé (format portrait)</p>
-          <input type="hidden" id="hero_image_header_mobile" value="le-grand-pan-assets/Img-header-mobile.webp">
         </div>
         <div class="field">
           <label>Photo bienvenue</label>
