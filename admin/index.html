@@ -1,12 +1,2198 @@
 <!doctype html>
-<html>
+<html lang="fr">
 <head>
-  <meta charset="utf-8" />
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="noindex" />
-  <title>Administration — Le Grand Pan</title>
+  <meta name="format-detection" content="telephone=no" />
+
+  <!-- ================================================
+       SEO — Balises de base
+  ================================================ -->
+  <title>Le Grand Pan — Bistrot Gastronomique à Paris</title>
+  <meta name="description" content="Le Grand Pan, bistrot gastronomique parisien. Cuisine française sincère et raffinée, produits de saison. 20 rue Rosenwald, Paris. Réservez une table." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.le-grand-pan.com/" />
+
+  <!-- ================================================
+       SEO — Open Graph (Facebook, LinkedIn…)
+  ================================================ -->
+  <meta property="og:type"        content="restaurant" />
+  <meta property="og:title"       content="Le Grand Pan — Bistrot Gastronomique à Paris" />
+  <meta property="og:description" content="Cuisine française sincère et raffinée, produits de saison. 20 rue Rosenwald, Paris. Réservez une table." />
+  <meta property="og:url"         content="https://www.le-grand-pan.com/" />
+  <meta property="og:image"       content="https://www.le-grand-pan.com/le-grand-pan-assets/image-footer.webp" />
+  <meta property="og:locale"      content="fr_FR" />
+  <meta property="og:site_name"   content="Le Grand Pan" />
+
+  <!-- ================================================
+       SEO — Twitter Card
+  ================================================ -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="Le Grand Pan — Bistrot Gastronomique à Paris" />
+  <meta name="twitter:description" content="Cuisine française sincère et raffinée, produits de saison. 20 rue Rosenwald, Paris." />
+  <meta name="twitter:image"       content="https://www.le-grand-pan.com/le-grand-pan-assets/image-footer.webp" />
+
+  <!-- ================================================
+       SEO — Schema.org JSON-LD (données structurées)
+  ================================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Restaurant",
+    "name": "Le Grand Pan",
+    "description": "Bistrot gastronomique parisien. Cuisine française sincère et raffinée, produits de saison.",
+    "url": "https://www.le-grand-pan.com",
+    "telephone": "+33142500250",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "20 Rue Rosenwald",
+      "addressLocality": "Paris",
+      "postalCode": "75015",
+      "addressCountry": "FR"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 48.8330814,
+      "longitude": 2.3057029
+    },
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "12:00",
+        "closes": "14:00"
+      },
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"],
+        "opens": "19:30",
+        "closes": "23:00"
+      }
+    ],
+    "servesCuisine": "French",
+    "priceRange": "€€",
+    "sameAs": [
+      "https://www.instagram.com/restaurant_legrandpan/"
+    ],
+    "image": "https://www.le-grand-pan.com/le-grand-pan-assets/image-footer.webp"
+  }
+  </script>
+
+  <!-- ================================================
+       Fonts — Google Fonts (Geist)
+  ================================================ -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" />
+
+  <style>
+    /* ================================================
+       FONTS — Self-hosted (Bigilla)
+    ================================================ */
+    @font-face {
+      font-family: 'Bigilla';
+      src: url('./le-grand-pan-assets/Bigilla.otf') format('opentype');
+      font-weight: 100 900; /* couvre toutes les graisses → pas de faux gras */
+      font-style: normal;
+      font-display: swap;
+    }
+
+    /* ================================================
+       DESIGN TOKENS
+    ================================================ */
+    :root {
+      /* Palette */
+      --neutral-000: #fbf5ee;
+      --neutral-100: #f7ebdd;
+      --neutral-200: #eed5ba;
+      --neutral-300: #E3B88E;
+      --neutral-600: #c06336;
+      --neutral-700: #9f4e2f;
+      --neutral-900: #683626;
+      --brand-brown: #321D16;
+
+      /* Corner radius */
+      --corner-radius-xs:   4px;
+      --corner-radius-s:    8px;
+      --corner-radius-full: 999999px;
+
+      /* Spacing */
+      --space-8:   8px;
+      --space-12:  12px;
+      --space-20:  20px;
+      --space-32:  32px;
+      --space-40:  40px;
+      --space-48:  48px;
+      --space-64:  64px;
+      --page-pad:  80px;
+
+      /* Typography — families */
+      --font-body:      'Geist', Inter, system-ui, -apple-system, sans-serif;
+      --font-display:   'Bigilla', 'Times New Roman', Georgia, serif;
+      --font-condensed: 'Barlow Semi Condensed', 'Arial Narrow', Arial, sans-serif;
+
+      /* Typography — sizes */
+      --fs-h1: 64px;
+      --fs-h2: 56px;
+      --fs-h3: 48px;
+      --fs-h5: 24px;
+      --fs-h6: 20px;
+      --fs-p1: 18px;
+      --fs-p2: 16px;
+      --fs-p3: 14px;
+      --fs-p4: 12px;
+
+      /* Animations */
+      --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    /* ================================================
+       RESET & BASE
+    ================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Neutralise le gras synthétique des balises h1-h6 sur les polices display */
+    h1, h2, h3, h4, h5, h6 { font-weight: inherit; }
+
+    html, body {
+      background:   var(--neutral-000);
+      color:        var(--brand-brown);
+      font-family:  var(--font-body);
+      font-weight:  400;
+      scroll-behavior: smooth;
+      overflow-x: clip;             /* bloque le débordement horizontal sans casser position:sticky */
+    }
+
+    img { display: block; max-width: 100%; }
+    main {
+      position: relative;
+      z-index: 2;                        /* au-dessus du header (z:0) et du footer (z:0) */
+      background: var(--neutral-000);    /* fond solide — masque le footer jusqu'en bas */
+      margin-bottom: 727px;              /* espace de révélation = hauteur du footer */
+      padding-bottom: 0;
+    }
+
+    /* ================================================
+       REVEAL ANIMATIONS (scroll-triggered)
+    ================================================ */
+
+    /* Base: fade + rise */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Fade only */
+    .reveal--fade {
+      opacity: 0;
+      transition: opacity 800ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Slide from left */
+    .reveal--left {
+      opacity: 0;
+      transform: translateX(-36px);
+      transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Slide from right */
+    .reveal--right {
+      opacity: 0;
+      transform: translateX(36px);
+      transition: opacity 750ms var(--ease-out-expo), transform 750ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Scale up */
+    .reveal--scale {
+      opacity: 0;
+      transform: scale(0.93);
+      transition: opacity 700ms var(--ease-out-expo), transform 700ms var(--ease-out-expo);
+      transition-delay: var(--reveal-delay, 0ms);
+    }
+    /* Visible state — all variants */
+    .reveal.is-visible,
+    .reveal--fade.is-visible,
+    .reveal--left.is-visible,
+    .reveal--right.is-visible,
+    .reveal--scale.is-visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* ================================================
+       LAYOUT — Z-index stack
+       header  z:0  sticky top    → contenu défile par-dessus
+       main    z:2  solid bg      → couvre header (haut) et footer (bas)
+       footer  z:0  fixed bottom  → révélé quand main défile hors du viewport
+    ================================================ */
+    .header {
+      position: sticky !important;
+      top: 0;
+      z-index: 0;
+    }
+    /* Sections — z-index:2 identique à main → stacking interne préservé (photos, overlays…) */
+    .welcome, #menu, #address, .priv, .about {
+      position: relative;
+      z-index: 2;
+    }
+    .welcome {
+      border-radius: 0;
+      box-shadow: 0 -8px 40px rgba(50, 29, 22, 0.13);
+      margin-top: -24px;
+    }
+
+    /* ================================================
+       STICKY NAV
+    ================================================ */
+    .sticky-menu {
+      position: fixed;
+      left: 50%;
+      bottom: 22.49px;
+      transform: translateX(-50%);
+      z-index: 999;
+      background: var(--brand-brown);
+      border-radius: var(--corner-radius-s);
+      padding: 8px 8px 8px 40px;
+      box-shadow: 0px 4px 6px 0px rgba(0, 0, 0, 0.15);
+      display: flex;
+      align-items: center;
+      gap: 40px;
+      overflow: hidden;
+    }
+    .nav-tabs {
+      display: flex;
+      gap: 64px;
+      align-items: center;
+    }
+    .nav-pill {
+      height: 28px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      gap: 4px;
+      text-decoration: none;
+      color: var(--neutral-000);
+      flex-shrink: 0;
+    }
+    .nav-pill span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      text-transform: uppercase;
+      font-weight: 300;
+      line-height: 1.2;
+      font-feature-settings: 'case';
+      white-space: nowrap;
+    }
+    .nav-pill .underline {
+      height: 1px;
+      width: 100%;
+      background: var(--neutral-100);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 240ms ease;
+    }
+    .nav-pill:hover .underline,
+    .nav-pill:focus-visible .underline {
+      transform: scaleX(1);
+    }
+    .nav-cta {
+      height: 48px;
+      background: var(--neutral-600);
+      border-radius: var(--corner-radius-xs);
+      padding: 0 var(--space-20);
+      border: 0;
+      color: var(--neutral-000);
+      font-family: var(--font-body);
+      font-size: var(--fs-p1);
+      text-transform: uppercase;
+      font-weight: 300;
+      cursor: pointer;
+      line-height: 1.2;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 220ms ease, transform 220ms ease, box-shadow 260ms ease;
+    }
+    .nav-cta:hover,
+    .nav-cta:focus-visible {
+      background: #80402c;
+      transform: translateY(-1px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.22);
+      animation: reservePulse 900ms ease-out;
+    }
+    @keyframes reservePulse {
+      0%   { box-shadow: 0 0 0 0 rgba(128, 64, 44, 0.35); }
+      100% { box-shadow: 0 0 0 12px rgba(128, 64, 44, 0); }
+    }
+
+    /* ================================================
+       HEADER (hero)
+    ================================================ */
+    .header {
+      position: relative;
+      background: var(--neutral-000);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 12px 12px;
+      overflow: clip;
+      --hero-progress: 0;
+      z-index: 1;
+    }
+    .header__logo {
+      width: 100%;
+      aspect-ratio: 290.650634765625 / 36.1890983581543;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .header__logo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .header__hero {
+      width: 100%;
+      aspect-ratio: 1416 / 671.6929321289062;
+      position: relative;
+      flex-shrink: 0;
+      overflow: hidden;
+      isolation: isolate;
+    }
+    .header__hero img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+      transform: translate3d(0, calc(var(--hero-progress) * -90px), 0)
+                 scale(calc(1 + (var(--hero-progress) * 0.16)));
+      transform-origin: center center;
+      will-change: transform;
+    }
+    .header__hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(
+        to bottom,
+        rgba(20, 10, 6, 0) 35%,
+        rgba(20, 10, 6, calc(var(--hero-progress) * 0.28)) 100%
+      );
+    }
+
+    /* ================================================
+       ALERT (popover notification)
+    ================================================ */
+    .alert {
+      position: fixed;
+      right: 34px;
+      bottom: 22.49px;
+      width: 310px;
+      background: var(--neutral-200);
+      padding: 48px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      align-items: center;
+      overflow: hidden;
+      z-index: 1000;
+    }
+    .alert__close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      outline: none;
+      padding: 0;
+    }
+    .alert__close img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      transition: transform 500ms cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .alert__close:hover img,
+    .alert__close:focus-visible img {
+      transform: rotate(360deg);
+    }
+    .alert__brandRow {
+      display: flex;
+      flex-direction: column;
+      gap: 13.707px;
+      align-items: center;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .alert__brandLogo {
+      width: 200px;
+      aspect-ratio: 270 / 50.488;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .alert__brandLogo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .alert__loc {
+      display: flex;
+      align-items: center;
+      gap: 8.567px;
+      height: 15.222px;
+      flex-shrink: 0;
+    }
+    .alert__locText {
+      font-family: var(--font-condensed);
+      font-weight: 500;
+      font-size: 10.28px;
+      letter-spacing: 1.028px;
+      text-transform: uppercase;
+      color: var(--brand-brown);
+      line-height: normal;
+      white-space: nowrap;
+    }
+    .alert__locSep {
+      width: 2.331px;
+      height: 2.403px;
+      display: block;
+      flex-shrink: 0;
+    }
+    .alert__lineWrap {
+      width: 167px;
+      height: 1px;
+      border-top: 1.5px dashed var(--brand-brown);
+      opacity: 0.4;
+      flex-shrink: 0;
+    }
+    .alert__text {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      color: var(--neutral-900);
+      text-transform: uppercase;
+      text-align: center;
+      line-height: 1.2;
+      font-weight: 400;
+      flex-shrink: 0;
+    }
+    .alert__list {
+      width: 197px;
+      text-align: center;
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      color: var(--neutral-900);
+      flex-shrink: 0;
+    }
+    .alert__list p {
+      margin: 0;
+      line-height: 1.3;
+      font-size: var(--fs-p2);
+    }
+    .alert__cta {
+      height: 40px;
+      background: var(--neutral-100);
+      border-radius: var(--corner-radius-xs);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 24px;
+      cursor: pointer;
+      align-self: center;
+      flex-shrink: 0;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .alert__cta:hover  { background: var(--neutral-300); transform: translateY(-1px); }
+    .alert__cta:active { transform: translateY(0); }
+    .alert__cta span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p3);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1.2;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+
+    /* Alert reopen button ("+") */
+    .alert__reopen {
+      position: fixed;
+      right: 0;
+      bottom: 80px;
+      width: 56px;
+      height: 56px;
+      background: var(--neutral-200);
+      border-radius: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 1000;
+      box-shadow: -4px 4px 16px rgba(35, 24, 20, 0.12);
+      border: none;
+      outline: none;
+      transition: background 0.22s ease, transform 0.2s ease, box-shadow 0.22s ease;
+    }
+    .alert__reopen.is-visible { display: flex; }
+    .alert__reopen:hover {
+      background: var(--neutral-300);
+      transform: translateY(-4px);
+      box-shadow: -6px 4px 20px rgba(0, 0, 0, 0.18);
+    }
+    .alert__reopen:active { transform: translateX(-2px); }
+    .alert__reopen svg { transition: transform 0.3s ease; }
+    .alert__reopen:hover svg { transform: rotate(90deg); }
+
+    /* ================================================
+       WELCOME SECTION
+    ================================================ */
+    .welcome {
+      background: var(--neutral-000);
+      padding: calc(var(--page-pad) + 80px) var(--page-pad) var(--page-pad);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 80px;
+      overflow: hidden;
+      min-height: 1098px;
+      justify-content: center;
+      margin-top: -30px;
+      position: relative;
+      z-index: 10;
+    }
+    .welcome__heading {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      line-height: 1;
+      font-size: var(--fs-h1);
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      width: 634px;
+      max-width: 90vw;
+      flex-shrink: 0;
+    }
+    .welcome__heading .line1 { color: var(--neutral-700); }
+    .welcome__heading .line2 { color: var(--brand-brown); }
+    .welcome__text {
+      max-width: 634px;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+      text-align: center;
+      color: var(--brand-brown);
+      flex-shrink: 0;
+    }
+    .welcome__text .subtitle {
+      font-size: var(--fs-h6);
+      text-transform: uppercase;
+      font-weight: 300;
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .welcome__text .body-p {
+      font-size: var(--fs-p1);
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .welcome__media {
+      position: relative;
+      padding-bottom: 86px;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      width: min(900px, 92vw);
+      flex-shrink: 0;
+    }
+    /* Skewed photo wrapper — clips parallax overflow */
+    .welcome__photoWrap {
+      transform: skewX(0.34deg);
+      width: min(800px, 100%);
+      height: 343.75px;
+      overflow: hidden;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 0;
+    }
+    .welcome__photo {
+      width: 100%;
+      height: calc(100% + 80px);
+      object-fit: cover;
+      display: block;
+      transform: translateY(var(--px-welcome, -40px));
+      will-change: transform;
+    }
+    .welcome__stamp {
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      width: 231.767px;
+      height: 171.556px;
+      transform: translate(-50%, -160px) rotate(7.32deg);
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1;
+    }
+    .welcome__stamp img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* ================================================
+       MENU SECTION
+    ================================================ */
+    .menuPage {
+      background: var(--neutral-100);
+      padding: var(--page-pad);
+      display: flex;
+      gap: 80px;
+      align-items: stretch;
+      justify-content: center;
+      overflow: hidden;
+    }
+    /* Left column: giant MENU word + photo */
+    .menuPage__left {
+      flex: 0 0 auto;
+      width: clamp(300px, 44vw, 634px);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      align-self: stretch;
+      padding-bottom: 48px;
+      position: relative;
+    }
+    .menuPage__wordWrap {
+      align-self: center;
+      margin-left: 0;
+      /* Compensate line-height:0.6 visual overflow: (1 - 0.6) / 2 × fontSize */
+      margin-top: clamp(24px, 4vw, 60px);
+      margin-bottom: -96px;
+      position: relative;
+      z-index: 0;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .menuPage__word {
+      font-family: var(--font-display);
+      font-size: clamp(120px, 20vw, 300px);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 0.6;
+      white-space: nowrap;
+    }
+    .menuPage__imgWrap {
+      transform: skewX(0.34deg);
+      width: 400px;
+      max-width: 100%;
+      height: 550px;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 1;
+      overflow: hidden;
+    }
+    .menuPage__imgWrap img {
+      width: 100%;
+      height: calc(100% + 80px);
+      object-fit: cover;
+      display: block;
+      transform: translateY(var(--px-menu, -40px));
+      will-change: transform;
+    }
+    /* Right: two columns side-by-side */
+    .menuCols {
+      flex: 1 1 auto;
+      display: flex;
+      gap: 80px;
+      align-items: flex-start;
+      min-width: 0;
+    }
+    .menuCol {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-64);
+    }
+    .menuCol__titleRow {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .menuCol__title {
+      font-family: var(--font-body);
+      font-weight: 300;
+      text-transform: uppercase;
+      font-size: var(--fs-h3);
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .menuCol__rule {
+      height: 1px;
+      width: 100%;
+      border-top: 1px dotted var(--neutral-900);
+      opacity: 0.8;
+      flex-shrink: 0;
+    }
+    .menuBlock {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .menuBlock__heading {
+      font-size: var(--fs-p1);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+    .menuBlock__text {
+      font-size: var(--fs-p2);
+      line-height: 1.3;
+      color: var(--brand-brown);
+    }
+    .formulasWrap {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+    .formulaRow {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      white-space: nowrap;
+      font-size: var(--fs-p2);
+      color: var(--brand-brown);
+      line-height: 1.3;
+    }
+    .menuList {
+      padding-left: 24px;
+      color: var(--brand-brown);
+      font-size: var(--fs-p2);
+      line-height: 1.3;
+      list-style: disc;
+    }
+
+    /* ================================================
+       PHOTO SLIDER
+    ================================================ */
+    .photoSlider {
+      position: relative;
+      z-index: 2;
+      height: 800px;
+      overflow-x: auto;
+      overflow-y: clip;
+      display: flex;
+      align-items: stretch;
+      scrollbar-width: none;       /* Firefox — barre invisible */
+      -ms-overflow-style: none;    /* IE / Edge */
+      width: 100%;
+      cursor: grab;
+    }
+    .photoSlider::-webkit-scrollbar { display: none; } /* Chrome / Safari */
+    .photoSlider:active { cursor: grabbing; }
+    .photoSlide {
+      flex: 0 0 auto;
+      height: 800px;
+      position: relative;
+      overflow: hidden;
+    }
+    .photoSlide img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+    }
+
+    /* ================================================
+       INFOS SECTION (Adresse / Horaires / Téléphone)
+    ================================================ */
+    .infos {
+      background: var(--neutral-000);
+      padding: var(--page-pad);
+      display: flex;
+      flex-direction: column;
+      gap: 48px;
+      align-items: center;
+      overflow: hidden;
+      justify-content: center;
+    }
+    .infos__titleRow {
+      width: min(970px, 92vw);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .infos__logo {
+      width: 400px;
+      max-width: 80vw;
+      flex-shrink: 0;
+    }
+    .infos__logo img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .infos__locRow {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      height: 35px;
+      flex-shrink: 0;
+    }
+    .infos__locBig {
+      font-family: var(--font-condensed);
+      font-size: 24px;
+      letter-spacing: 2.4px;
+      text-transform: uppercase;
+      color: var(--neutral-900);
+      white-space: nowrap;
+      font-weight: 500;
+      line-height: normal;
+    }
+    .infos__locDot { width: 5.526px; height: 5.526px; display: block; }
+    /* "Nous sommes ouvert" bar */
+    .openBar {
+      border-top: 1px dashed var(--neutral-900);
+      border-bottom: 1px dashed var(--neutral-900);
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+      padding: var(--space-12) 12px;
+      width: 100%;
+      flex-shrink: 0;
+    }
+    .openBar__left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .openBar p {
+      font-size: var(--fs-p1);
+      color: var(--brand-brown);
+      white-space: nowrap;
+      line-height: 1.2;
+      font-weight: 400;
+    }
+    .openBar img { width: 20px; height: 20px; object-fit: contain; display: block; flex-shrink: 0; }
+    /* Réserver button */
+    .infos__reserverBtn {
+      height: 48px;
+      background: var(--neutral-600);
+      color: var(--neutral-000);
+      border: none;
+      border-radius: var(--corner-radius-xs);
+      padding: 0 24px;
+      font-size: var(--fs-p3);
+      font-family: var(--font-body);
+      font-weight: 300;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      white-space: nowrap;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .infos__reserverBtn:hover  { background: #6a3424; transform: translateY(-1px); }
+    .infos__reserverBtn:active { background: #5a2b1e; transform: translateY(0); }
+    /* Info cards grid */
+    .infoGrid {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      width: 100%;
+      min-height: 244px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .infoCard {
+      flex: 0 0 320px;
+      max-width: 320px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--space-32);
+      text-align: center;
+      height: 244px;
+      justify-content: center;
+    }
+    .infoCard--address { gap: var(--space-20); }
+    .infoCard h4 {
+      font-size: var(--fs-h6);
+      text-transform: uppercase;
+      font-weight: 300;
+      color: var(--neutral-700);
+      line-height: 1.2;
+    }
+    .infoCard .small {
+      font-size: var(--fs-p1);
+      color: var(--brand-brown);
+      line-height: 1.2;
+      text-align: center;
+    }
+    .infoCard .big {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      text-transform: uppercase;
+      line-height: 1;
+      color: var(--brand-brown);
+      font-weight: 300;
+      text-align: center;
+    }
+    /* Chip buttons (Google Map, Appeler…) */
+    .chipBtn {
+      height: 40px;
+      background: var(--neutral-100);
+      border-radius: var(--corner-radius-xs);
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .chipBtn span {
+      font-size: var(--fs-p3);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      font-weight: 300;
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+    .chipBtn img  { width: 20px; height: 20px; object-fit: contain; display: block; }
+    .chipBtn:hover  { background: var(--neutral-200); transform: translateY(-1px); }
+    .chipBtn:active { background: var(--neutral-300); transform: translateY(0); }
+
+    /* ================================================
+       PRIVATISATION & PIENNOLO
+    ================================================ */
+    .priv {
+      background: var(--neutral-700);
+      padding: 12px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    .privPanel {
+      flex: 1 1 0;
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      position: relative;
+    }
+    .privPanel__imgBox {
+      height: 400px;
+      width: 100%;
+      position: relative;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .privPanel__imgBox img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+    }
+    .privPanel__logoOverlay {
+      position: absolute;
+      top: 18.88px;
+      left: 15px;
+      width: 117.973px;
+      height: 43px;
+      pointer-events: none;
+      z-index: 2;
+    }
+    .privPanel__logoOverlay img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .privPanel__content {
+      padding: 20px 80px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .privPanel__dividerWrap {
+      width: 80px;
+      height: 1px;
+      align-self: center;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+    }
+    .privPanel__kicker {
+      font-family: var(--font-body);
+      font-size: var(--fs-p4);
+      text-transform: uppercase;
+      color: var(--neutral-200);
+      line-height: 1.2;
+      font-weight: 400;
+    }
+    .privPanel__title {
+      font-family: var(--font-display);
+      font-size: var(--fs-h2);
+      text-transform: uppercase;
+      color: var(--neutral-100);
+      line-height: 1;
+      text-align: center;
+      font-weight: 700;
+    }
+    .privPanel__desc {
+      font-family: var(--font-body);
+      font-size: var(--fs-p2);
+      color: var(--neutral-100);
+      line-height: 1.3;
+      text-align: center;
+      max-width: 500px;
+      font-weight: 300;
+    }
+    .privPanel__cta {
+      height: 40px;
+      background: var(--neutral-100);
+      border-radius: var(--corner-radius-xs);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 0 20px;
+      cursor: pointer;
+      flex-shrink: 0;
+      border: none;
+      text-decoration: none;
+      color: inherit;
+      transition: background 0.2s ease, transform 0.15s ease;
+    }
+    .privPanel__cta:hover  { background: var(--neutral-200); transform: translateY(-1px); }
+    .privPanel__cta:active { background: #dfc4a5; transform: translateY(0); }
+    .privPanel__cta span {
+      font-family: var(--font-body);
+      font-size: var(--fs-p3);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+    /* Divider between panels */
+    .priv__vdivider {
+      align-self: stretch;
+      flex-shrink: 0;
+      width: 1px;
+      border-left: 1px dashed var(--neutral-200);
+    }
+
+    /* ================================================
+       ABOUT / CHEF SECTION
+    ================================================ */
+    .about {
+      background: var(--neutral-000);
+      padding: var(--page-pad);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 80px;
+      overflow: hidden;
+    }
+    .about__media {
+      flex: 0 0 auto;
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      padding-right: 200px;
+    }
+    .about__photoWrap {
+      transform: rotate(-4.49deg);
+      border: 1px solid var(--neutral-700);
+      border-radius: 3000px;
+      padding: 20px;
+      display: flex;
+      margin-right: -200px;
+      flex-shrink: 0;
+    }
+    .about__photo {
+      width: 490px;
+      height: 600px;
+      border-radius: 300px;
+      object-fit: cover;
+      pointer-events: none;
+      display: block;
+    }
+    .about__stampWrap {
+      position: relative;
+      flex-shrink: 0;
+      width: 264px;
+      height: 385px;
+      margin-right: -200px;
+      pointer-events: none;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding-bottom: 52px;
+      padding-top: 12px;
+      transform: rotate(7.83deg);
+    }
+    .about__stampWrap img { display: block; }
+    .about__stampStar {
+      width: 140px;
+      height: 140px;
+      margin-bottom: -40px;
+      object-fit: contain;
+      transform: rotate(7.32deg) translateY(var(--px-star, 0px));
+      will-change: transform;
+      flex-shrink: 0;
+      position: relative;
+      z-index: 0;
+    }
+    .about__stampEllipse {
+      width: 218px;
+      height: 218px;
+      object-fit: contain;
+      flex-shrink: 0;
+      transform: translateY(var(--px-plate, 0px));
+      will-change: transform;
+      position: relative;
+      z-index: 1;
+    }
+    .about__text {
+      flex: 0 0 auto;
+      width: 621px;
+      max-width: 48vw;
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-32);
+    }
+    .about__textInner {
+      display: flex;
+      flex-direction: column;
+      gap: 40px;
+    }
+    .about__kicker {
+      font-family: var(--font-body);
+      font-weight: 300;
+      font-size: var(--fs-p2);
+      text-transform: uppercase;
+      color: var(--neutral-700);
+      line-height: 1.2;
+    }
+    .about__body p {
+      font-size: var(--fs-p2);
+      line-height: 1.2;
+      color: var(--brand-brown);
+    }
+    .about__body p + p { margin-top: 1em; }
+    .about__signatureWrap {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+    }
+    .about__signature {
+      transform: rotate(-5.17deg);
+      width: 252px;
+      height: 80px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* ================================================
+       FOLLOW / FOOTER SECTION
+    ================================================ */
+    .follow {
+      position: fixed;      /* fixé en bas du viewport — derrière main (z-index:0 < z-index:2) */
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      z-index: 0;
+      height: 727px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+    }
+    .follow__bgWrap {
+      position: absolute;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+    }
+    .follow__bg {
+      width: 100%;
+      height: calc(100% + 120px);
+      margin-top: -60px;
+      object-fit: cover;
+      display: block;
+      transform: translateY(var(--px-footer, 0px));
+      will-change: transform;
+    }
+    .follow__gradient { display: none; }
+    .follow__content {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .follow__titleRow {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 32px;
+    }
+    .follow__title {
+      font-family: var(--font-display);
+      text-transform: uppercase;
+      color: var(--neutral-000);
+      font-size: var(--fs-h1);
+      line-height: 1;
+      text-align: center;
+      font-weight: 700;
+    }
+    .follow__cta {
+      background: var(--neutral-600);
+      border-radius: var(--corner-radius-full);
+      padding: var(--space-20);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      flex-shrink: 0;
+      text-decoration: none;
+      transition: background 0.25s ease, transform 0.2s ease, box-shadow 0.25s ease;
+    }
+    .follow__cta:hover {
+      background: var(--neutral-300);
+      transform: scale(1.1);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
+    }
+    .follow__footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 40px;
+      height: 74px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .follow__footerLogo {
+      width: 195px;
+      height: 24.914px;
+      position: relative;
+      flex-shrink: 0;
+    }
+    .follow__footerLogo img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .follow__footerLinks {
+      display: flex;
+      gap: 40px;
+      font-family: var(--font-body);
+      font-size: var(--fs-p4);
+      color: var(--neutral-100);
+      white-space: nowrap;
+      line-height: 1.2;
+    }
+    .follow__footerLinks a {
+      color: var(--neutral-100);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .follow__footerLinks a::after {
+      content: '';
+      height: 1px;
+      background: var(--neutral-100);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 240ms ease;
+    }
+    .follow__footerLinks a:hover::after { transform: scaleX(1); }
+
+    /* ================================================
+       RESPONSIVE — Tablette (≤ 1100px)
+    ================================================ */
+    @media (max-width: 1100px) {
+      :root { --page-pad: 40px; }
+
+      .menuPage       { flex-direction: column; }
+      .menuPage__left { max-width: 100%; width: 100%; align-items: center; }
+      .menuPage__wordWrap { margin-left: 0; }
+      .menuPage__imgWrap  { width: min(400px, 90vw); height: auto; aspect-ratio: 400/550; }
+      .menuCols { flex-wrap: wrap; }
+      .menuCol  { min-width: 280px; }
+
+      .about { flex-direction: column; }
+      .about__media { padding-right: 0; position: relative; }
+      .about__photoWrap { margin-right: 0; }
+      .about__stampWrap {
+        position: absolute;
+        bottom: 0;
+        right: -20px;
+        margin-right: 0;
+        transform: rotate(7.83deg);
+        width: 200px;
+        height: 300px;
+        padding-bottom: 30px;
+        padding-top: 8px;
+      }
+      .about__text { max-width: 100%; width: 100%; }
+
+      .infoGrid { flex-direction: column; min-height: auto; }
+      .infoCard { max-width: 100%; flex: 1 1 auto; height: auto; }
+
+      .priv { flex-direction: column; align-items: center; }
+      .priv__vdivider {
+        width: 100%;
+        height: 0;
+        align-self: auto;
+        border-left: none;
+        border-top: 1px dashed var(--neutral-200);
+      }
+      .privPanel { width: 100%; max-width: 700px; }
+      .privPanel__content { padding: 20px 24px; }
+    }
+
+    /* ================================================
+       RESPONSIVE — Tablette (769px – 1200px)
+       Signature : passage en colonne pour éviter le contenu coupé
+    ================================================ */
+    @media (min-width: 769px) and (max-width: 1560px) {
+      .about {
+        flex-direction: column;
+        align-items: center;
+        overflow: visible;
+        gap: 48px;
+      }
+      .about__media {
+        padding-right: 200px;       /* garde l'espace pour le stamp */
+      }
+      .about__text {
+        width: 100%;
+        max-width: 640px;
+      }
+    }
+
+    /* ================================================
+       RESPONSIVE — Mobile (≤ 768px)
+    ================================================ */
+    @media (max-width: 768px) {
+      :root { --page-pad: 24px; }
+
+      /* Header hero plein écran mobile */
+      .header__hero {
+        aspect-ratio: unset;
+        height: calc(100dvh - 64px);
+      }
+      .welcome           { min-height: auto; gap: 40px; }
+      .welcome__heading  { font-size: 48px; }
+      .welcome__photoWrap { height: 220px; }
+      .welcome__stamp {
+        width: 150px;
+        height: 111px;
+        top: auto;                             /* annule top:100% du desktop */
+        bottom: 40px;                          /* −8px + 48px = 40px */
+        left: 50%;
+        transform: translate(-50%, 0) rotate(7.32deg);
+      }
+
+      /* ── Menu section — espacements maquette Figma ── */
+      .menuPage {
+        padding: 80px 12px;       /* py:80 px:12 — Figma */
+        gap: 48px;                /* espace image ↔ colonnes */
+      }
+      .menuPage__left    { padding-bottom: 32px; }
+      .menuPage__wordWrap {
+        margin-top: 0;
+        margin-bottom: -32px;     /* chevauchement mot/image — Figma mb:-32 */
+      }
+      .menuPage__word    { font-size: clamp(80px, 22vw, 164px); }
+      .menuPage__imgWrap {
+        width: 100%;              /* pleine largeur — Figma */
+        max-width: none;
+      }
+      .menuCols {
+        flex-direction: column;   /* Midi puis Soir empilés */
+        gap: 32px;                /* gap colonnes — Figma */
+      }
+      .menuCol {
+        gap: 32px;                /* gap blocs internes — Figma */
+        min-width: 0;
+      }
+
+      .photoSlider {
+        height: 500px;
+        align-items: stretch;
+        overflow-y: clip;
+      }
+      .photoSlide {
+        height: 550px;
+        width: 80vw !important;
+      }
+      .photoSlide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .infos__logo       { width: min(300px, 80vw); }
+      .infoCard .big     { font-size: 36px; }
+      .openBar           { flex-direction: column; align-items: flex-start; gap: 16px; padding: 16px; }
+      .openBar__left     { width: 100%; }
+      .infos__reserverBtn { width: 100%; justify-content: center; }
+      .infoGrid          { flex-direction: column; align-items: center; gap: 32px; min-height: auto; }
+      .infoCard          { max-width: 100%; flex: 1 1 auto; height: auto; width: 100%; }
+
+      .alert             { right: 8px; bottom: 140px; width: min(310px, calc(100vw - 16px)); padding: 32px 20px; }
+      .alert__reopen     { bottom: 144px; }  /* 80px base + 64px = 144px */
+
+      /* ── Footer mobile — plein écran, safe area iOS ── */
+      .follow {
+        height: 100dvh;                              /* plein écran dynamique */
+        /* pas de padding-bottom ici → la photo s'étend derrière la barre du navigateur */
+      }
+      main { margin-bottom: 100dvh; }               /* scroll space = hauteur footer */
+
+      .follow__footer {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        height: auto;
+        /* padding-bottom : sticky nav (≈64px) + offset (2px) + safe area iOS */
+        padding: 40px 12px calc(90px + env(safe-area-inset-bottom));
+        gap: 20px;
+        overflow: visible;
+      }
+      /* Logo : on garde position: relative (base CSS) — l'img absolue reste visible */
+      .follow__footerLogo {
+        width: 195px;
+        height: 24.914px;
+        flex-shrink: 0;
+      }
+      .follow__footerLinks {
+        flex-wrap: wrap;
+        justify-content: space-between;   /* Figma: justify-between */
+        gap: 12px 0;
+        white-space: normal;
+        width: 100%;
+      }
+
+      .sticky-menu       { bottom: 2px; }          /* redescendu de 20px vs desktop (22px→2px) */
+      .nav-tabs          { gap: 28px; }
+      .nav-pill span     { font-size: 14px; }
+      .nav-cta           { height: 44px; padding: 0 14px; font-size: 14px; }
+
+      .privPanel__content { padding: 20px; }
+      /* Images ratio naturel sur mobile */
+      .privPanel__imgBox     { height: auto; }
+      .privPanel__imgBox img { position: static; width: 100%; height: auto; inset: auto; object-fit: unset; }
+
+      .about__photo        { width: 300px; height: 366px; }
+      .about__photoWrap    { padding: 8px; }          /* contour plus proche — 8px */
+      .about__stampWrap    { width: 110px; height: 160px; padding-bottom: 16px; }
+      .about__stampStar    { width: 70px; height: 70px; margin-bottom: -24px; }
+      .about__stampEllipse { width: 105px; height: 105px; }
+    }
+  </style>
 </head>
 <body>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+
+  <!-- ================================================
+       STICKY NAV
+  ================================================ -->
+  <nav class="sticky-menu" aria-label="Navigation principale">
+    <div class="nav-tabs">
+      <a class="nav-pill" href="#menu">
+        <span>Menu</span>
+        <div class="underline" aria-hidden="true"></div>
+      </a>
+      <a class="nav-pill" href="#address">
+        <span>Adresse</span>
+        <div class="underline" aria-hidden="true"></div>
+      </a>
+    </div>
+    <a class="nav-cta"
+       href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
+       target="_blank" rel="noopener noreferrer">
+      Réserver
+    </a>
+  </nav>
+
+  <main id="top">
+
+    <!-- ================================================
+         HEADER — Logo + Photo hero
+    ================================================ -->
+    <header class="header">
+      <div class="header__logo">
+        <img alt="Le Grand Pan" src="./le-grand-pan-assets/title.svg" />
+      </div>
+      <div class="header__hero">
+        <picture>
+          <source id="hero-img-mobile" media="(max-width: 768px)" srcset="./le-grand-pan-assets/Img-header-mobile.webp" />
+          <img id="hero-img" alt="Vue du restaurant Le Grand Pan" src="./le-grand-pan-assets/Img-header-2.webp" />
+        </picture>
+      </div>
+    </header>
+
+    <!-- ================================================
+         BIENVENUE
+    ================================================ -->
+    <section class="welcome" aria-label="Bienvenue">
+      <h1 class="welcome__heading reveal" data-delay="0">
+        <span id="welcome-line1" class="line1">bienvenue</span>
+        <span id="welcome-line2" class="line2">a table</span>
+      </h1>
+      <div class="welcome__text reveal" data-delay="120">
+        <p id="welcome-subtitle" class="subtitle">Au Grand Pan, la gastronomie française <br />se vit et se partage.</p>
+        <p id="welcome-body" class="body-p">Des produits de saison, une cuisine sincère et raffinée, <br />où chaque assiette raconte une histoire de goût.</p>
+      </div>
+      <div class="welcome__media reveal--scale" data-delay="200">
+        <div class="welcome__photoWrap">
+          <img id="welcome-photo" class="welcome__photo" alt="Plat du restaurant Le Grand Pan" src="./le-grand-pan-assets/Image-bienvenue-2.webp" />
+        </div>
+        <div class="welcome__stamp" aria-hidden="true">
+          <img alt="" src="./le-grand-pan-assets/Stamp.svg" />
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         MENU
+    ================================================ -->
+    <section id="menu" class="menuPage" aria-label="Notre menu">
+      <!-- Colonne gauche : mot MENU + photo -->
+      <div class="menuPage__left">
+        <div class="menuPage__wordWrap reveal--left" data-delay="0">
+          <div class="menuPage__word" aria-hidden="true">menu</div>
+        </div>
+        <div class="menuPage__imgWrap reveal--scale" data-delay="100">
+          <img id="menu-photo" alt="Plat signature du Grand Pan" src="./le-grand-pan-assets/Image-menu.webp" />
+        </div>
+      </div>
+
+      <!-- Colonnes droite : Midi + Soir -->
+      <div class="menuCols">
+        <!-- MIDI -->
+        <div class="menuCol reveal" data-delay="0">
+          <div class="menuCol__titleRow">
+            <h2 class="menuCol__title">Midi</h2>
+            <div class="menuCol__rule" aria-hidden="true"></div>
+          </div>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Formules</h3>
+            <div id="menu-formules" class="formulasWrap">
+              <div class="formulaRow"><span>Entrée + Plat</span><span>— 25€</span></div>
+              <div class="formulaRow"><span>Plat + dessert</span><span>— 26€</span></div>
+              <div class="formulaRow"><span>Entrée + Plat + dessert</span><span>— 34€</span></div>
+            </div>
+          </div>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Suggestion du chef</h3>
+            <p id="menu-midi-suggestion" class="menuBlock__text">Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
+          </div>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Les classiques</h3>
+            <ul id="menu-midi-classiques" class="menuList">
+              <li>Côte de veau</li>
+              <li>Côte de boeuf</li>
+              <li>Côte de porc</li>
+              <li>Saint-Jaques en hiver</li>
+              <li>Homard en été</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- SOIR -->
+        <div class="menuCol reveal" data-delay="150">
+          <div class="menuCol__titleRow">
+            <h2 class="menuCol__title">Soir</h2>
+            <div class="menuCol__rule" aria-hidden="true"></div>
+          </div>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Suggestion du chef</h3>
+            <p id="menu-soir-suggestion" class="menuBlock__text">Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
+          </div>
+          <div class="menuBlock">
+            <h3 class="menuBlock__heading">Les classiques</h3>
+            <ul id="menu-soir-classiques" class="menuList">
+              <li>Côte de veau</li>
+              <li>Côte de boeuf</li>
+              <li>Côte de porc</li>
+              <li>Saint-Jaques en hiver</li>
+              <li>Homard en été</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         GALERIE PHOTOS (slider)
+    ================================================ -->
+    <div id="photo-slider" class="photoSlider" role="region" aria-label="Galerie photos">
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-1.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-2.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-3.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-4.webp" /></div>
+      <div class="photoSlide" style="width:530px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-5.webp" /></div>
+      <div class="photoSlide" style="width:640px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-6.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-7.webp" /></div>
+      <div class="photoSlide" style="width:640px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-8.webp" /></div>
+      <div class="photoSlide" style="width:570px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-9.webp" /></div>
+      <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-10.webp" /></div>
+      <div class="photoSlide" style="width:640px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-11.webp" /></div>
+    </div>
+
+    <!-- ================================================
+         INFOS — Horaires / Adresse / Téléphone
+    ================================================ -->
+    <section class="infos" id="address" aria-label="Informations pratiques">
+      <div class="infos__titleRow reveal" data-delay="0">
+        <div class="infos__logo">
+          <img alt="Le Grand Pan" src="./le-grand-pan-assets/Logo.svg" />
+        </div>
+      </div>
+
+      <div class="openBar reveal" data-delay="100">
+        <div class="openBar__left">
+          <img alt="" src="./le-grand-pan-assets/clock.svg" aria-hidden="true" />
+          <p id="infos-statut">Nous sommes ouvert !</p>
+        </div>
+        <a class="infos__reserverBtn"
+           href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
+           target="_blank" rel="noopener noreferrer">
+          Réserver
+        </a>
+      </div>
+      <div class="infoGrid">
+        <!-- Horaires -->
+        <div class="infoCard reveal" data-delay="0">
+          <h3 class="infoCard-title" style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Heures d'ouverture</h3>
+          <div style="display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;">
+            <p id="infos-horaires-jours" class="small">Lun - Ven</p>
+            <div id="infos-horaires-heures" class="big">12h-14h/<br>19h30-23h</div>
+          </div>
+          <p id="infos-horaires-weekend" class="small">Dim-Samedi - Fermé</p>
+        </div>
+
+        <!-- Adresse -->
+        <div class="infoCard infoCard--address reveal" data-delay="120">
+          <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Adresse</h3>
+          <address style="font-style:normal;">
+            <p id="infos-adresse" class="small">20 Rue Rosenwald<br />75015 Paris</p>
+          </address>
+          <a class="chipBtn"
+             href="https://www.google.com/maps/place/Le+Grand+Pan/@48.8330814,2.303128,16z/data=!3m1!4b1!4m6!3m5!1s0x47e670468b32e705:0xfef30b10e3f3dbfe!8m2!3d48.8330814!4d2.3057029!16s%2Fg%2F1vxcvqxn?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D"
+             target="_blank" rel="noopener noreferrer" aria-label="Ouvrir dans Google Maps">
+            <span>Google Map</span>
+            <img alt="" src="./le-grand-pan-assets/MapPin.svg" aria-hidden="true" />
+          </a>
+        </div>
+
+        <!-- Téléphone -->
+        <div class="infoCard reveal" data-delay="240">
+          <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Téléphone</h3>
+          <div id="infos-tel" class="big" style="pointer-events:none;-webkit-user-select:none;user-select:none;">01 42 50 02 50</div>
+          <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
+            <span>Appeler</span>
+            <img alt="" src="./le-grand-pan-assets/Chevron.svg" aria-hidden="true" />
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================================================
+         PRIVATISATION & PIENNOLO
+    ================================================ -->
+    <section class="priv" aria-label="Privatisation et Piennolo">
+
+      <!-- Panneau gauche : La Suite / Privatisation -->
+      <article class="privPanel reveal--left" data-delay="0">
+        <div class="privPanel__imgBox">
+          <img id="lasuite-img" alt="La Suite — salle privatisable" src="./le-grand-pan-assets/img-lasuite.webp" />
+          <div class="privPanel__logoOverlay" aria-hidden="true">
+            <img alt="La Suite" src="./le-grand-pan-assets/logo-lasuite.svg" style="object-fit:contain;width:100%;height:100%;" />
+          </div>
+        </div>
+        <div class="privPanel__content">
+          <div class="privPanel__dividerWrap" aria-hidden="true">
+            <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
+          </div>
+          <p id="lasuite-kicker" class="privPanel__kicker">Salle privée</p>
+          <h2 id="lasuite-titre" class="privPanel__title">Privatisation &amp; réservation</h2>
+          <p id="lasuite-desc" class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
+          <a id="lasuite-cta" class="privPanel__cta" href="mailto:contact@legrandpan.fr" aria-label="Privatiser — envoyer un email">
+            <span id="lasuite-cta-label">Privatiser</span>
+          </a>
+        </div>
+      </article>
+
+      <div class="priv__vdivider" aria-hidden="true"></div>
+
+      <!-- Panneau droit : Piennolo -->
+      <article class="privPanel reveal--right" data-delay="100">
+        <div class="privPanel__imgBox">
+          <img id="piennolo-img" alt="Piennolo — pizzeria italienne" src="./le-grand-pan-assets/image-piennolo.webp" />
+          <div style="position:absolute;top:18px;left:10px;width:72px;height:72px;padding:8.64px;display:flex;align-items:center;justify-content:center;z-index:2;" aria-hidden="true">
+            <img alt="Piennolo" src="./le-grand-pan-assets/logo-piennolo.svg" style="width:49.239px;height:57.604px;object-fit:contain;display:block;" />
+          </div>
+        </div>
+        <div class="privPanel__content">
+          <div class="privPanel__dividerWrap" aria-hidden="true">
+            <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
+          </div>
+          <p id="piennolo-kicker" class="privPanel__kicker">Pizzeria</p>
+          <h2 id="piennolo-titre" class="privPanel__title">Piennolo</h2>
+          <p id="piennolo-desc" class="privPanel__desc">Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.</p>
+          <a id="piennolo-cta" class="privPanel__cta" href="./le-grand-pan-assets/Menu-piennolo.pdf" target="_blank" rel="noopener noreferrer">
+            <span id="piennolo-cta-label">Découvrir la carte</span>
+          </a>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- ================================================
+         ABOUT / CHEF SECTION
+    ================================================ -->
+    <section class="about" aria-label="Notre histoire">
+      <!-- Photo portrait -->
+      <div class="about__media reveal--left" data-delay="0">
+        <div class="about__photoWrap">
+          <img class="about__photo" alt="Benoît Gauthier, chef du Grand Pan" src="./le-grand-pan-assets/img-restaurateurs.webp" />
+        </div>
+        <div class="about__stampWrap" aria-hidden="true">
+          <img class="about__stampStar" alt="" src="./le-grand-pan-assets/Star-1.webp" />
+          <img class="about__stampEllipse" alt="" src="./le-grand-pan-assets/plate.webp" />
+        </div>
+      </div>
+
+      <!-- Biographie -->
+      <div class="about__text reveal--right" data-delay="120">
+        <div class="about__textInner">
+          <p class="about__kicker">Un parcours, une passion</p>
+          <div class="about__body">
+            <p>Après avoir grandi à Brive auprès de parents bouchers, Benoît Gauthier s'est alors orienté vers la cuisine en partant en école hôtelière à Souillac pour se former. Grand bien lui a pris !</p>
+            <p>Quelques années et quelques restaurants plus tard, après s'être formé auprès de grands chefs, il ouvre en 2007 son premier restaurant <strong style="font-weight:600">Le Grand Pan</strong>, qui est vite devenu l'un des <strong style="font-weight:600">bistrots / gastro phares de la capitale</strong>.</p>
+            <p>En 2013, le chef du Grand Pan voit double et traverse la rue pour ouvrir Le Petit Pan, réputé pour ses tapas et la diffusion des grands évènements sportifs.</p>
+            <p>Ne s'arrêtant pas en si bon chemin, il ouvre en 2017 <strong style="font-weight:600">"La Suite",</strong> un lieu hybride conjuguant art de recevoir et convivialité pour permettre aux groupes de se retrouver autour de bons plats et bons vins.</p>
+          </div>
+        </div>
+        <div class="about__signatureWrap">
+          <img class="about__signature" alt="Signature Benoît Gauthier" src="./le-grand-pan-assets/signature.webp" />
+        </div>
+      </div>
+    </section>
+
+  </main><!-- /#top -->
+
+  <!-- ================================================
+       FOLLOW / FOOTER
+       position: fixed; bottom: 0 — révélé quand main défile au-dessus
+  ================================================ -->
+  <section class="follow" aria-label="Suivez-nous">
+    <div class="follow__bgWrap">
+      <img class="follow__bg" alt="" src="./le-grand-pan-assets/image-footer.webp" aria-hidden="true" />
+      <div class="follow__gradient" aria-hidden="true"></div>
+    </div>
+    <div class="follow__content">
+      <div class="follow__titleRow">
+        <p class="follow__title">suivez-nous !</p>
+        <a class="follow__cta"
+           href="https://www.instagram.com/restaurant_legrandpan/"
+           target="_blank" rel="noopener noreferrer"
+           aria-label="Suivre Le Grand Pan sur Instagram">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="6" stroke="#fbf5ee" stroke-width="1.8"/>
+            <circle cx="12" cy="12" r="4.5" stroke="#fbf5ee" stroke-width="1.8"/>
+            <circle cx="17.5" cy="6.5" r="1" fill="#fbf5ee"/>
+          </svg>
+        </a>
+      </div>
+      <footer class="follow__footer" id="reservation">
+        <div class="follow__footerLogo">
+          <img alt="Le Grand Pan" src="./le-grand-pan-assets/LeGrandPan-light.svg" />
+        </div>
+        <nav class="follow__footerLinks" aria-label="Liens légaux">
+          <a href="./mentions-legales.html">Mentions légales</a>
+          <a href="/cdn-cgi/l/email-protection#5c3f3332283d3f281c30393b2e3d32382c3d32723a2e">Contact</a>
+        </nav>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ================================================
+       ALERT (notification promotionnelle)
+  ================================================ -->
+  <div class="alert" role="dialog" aria-label="Message d'information" aria-modal="false">
+    <button class="alert__close" aria-label="Fermer le message">
+      <img src="./le-grand-pan-assets/cross.svg" alt="" aria-hidden="true" />
+    </button>
+    <div class="alert__brandRow">
+      <div class="alert__brandLogo">
+        <img alt="Le Grand Pan" src="./le-grand-pan-assets/Logo.svg" />
+      </div>
+    </div>
+    <div class="alert__lineWrap" aria-hidden="true"></div>
+    <p id="alert-titre" class="alert__text">Pour les fêtes de fin d'année, découvrez nos spécialités maison :</p>
+    <div id="alert-contenu" class="alert__list">
+      <p>Saumon gravlax — 100€ /kg</p>
+      <p>Foie gras — 135€ /kg</p>
+      <p>&nbsp;</p>
+      <p>Commandes ouvertes<br /><strong style="font-weight:600;">jusqu'au 15 décembre</strong></p>
+    </div>
+    <a id="alert-cta" class="alert__cta" href="mailto:contact@legrandpan.fr" aria-label="Commander">
+      <span id="alert-cta-label">Commander</span>
+    </a>
+  </div>
+
+  <!-- Bouton "+" pour rouvrir l'alert -->
+  <button class="alert__reopen" aria-label="Rouvrir le message promotionnel">
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <line x1="10" y1="3" x2="10" y2="17" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+      <line x1="3" y1="10" x2="17" y2="10" stroke="#3d2012" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </button>
+
+  <!-- ================================================
+       SCRIPTS
+  ================================================ -->
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // ── Hero parallax (scroll-over effect) ──────────────────────
+    const headerEl = document.querySelector('.header');
+    function updateHeroParallax() {
+      if (!headerEl) return;
+      const progress = Math.max(0, Math.min(1, window.scrollY / (headerEl.offsetHeight * 0.75)));
+      headerEl.style.setProperty('--hero-progress', progress);
+    }
+    window.addEventListener('scroll', updateHeroParallax, { passive: true });
+    updateHeroParallax();
+
+    // ── Content parallax ─────────────────────────────────────────
+    const pxWelcomeWrap = document.querySelector('.welcome__photoWrap');
+    const pxWelcomeImg  = document.querySelector('.welcome__photo');
+    const pxMenuWrap    = document.querySelector('.menuPage__imgWrap');
+    const pxMenuImg     = pxMenuWrap?.querySelector('img') ?? null;
+    const pxAboutWrap   = document.querySelector('.about__stampWrap');
+    const pxStarImg     = pxAboutWrap?.querySelector('.about__stampStar') ?? null;
+    const pxPlateImg    = pxAboutWrap?.querySelector('.about__stampEllipse') ?? null;
+    const pxFollowWrap  = document.querySelector('.follow__bgWrap');
+    const pxFooterImg   = pxFollowWrap?.querySelector('.follow__bg') ?? null;
+
+    function updateContentParallax() {
+      const vh = window.innerHeight;
+      // [container, element, CSS property, strength, max range]
+      [
+        [pxWelcomeWrap, pxWelcomeImg, '--px-welcome', 0.12, 40],
+        [pxMenuWrap,    pxMenuImg,    '--px-menu',    0.12, 40],
+        [pxAboutWrap,   pxStarImg,    '--px-star',    0.18, 40],
+        [pxAboutWrap,   pxPlateImg,   '--px-plate',   0.08, 25],
+        [pxFollowWrap,  pxFooterImg,  '--px-footer',  0.15, 60],
+      ].forEach(([wrap, el, prop, strength, range]) => {
+        if (!wrap || !el) return;
+        const rect = wrap.getBoundingClientRect();
+        const offset = Math.max(-range, Math.min(range,
+          ((rect.top + rect.height / 2) - vh / 2) * strength
+        ));
+        el.style.setProperty(prop, offset + 'px');
+      });
+    }
+    window.addEventListener('scroll', updateContentParallax, { passive: true });
+    updateContentParallax();
+
+    // ── Reveal on scroll ─────────────────────────────────────────
+    const revealEls = document.querySelectorAll(
+      '.reveal, .reveal--fade, .reveal--left, .reveal--right, .reveal--scale'
+    );
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        const el = entry.target;
+        el.style.setProperty('--reveal-delay', (el.dataset.delay ?? '0') + 'ms');
+        el.classList.add('is-visible');
+        revealObserver.unobserve(el);
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+    revealEls.forEach((el) => revealObserver.observe(el));
+
+    // ── Photo slider (auto-scroll + drag) ────────────────────────
+    (() => {
+      const slider = document.querySelector('.photoSlider');
+      if (!slider) return;
+
+      let isPaused = false, isDragging = false;
+      let startX = 0, startScrollLeft = 0;
+      const speed = 0.6; // px/frame
+
+      // Duplicate slides for seamless infinite loop
+      Array.from(slider.children).forEach(slide => slider.appendChild(slide.cloneNode(true)));
+
+      function autoScroll() {
+        if (!isPaused && !isDragging) {
+          slider.scrollLeft += speed;
+          if (slider.scrollLeft >= slider.scrollWidth / 2) slider.scrollLeft = 0;
+        }
+        requestAnimationFrame(autoScroll);
+      }
+      requestAnimationFrame(autoScroll);
+
+      slider.addEventListener('mouseenter',  () => { isPaused = true; });
+      slider.addEventListener('mouseleave',  () => { isPaused = false; });
+
+      slider.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        slider.setPointerCapture(e.pointerId);
+        startX = e.clientX;
+        startScrollLeft = slider.scrollLeft;
+        slider.style.cursor = 'grabbing';
+      });
+      slider.addEventListener('pointermove', (e) => {
+        if (!isDragging) return;
+        slider.scrollLeft = startScrollLeft - (e.clientX - startX);
+      });
+      slider.addEventListener('pointerup', (e) => {
+        isDragging = false;
+        try { slider.releasePointerCapture(e.pointerId); } catch (_) {}
+        slider.style.cursor = 'grab';
+      });
+      slider.addEventListener('pointercancel', () => {
+        isDragging = false;
+        slider.style.cursor = 'grab';
+      });
+    })();
+
+    // ── Alert open / close ───────────────────────────────────────
+    (function () {
+      const alertEl   = document.querySelector('.alert');
+      const closeBtn  = document.querySelector('.alert__close');
+      const reopenBtn = document.querySelector('.alert__reopen');
+
+      function hideAlert() {
+        alertEl.style.transition = 'opacity 220ms ease, transform 220ms ease';
+        alertEl.style.opacity    = '0';
+        alertEl.style.transform  = 'scale(0.95) translateY(6px)';
+        setTimeout(() => {
+          alertEl.style.display = 'none';
+          reopenBtn.classList.add('is-visible');
+        }, 220);
+      }
+
+      function showAlert() {
+        alertEl.style.display   = '';
+        alertEl.style.opacity   = '0';
+        alertEl.style.transform = 'scale(0.95) translateY(6px)';
+        reopenBtn.classList.remove('is-visible');
+        requestAnimationFrame(() => {
+          alertEl.style.transition = 'opacity 280ms ease, transform 280ms ease';
+          alertEl.style.opacity    = '1';
+          alertEl.style.transform  = 'scale(1) translateY(0)';
+        });
+      }
+
+      if (closeBtn && alertEl && reopenBtn) {
+        closeBtn.addEventListener('click',   hideAlert);
+        closeBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') hideAlert(); });
+        reopenBtn.addEventListener('click',  showAlert);
+
+        /* Fermée par défaut sur mobile         if (window.innerWidth < 768) {
+          alertEl.style.display = 'none';
+        }
+      }
+    })();
+
+  </script>
+
+  <!-- ================================================
+       CMS LOADER — charge le contenu depuis les fichiers JSON
+       Éditable via /admin (Decap CMS)
+  ================================================ -->
+  <script>
+  (async function() {
+    function $id(id) { return document.getElementById(id); }
+
+    try {
+      const [hero, menu, galerie, infos, restau, modale] = await Promise.all([
+        fetch('./content/hero.json').then(r => r.json()),
+        fetch('./content/menu.json').then(r => r.json()),
+        fetch('./content/galerie.json').then(r => r.json()),
+        fetch('./content/infos.json').then(r => r.json()),
+        fetch('./content/restaurateurs.json').then(r => r.json()),
+        fetch('./content/modale.json').then(r => r.json()),
+      ]);
+
+      // ── Hero ──────────────────────────────────────────────────
+      if (hero.image_header && $id('hero-img'))
+        $id('hero-img').src = hero.image_header;
+      if (hero.image_header_mobile && $id('hero-img-mobile'))
+        $id('hero-img-mobile').srcset = hero.image_header_mobile;
+      if (hero.titre) {
+        const parts = hero.titre.split(' ');
+        const mid = Math.ceil(parts.length / 2);
+        if ($id('welcome-line1')) $id('welcome-line1').textContent = parts.slice(0, mid).join(' ');
+        if ($id('welcome-line2')) $id('welcome-line2').textContent = parts.slice(mid).join(' ');
+      }
+      if (hero.texte_subtitle && $id('welcome-subtitle'))
+        $id('welcome-subtitle').innerHTML = hero.texte_subtitle;
+      if (hero.texte_body && $id('welcome-body'))
+        $id('welcome-body').innerHTML = hero.texte_body;
+      if (hero.image_bienvenue && $id('welcome-photo'))
+        $id('welcome-photo').src = hero.image_bienvenue;
+
+      // ── Menu ──────────────────────────────────────────────────
+      if (menu.image_menu && $id('menu-photo'))
+        $id('menu-photo').src = menu.image_menu;
+      if (menu.midi) {
+        if (menu.midi.suggestion && $id('menu-midi-suggestion'))
+          $id('menu-midi-suggestion').textContent = menu.midi.suggestion;
+        if (menu.midi.formules && $id('menu-formules'))
+          $id('menu-formules').innerHTML = menu.midi.formules.map(f => {
+            const parts = f.texte.split('—');
+            return `<div class="formulaRow"><span>${parts[0].trim()}</span><span>${parts[1] ? '— '+parts[1].trim() : ''}</span></div>`;
+          }).join('');
+        if (menu.midi.classiques && $id('menu-midi-classiques'))
+          $id('menu-midi-classiques').innerHTML = menu.midi.classiques.map(p => `<li>${p.nom}</li>`).join('');
+      }
+      if (menu.soir) {
+        if (menu.soir.suggestion && $id('menu-soir-suggestion'))
+          $id('menu-soir-suggestion').textContent = menu.soir.suggestion;
+        if (menu.soir.classiques && $id('menu-soir-classiques'))
+          $id('menu-soir-classiques').innerHTML = menu.soir.classiques.map(p => `<li>${p.nom}</li>`).join('');
+      }
+
+      // ── Galerie slider ────────────────────────────────────────
+      if (galerie.photos && galerie.photos.length && $id('photo-slider')) {
+        $id('photo-slider').innerHTML = galerie.photos.map(p =>
+          `<div class="photoSlide" style="width:550px"><img alt="${p.alt || 'Photo du restaurant'}" src="./${p.image}" /></div>`
+        ).join('');
+      }
+
+      // ── Infos pratiques ───────────────────────────────────────
+      if (infos.statut && $id('infos-statut'))
+        $id('infos-statut').textContent = infos.statut;
+      if (infos.horaires_semaine) {
+        if ($id('infos-horaires-jours')) $id('infos-horaires-jours').textContent = infos.horaires_semaine.jours;
+        if ($id('infos-horaires-heures')) $id('infos-horaires-heures').innerHTML = infos.horaires_semaine.heures.replace('/', '/<br>');
+      }
+      if (infos.horaires_weekend && $id('infos-horaires-weekend'))
+        $id('infos-horaires-weekend').textContent = infos.horaires_weekend.jours + ' - ' + infos.horaires_weekend.statut;
+      if (infos.adresse && $id('infos-adresse'))
+        $id('infos-adresse').innerHTML = infos.adresse;
+      if (infos.telephone && $id('infos-tel')) {
+        $id('infos-tel').textContent = infos.telephone;
+        const telLink = document.querySelector('a[href^="tel:"]');
+        if (telLink) telLink.href = 'tel:+33' + infos.telephone.replace(/[^0-9]/g,'').substring(1);
+      }
+
+      // ── La Suite ──────────────────────────────────────────────
+      const ls = restau.lasuite;
+      if (ls) {
+        if (ls.image        && $id('lasuite-img'))       $id('lasuite-img').src                  = './' + ls.image;
+        if (ls.tag          && $id('lasuite-kicker'))    $id('lasuite-kicker').textContent        = ls.tag;
+        if (ls.titre        && $id('lasuite-titre'))     $id('lasuite-titre').textContent         = ls.titre;
+        if (ls.texte        && $id('lasuite-desc'))      $id('lasuite-desc').textContent          = ls.texte;
+        if (ls.bouton_lien  && $id('lasuite-cta'))       $id('lasuite-cta').href                  = ls.bouton_lien;
+        if (ls.bouton_label && $id('lasuite-cta-label')) $id('lasuite-cta-label').textContent     = ls.bouton_label;
+      }
+
+      // ── Piennolo ──────────────────────────────────────────────
+      const pi = restau.piennolo;
+      if (pi) {
+        if (pi.image        && $id('piennolo-img'))       $id('piennolo-img').src                 = './' + pi.image;
+        if (pi.tag          && $id('piennolo-kicker'))    $id('piennolo-kicker').textContent       = pi.tag;
+        if (pi.titre        && $id('piennolo-titre'))     $id('piennolo-titre').textContent        = pi.titre;
+        if (pi.texte        && $id('piennolo-desc'))      $id('piennolo-desc').textContent         = pi.texte;
+        if (pi.bouton_lien  && $id('piennolo-cta'))       $id('piennolo-cta').href                 = pi.bouton_lien;
+        if (pi.bouton_label && $id('piennolo-cta-label')) $id('piennolo-cta-label').textContent    = pi.bouton_label;
+      }
+
+      // ── Modale alerte ─────────────────────────────────────────
+      const alertEl = document.querySelector('.alert');
+      if (alertEl) {
+        if (!modale.active) {
+          alertEl.style.display = 'none';
+          const reopenBtn = document.querySelector('.alert__reopen');
+          if (reopenBtn) reopenBtn.style.display = 'none';
+        } else {
+          if (modale.titre   && $id('alert-titre'))
+            $id('alert-titre').textContent = modale.titre;
+          if (modale.contenu && $id('alert-contenu')) {
+            $id('alert-contenu').innerHTML = modale.contenu
+              .split('\n').filter(l => l.trim())
+              .map(l => `<p>${l}</p>`).join('');
+            if (modale.sous_texte)
+              $id('alert-contenu').innerHTML += `<p>&nbsp;</p><p>${modale.sous_texte}</p>`;
+          }
+          if (modale.bouton_lien  && $id('alert-cta'))       $id('alert-cta').href                  = modale.bouton_lien;
+          if (modale.bouton_label && $id('alert-cta-label')) $id('alert-cta-label').textContent      = modale.bouton_label;
+        }
+      }
+
+    } catch(e) {
+      // Si les fichiers JSON sont absents, le contenu statique reste affiché
+      console.warn('CMS content not loaded:', e);
+    }
+  })();
+  </script>
+
 </body>
 </html>
