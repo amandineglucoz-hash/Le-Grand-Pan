@@ -1,10 +1,10 @@
 Promise.all([
-  fetch('./content/hero.json').then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/menu.json').then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/galerie.json').then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/infos.json').then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/restaurateurs.json').then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/modale.json').then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/hero.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/menu.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/galerie.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/infos.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/restaurateurs.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
 ]).then(function(results) {
   var hero=results[0], menu=results[1], galerie=results[2];
   var infos=results[3], restau=results[4], modale=results[5];
