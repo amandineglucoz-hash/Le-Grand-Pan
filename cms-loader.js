@@ -128,3 +128,28 @@ Promise.all([
   }
 
 });
+
+// Footer
+Promise.all([
+  fetch('./content/footer.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch('./content/mentions.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+]).then(function(results){
+  var footer=results[0], mentions=results[1];
+
+  if(footer&&footer.image){
+    var e=document.querySelector('.follow__bg');if(e)e.src='./'+footer.image;
+  }
+  if(footer&&footer.suivez){
+    var e=document.querySelector('.follow__title');if(e)e.textContent=footer.suivez;
+  }
+  if(footer&&footer.instagram){
+    var e=document.querySelector('.follow__cta');if(e)e.href=footer.instagram;
+  }
+
+  if(mentions&&mentions.contenu&&mentions.contenu.trim()){
+    var main=document.querySelector('main');
+    if(main&&window.location.pathname.includes('mentions-legales')){
+      main.innerHTML=mentions.contenu;
+    }
+  }
+});
