@@ -1,0 +1,17 @@
+{
+  "statut": "Nous sommes ouverts !",
+  "horaires_semaine": {
+    "jours": "Lun - Ven",
+    "heures": "12h-14h / 19h30-23h"
+  },
+  "horaires_weekend": {
+    "jours": "Dim - Samedi",
+    "statut": "Fermé"
+  },
+  "adresse": "20 Rue Rosenwald",
+  "telephone": "01 42 50 02 50",
+  "bouton_reservation": {
+    "label": "Réserver",
+    "lien": "https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR"
+  }
+}
