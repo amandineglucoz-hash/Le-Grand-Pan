@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Le Grand Pan — Bistrot Gastronomique à Paris</title>
+  <!-- Remplace ce lien par ton propre fichier CSS -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <a href="#menu">Menu</a>
+    <a href="#address">Adresse</a>
+    <a id="nav-reserver" href="#">Réserver</a>
+  </nav>
+
+  <!-- HERO -->
+  <header>
+    <img src="le-grand-pan-assets/title.svg" alt="Le Grand Pan">
+    <img id="hero-image" src="" alt="Vue du restaurant Le Grand Pan">
+  </header>
+
+  <!-- SECTION BIENVENUE -->
+  <section id="bienvenue">
+    <h1 id="hero-titre"></h1>
+    <p id="hero-texte"></p>
+    <img id="hero-image-bienvenue" src="" alt="Plat du restaurant Le Grand Pan">
+    <img src="le-grand-pan-assets/Stamp.svg" alt="">
+  </section>
+
+  <!-- SECTION MENU -->
+  <section id="menu">
+    <img id="menu-image" src="" alt="Plat signature du Grand Pan">
+
+    <div id="menu-midi">
+      <h2>Midi</h2>
+      <h3>Formules</h3>
+      <ul id="menu-formules"></ul>
+      <h3>Suggestion du chef</h3>
+      <p id="menu-midi-suggestion"></p>
+      <h3>Les classiques</h3>
+      <ul id="menu-midi-classiques"></ul>
+    </div>
+
+    <div id="menu-soir">
+      <h2>Soir</h2>
+      <h3>Suggestion du chef</h3>
+      <p id="menu-soir-suggestion"></p>
+      <h3>Les classiques</h3>
+      <ul id="menu-soir-classiques"></ul>
+    </div>
+  </section>
+
+  <!-- GALERIE -->
+  <section id="galerie">
+    <div id="slider-container"></div>
+  </section>
+
+  <!-- INFOS PRATIQUES -->
+  <section id="address">
+    <img src="le-grand-pan-assets/Logo.svg" alt="Le Grand Pan">
+    <img src="le-grand-pan-assets/clock.svg" alt="">
+    <p id="statut-ouverture"></p>
+    <a id="btn-reserver" href="#">Réserver</a>
+
+    <div id="horaires">
+      <h3>Heures d'ouverture</h3>
+      <p id="horaires-semaine-jours"></p>
+      <p id="horaires-semaine-heures"></p>
+      <p id="horaires-weekend"></p>
+    </div>
+
+    <div id="adresse-bloc">
+      <h3>Adresse</h3>
+      <p id="adresse-texte"></p>
+      <a href="https://www.google.com/maps/place/Le+Grand+Pan/@48.8330814,2.303128,16z" target="_blank">
+        Google Map <img src="le-grand-pan-assets/MapPin.svg" alt="">
+      </a>
+    </div>
+
+    <div id="telephone-bloc">
+      <h3>Téléphone</h3>
+      <p id="telephone-texte"></p>
+      <a id="tel-link" href="#">Appeler <img src="le-grand-pan-assets/Chevron.svg" alt=""></a>
+    </div>
+  </section>
+
+  <!-- LA SUITE -->
+  <section id="lasuite">
+    <img id="lasuite-image" src="" alt="La Suite — salle privatisable">
+    <img src="le-grand-pan-assets/logo-lasuite.svg" alt="La Suite">
+    <span id="lasuite-tag"></span>
+    <h2 id="lasuite-titre"></h2>
+    <p id="lasuite-texte"></p>
+    <a id="lasuite-btn" href="#">Privatiser</a>
+  </section>
+
+  <!-- PIENNOLO -->
+  <section id="piennolo">
+    <img id="piennolo-image" src="" alt="Piennolo — pizzeria italienne">
+    <img src="le-grand-pan-assets/logo-piennolo.svg" alt="Piennolo">
+    <span id="piennolo-tag"></span>
+    <h2 id="piennolo-titre"></h2>
+    <p id="piennolo-texte"></p>
+    <a id="piennolo-btn" href="#">Découvrir la carte</a>
+  </section>
+
+  <!-- RESTAURATEURS -->
+  <section id="chef">
+    <img src="le-grand-pan-assets/img-restaurateurs.webp" alt="Benoît Gauthier, chef du Grand Pan">
+    <img src="le-grand-pan-assets/Star-1.webp" alt="">
+    <img src="le-grand-pan-assets/plate.webp" alt="">
+    <p>Un parcours, une passion</p>
+    <p>Après avoir grandi à Brive auprès de parents bouchers, Benoît Gauthier s'est alors orienté vers la cuisine en partant en école hôtelière à Souillac pour se former. Grand bien lui a pris !</p>
+    <p>Quelques années et quelques restaurants plus tard, après s'être formé auprès de grands chefs, il ouvre en 2007 son premier restaurant <strong>Le Grand Pan</strong>, qui est vite devenu l'un des <strong>bistrots / gastro phares de la capitale</strong>.</p>
+    <p>En 2013, le chef du Grand Pan voit double et traverse la rue pour ouvrir Le Petit Pan, réputé pour ses tapas et la diffusion des grands évènements sportifs.</p>
+    <p>Ne s'arrêtant pas en si bon chemin, il ouvre en 2017 <strong>"La Suite"</strong>, un lieu hybride conjuguant art de recevoir et convivialité pour permettre aux groupes de se retrouver autour de bons plats et bons vins.</p>
+    <img src="le-grand-pan-assets/signature.webp" alt="Signature Benoît Gauthier">
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <img src="le-grand-pan-assets/image-footer.webp" alt="">
+    <p>suivez-nous !</p>
+    <img src="le-grand-pan-assets/LeGrandPan-light.svg" alt="Le Grand Pan">
+    <a href="mentions-legales.html">Mentions légales</a>
+    <a href="mailto:contact@legrandpan.fr">Contact</a>
+  </footer>
+
+  <!-- MODALE ALERTE -->
+  <div id="modale-overlay" style="display:none;">
+    <div id="modale-content">
+      <button id="modale-close">
+        <img src="le-grand-pan-assets/cross.svg" alt="Fermer">
+      </button>
+      <img src="le-grand-pan-assets/Logo.svg" alt="Le Grand Pan">
+      <p id="modale-titre"></p>
+      <p id="modale-contenu"></p>
+      <p id="modale-sous-texte"></p>
+      <a id="modale-btn" href="#">Commander</a>
+    </div>
+  </div>
+
+  <script>
+    // ─── Chargement de tous les fichiers JSON ───────────────────────────────
+
+    async function loadJSON(path) {
+      const res = await fetch(path + '?v=' + Date.now());
+      return res.json();
+    }
+
+    async function init() {
+      const [hero, menu, galerie, infos, restaurateurs, modale] = await Promise.all([
+        loadJSON('content/hero.json'),
+        loadJSON('content/menu.json'),
+        loadJSON('content/galerie.json'),
+        loadJSON('content/infos.json'),
+        loadJSON('content/restaurateurs.json'),
+        loadJSON('content/modale.json')
+      ]);
+
+      // ─── HERO ─────────────────────────────────────────────────────────────
+      document.getElementById('hero-image').src = hero.image_header;
+      document.getElementById('hero-titre').textContent = hero.titre;
+      document.getElementById('hero-texte').innerHTML = hero.texte.replace(/\n/g, '<br>');
+      document.getElementById('hero-image-bienvenue').src = hero.image_bienvenue;
+      document.getElementById('nav-reserver').href = hero.bouton_reservation.lien;
+      document.getElementById('nav-reserver').textContent = hero.bouton_reservation.label;
+
+      // ─── MENU ─────────────────────────────────────────────────────────────
+      document.getElementById('menu-image').src = menu.image_menu;
+      document.getElementById('menu-midi-suggestion').textContent = menu.midi.suggestion;
+      document.getElementById('menu-soir-suggestion').textContent = menu.soir.suggestion;
+
+      const formulesList = document.getElementById('menu-formules');
+      menu.midi.formules.forEach(f => {
+        const li = document.createElement('li');
+        li.textContent = f.texte;
+        formulesList.appendChild(li);
+      });
+
+      const midiClassiques = document.getElementById('menu-midi-classiques');
+      menu.midi.classiques.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = p.nom;
+        midiClassiques.appendChild(li);
+      });
+
+      const soirClassiques = document.getElementById('menu-soir-classiques');
+      menu.soir.classiques.forEach(p => {
+        const li = document.createElement('li');
+        li.textContent = p.nom;
+        soirClassiques.appendChild(li);
+      });
+
+      // ─── GALERIE ──────────────────────────────────────────────────────────
+      const slider = document.getElementById('slider-container');
+      galerie.photos.forEach(photo => {
+        const img = document.createElement('img');
+        img.src = photo.image;
+        img.alt = photo.alt;
+        slider.appendChild(img);
+      });
+
+      // ─── INFOS PRATIQUES ──────────────────────────────────────────────────
+      document.getElementById('statut-ouverture').textContent = infos.statut;
+      document.getElementById('horaires-semaine-jours').textContent = infos.horaires_semaine.jours;
+      document.getElementById('horaires-semaine-heures').textContent = infos.horaires_semaine.heures;
+      document.getElementById('horaires-weekend').textContent = infos.horaires_weekend.jours + ' — ' + infos.horaires_weekend.statut;
+      document.getElementById('adresse-texte').textContent = infos.adresse;
+      document.getElementById('telephone-texte').textContent = infos.telephone;
+      document.getElementById('tel-link').href = 'tel:+33' + infos.telephone.replace(/[^0-9]/g, '').substring(1);
+      document.getElementById('btn-reserver').href = infos.bouton_reservation.lien;
+      document.getElementById('btn-reserver').textContent = infos.bouton_reservation.label;
+
+      // ─── LA SUITE & PIENNOLO ──────────────────────────────────────────────
+      document.getElementById('lasuite-image').src = restaurateurs.lasuite.image;
+      document.getElementById('lasuite-tag').textContent = restaurateurs.lasuite.tag;
+      document.getElementById('lasuite-titre').textContent = restaurateurs.lasuite.titre;
+      document.getElementById('lasuite-texte').textContent = restaurateurs.lasuite.texte;
+      document.getElementById('lasuite-btn').textContent = restaurateurs.lasuite.bouton_label;
+      document.getElementById('lasuite-btn').href = restaurateurs.lasuite.bouton_lien;
+
+      document.getElementById('piennolo-image').src = restaurateurs.piennolo.image;
+      document.getElementById('piennolo-tag').textContent = restaurateurs.piennolo.tag;
+      document.getElementById('piennolo-titre').textContent = restaurateurs.piennolo.titre;
+      document.getElementById('piennolo-texte').textContent = restaurateurs.piennolo.texte;
+      document.getElementById('piennolo-btn').textContent = restaurateurs.piennolo.bouton_label;
+      document.getElementById('piennolo-btn').href = restaurateurs.piennolo.bouton_lien;
+
+      // ─── MODALE ───────────────────────────────────────────────────────────
+      if (modale.active) {
+        document.getElementById('modale-titre').textContent = modale.titre;
+        document.getElementById('modale-contenu').innerHTML = modale.contenu.replace(/\n/g, '<br>');
+        document.getElementById('modale-sous-texte').textContent = modale.sous_texte || '';
+        document.getElementById('modale-btn').textContent = modale.bouton_label;
+        document.getElementById('modale-btn').href = modale.bouton_lien;
+        document.getElementById('modale-overlay').style.display = 'flex';
+      }
+
+      document.getElementById('modale-close').addEventListener('click', () => {
+        document.getElementById('modale-overlay').style.display = 'none';
+      });
+    }
+
+    init();
+  </script>
+
+</body>
+</html>
