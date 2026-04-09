@@ -2,6 +2,8 @@ backend:
   name: netlify
   repo: amandineglucoz-hash/Le-Grand-Pan
   branch: main
+  site_domain: clever-raindrop-7bf930.netlify.app
+
 
 media_folder: "le-grand-pan-assets"
 public_folder: "le-grand-pan-assets"
