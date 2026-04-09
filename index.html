@@ -1588,8 +1588,8 @@
       </div>
       <div class="header__hero">
         <picture>
-          <source media="(max-width: 768px)" srcset="./le-grand-pan-assets/Img-header-mobile.webp" />
-          <img alt="Vue du restaurant Le Grand Pan" src="./le-grand-pan-assets/Img-header-2.webp" />
+          <source id="hero-img-mobile" media="(max-width: 768px)" srcset="./le-grand-pan-assets/Img-header-mobile.webp" />
+          <img id="hero-img" alt="Vue du restaurant Le Grand Pan" src="./le-grand-pan-assets/Img-header-2.webp" />
         </picture>
       </div>
     </header>
@@ -1599,16 +1599,16 @@
     ================================================ -->
     <section class="welcome" aria-label="Bienvenue">
       <h1 class="welcome__heading reveal" data-delay="0">
-        <span class="line1">bienvenue</span>
-        <span class="line2">a table</span>
+        <span id="welcome-line1" class="line1">bienvenue</span>
+        <span id="welcome-line2" class="line2">a table</span>
       </h1>
       <div class="welcome__text reveal" data-delay="120">
-        <p class="subtitle">Au Grand Pan, la gastronomie française <br />se vit et se partage.</p>
-        <p class="body-p">Des produits de saison, une cuisine sincère et raffinée, <br />où chaque assiette raconte une histoire de goût.</p>
+        <p id="welcome-subtitle" class="subtitle">Au Grand Pan, la gastronomie française <br />se vit et se partage.</p>
+        <p id="welcome-body" class="body-p">Des produits de saison, une cuisine sincère et raffinée, <br />où chaque assiette raconte une histoire de goût.</p>
       </div>
       <div class="welcome__media reveal--scale" data-delay="200">
         <div class="welcome__photoWrap">
-          <img class="welcome__photo" alt="Plat du restaurant Le Grand Pan" src="./le-grand-pan-assets/Image-bienvenue-2.webp" />
+          <img id="welcome-photo" class="welcome__photo" alt="Plat du restaurant Le Grand Pan" src="./le-grand-pan-assets/Image-bienvenue-2.webp" />
         </div>
         <div class="welcome__stamp" aria-hidden="true">
           <img alt="" src="./le-grand-pan-assets/Stamp.svg" />
@@ -1626,7 +1626,7 @@
           <div class="menuPage__word" aria-hidden="true">menu</div>
         </div>
         <div class="menuPage__imgWrap reveal--scale" data-delay="100">
-          <img alt="Plat signature du Grand Pan" src="./le-grand-pan-assets/Image-menu.webp" />
+          <img id="menu-photo" alt="Plat signature du Grand Pan" src="./le-grand-pan-assets/Image-menu.webp" />
         </div>
       </div>
 
@@ -1640,7 +1640,7 @@
           </div>
           <div class="menuBlock">
             <h3 class="menuBlock__heading">Formules</h3>
-            <div class="formulasWrap">
+            <div id="menu-formules" class="formulasWrap">
               <div class="formulaRow"><span>Entrée + Plat</span><span>— 25€</span></div>
               <div class="formulaRow"><span>Plat + dessert</span><span>— 26€</span></div>
               <div class="formulaRow"><span>Entrée + Plat + dessert</span><span>— 34€</span></div>
@@ -1648,11 +1648,11 @@
           </div>
           <div class="menuBlock">
             <h3 class="menuBlock__heading">Suggestion du chef</h3>
-            <p class="menuBlock__text">Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
+            <p id="menu-midi-suggestion" class="menuBlock__text">Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
           </div>
           <div class="menuBlock">
             <h3 class="menuBlock__heading">Les classiques</h3>
-            <ul class="menuList">
+            <ul id="menu-midi-classiques" class="menuList">
               <li>Côte de veau</li>
               <li>Côte de boeuf</li>
               <li>Côte de porc</li>
@@ -1670,11 +1670,11 @@
           </div>
           <div class="menuBlock">
             <h3 class="menuBlock__heading">Suggestion du chef</h3>
-            <p class="menuBlock__text">Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
+            <p id="menu-soir-suggestion" class="menuBlock__text">Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.</p>
           </div>
           <div class="menuBlock">
             <h3 class="menuBlock__heading">Les classiques</h3>
-            <ul class="menuList">
+            <ul id="menu-soir-classiques" class="menuList">
               <li>Côte de veau</li>
               <li>Côte de boeuf</li>
               <li>Côte de porc</li>
@@ -1689,7 +1689,7 @@
     <!-- ================================================
          GALERIE PHOTOS (slider)
     ================================================ -->
-    <div class="photoSlider" role="region" aria-label="Galerie photos">
+    <div id="photo-slider" class="photoSlider" role="region" aria-label="Galerie photos">
       <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-1.webp" /></div>
       <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-2.webp" /></div>
       <div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./le-grand-pan-assets/image-3.webp" /></div>
@@ -1716,7 +1716,7 @@
       <div class="openBar reveal" data-delay="100">
         <div class="openBar__left">
           <img alt="" src="./le-grand-pan-assets/clock.svg" aria-hidden="true" />
-          <p>Nous sommes ouvert !</p>
+          <p id="infos-statut">Nous sommes ouvert !</p>
         </div>
         <a class="infos__reserverBtn"
            href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
@@ -1729,17 +1729,17 @@
         <div class="infoCard reveal" data-delay="0">
           <h3 class="infoCard-title" style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Heures d'ouverture</h3>
           <div style="display:flex;flex-direction:column;gap:12px;width:100%;align-items:center;">
-            <p class="small">Lun - Ven</p>
-            <div class="big">12h-14h/<br>19h30-23h</div>
+            <p id="infos-horaires-jours" class="small">Lun - Ven</p>
+            <div id="infos-horaires-heures" class="big">12h-14h/<br>19h30-23h</div>
           </div>
-          <p class="small">Dim-Samedi - Fermé</p>
+          <p id="infos-horaires-weekend" class="small">Dim-Samedi - Fermé</p>
         </div>
 
         <!-- Adresse -->
         <div class="infoCard infoCard--address reveal" data-delay="120">
           <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Adresse</h3>
           <address style="font-style:normal;">
-            <p class="small">20 Rue Rosenwald<br />75015 Paris</p>
+            <p id="infos-adresse" class="small">20 Rue Rosenwald<br />75015 Paris</p>
           </address>
           <a class="chipBtn"
              href="https://www.google.com/maps/place/Le+Grand+Pan/@48.8330814,2.303128,16z/data=!3m1!4b1!4m6!3m5!1s0x47e670468b32e705:0xfef30b10e3f3dbfe!8m2!3d48.8330814!4d2.3057029!16s%2Fg%2F1vxcvqxn?entry=ttu&g_ep=EgoyMDI2MDQwMS4wIKXMDSoASAFQAw%3D%3D"
@@ -1752,7 +1752,7 @@
         <!-- Téléphone -->
         <div class="infoCard reveal" data-delay="240">
           <h3 style="font-size:var(--fs-h6);text-transform:uppercase;font-weight:400;color:var(--neutral-700);line-height:1.2;">Téléphone</h3>
-          <div class="big" style="pointer-events:none;-webkit-user-select:none;user-select:none;">01 42 50 02 50</div>
+          <div id="infos-tel" class="big" style="pointer-events:none;-webkit-user-select:none;user-select:none;">01 42 50 02 50</div>
           <a class="chipBtn" href="tel:+33142500250" aria-label="Appeler le 01 42 50 02 50">
             <span>Appeler</span>
             <img alt="" src="./le-grand-pan-assets/Chevron.svg" aria-hidden="true" />
@@ -1769,7 +1769,7 @@
       <!-- Panneau gauche : La Suite / Privatisation -->
       <article class="privPanel reveal--left" data-delay="0">
         <div class="privPanel__imgBox">
-          <img alt="La Suite — salle privatisable" src="./le-grand-pan-assets/img-lasuite.webp" />
+          <img id="lasuite-img" alt="La Suite — salle privatisable" src="./le-grand-pan-assets/img-lasuite.webp" />
           <div class="privPanel__logoOverlay" aria-hidden="true">
             <img alt="La Suite" src="./le-grand-pan-assets/logo-lasuite.svg" style="object-fit:contain;width:100%;height:100%;" />
           </div>
@@ -1778,13 +1778,11 @@
           <div class="privPanel__dividerWrap" aria-hidden="true">
             <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
           </div>
-          <p class="privPanel__kicker">Salle privée</p>
-          <h2 class="privPanel__title">Privatisation &amp; réservation</h2>
-          <p class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
-          <a class="privPanel__cta"
-             href="mailto:contact@legrandpan.fr"
-             aria-label="Privatiser — envoyer un email">
-            <span>Privatiser</span>
+          <p id="lasuite-kicker" class="privPanel__kicker">Salle privée</p>
+          <h2 id="lasuite-titre" class="privPanel__title">Privatisation &amp; réservation</h2>
+          <p id="lasuite-desc" class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
+          <a id="lasuite-cta" class="privPanel__cta" href="mailto:contact@legrandpan.fr" aria-label="Privatiser — envoyer un email">
+            <span id="lasuite-cta-label">Privatiser</span>
           </a>
         </div>
       </article>
@@ -1794,7 +1792,7 @@
       <!-- Panneau droit : Piennolo -->
       <article class="privPanel reveal--right" data-delay="100">
         <div class="privPanel__imgBox">
-          <img alt="Piennolo — pizzeria italienne" src="./le-grand-pan-assets/image-piennolo.webp" />
+          <img id="piennolo-img" alt="Piennolo — pizzeria italienne" src="./le-grand-pan-assets/image-piennolo.webp" />
           <div style="position:absolute;top:18px;left:10px;width:72px;height:72px;padding:8.64px;display:flex;align-items:center;justify-content:center;z-index:2;" aria-hidden="true">
             <img alt="Piennolo" src="./le-grand-pan-assets/logo-piennolo.svg" style="width:49.239px;height:57.604px;object-fit:contain;display:block;" />
           </div>
@@ -1803,11 +1801,11 @@
           <div class="privPanel__dividerWrap" aria-hidden="true">
             <svg width="80" height="1" viewBox="0 0 80 1"><line x1="0" y1="0.5" x2="80" y2="0.5" stroke="#eed5ba" stroke-width="1" stroke-dasharray="4 4"/></svg>
           </div>
-          <p class="privPanel__kicker">Pizzeria</p>
-          <h2 class="privPanel__title">Piennolo</h2>
-          <p class="privPanel__desc">Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.</p>
-          <a class="privPanel__cta" href="./le-grand-pan-assets/Menu-piennolo.pdf" target="_blank" rel="noopener noreferrer">
-            <span>Découvrir la carte</span>
+          <p id="piennolo-kicker" class="privPanel__kicker">Pizzeria</p>
+          <h2 id="piennolo-titre" class="privPanel__title">Piennolo</h2>
+          <p id="piennolo-desc" class="privPanel__desc">Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.</p>
+          <a id="piennolo-cta" class="privPanel__cta" href="./le-grand-pan-assets/Menu-piennolo.pdf" target="_blank" rel="noopener noreferrer">
+            <span id="piennolo-cta-label">Découvrir la carte</span>
           </a>
         </div>
       </article>
@@ -1877,7 +1875,7 @@
         </div>
         <nav class="follow__footerLinks" aria-label="Liens légaux">
           <a href="./mentions-legales.html">Mentions légales</a>
-          <a href="mailto:contact@legrandpan.fr">Contact</a>
+          <a href="/cdn-cgi/l/email-protection#5c3f3332283d3f281c30393b2e3d32382c3d32723a2e">Contact</a>
         </nav>
       </footer>
     </div>
@@ -1896,15 +1894,15 @@
       </div>
     </div>
     <div class="alert__lineWrap" aria-hidden="true"></div>
-    <p class="alert__text">Pour les fêtes de fin d'année, découvrez nos spécialités maison :</p>
-    <div class="alert__list">
+    <p id="alert-titre" class="alert__text">Pour les fêtes de fin d'année, découvrez nos spécialités maison :</p>
+    <div id="alert-contenu" class="alert__list">
       <p>Saumon gravlax — 100€ /kg</p>
       <p>Foie gras — 135€ /kg</p>
       <p>&nbsp;</p>
       <p>Commandes ouvertes<br /><strong style="font-weight:600;">jusqu'au 15 décembre</strong></p>
     </div>
-    <a class="alert__cta" href="mailto:contact@legrandpan.fr" aria-label="Commander">
-      <span>Commander</span>
+    <a id="alert-cta" class="alert__cta" href="mailto:contact@legrandpan.fr" aria-label="Commander">
+      <span id="alert-cta-label">Commander</span>
     </a>
   </div>
 
@@ -1919,7 +1917,7 @@
   <!-- ================================================
        SCRIPTS
   ================================================ -->
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // ── Hero parallax (scroll-over effect) ──────────────────────
     const headerEl = document.querySelector('.header');
     function updateHeroParallax() {
@@ -2056,13 +2054,144 @@
         closeBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') hideAlert(); });
         reopenBtn.addEventListener('click',  showAlert);
 
-        /* Fermée par défaut sur mobile */
-        if (window.matchMedia('(max-width: 768px)').matches) {
+        /* Fermée par défaut sur mobile         if (window.innerWidth < 768) {
           alertEl.style.display = 'none';
-          reopenBtn.classList.add('is-visible');
         }
       }
     })();
+
+  </script>
+
+  <!-- ================================================
+       CMS LOADER — charge le contenu depuis les fichiers JSON
+       Éditable via /admin (Decap CMS)
+  ================================================ -->
+  <script>
+  (async function() {
+    function $id(id) { return document.getElementById(id); }
+
+    try {
+      const [hero, menu, galerie, infos, restau, modale] = await Promise.all([
+        fetch('./content/hero.json').then(r => r.json()),
+        fetch('./content/menu.json').then(r => r.json()),
+        fetch('./content/galerie.json').then(r => r.json()),
+        fetch('./content/infos.json').then(r => r.json()),
+        fetch('./content/restaurateurs.json').then(r => r.json()),
+        fetch('./content/modale.json').then(r => r.json()),
+      ]);
+
+      // ── Hero ──────────────────────────────────────────────────
+      if (hero.image_header && $id('hero-img'))
+        $id('hero-img').src = hero.image_header;
+      if (hero.image_header_mobile && $id('hero-img-mobile'))
+        $id('hero-img-mobile').srcset = hero.image_header_mobile;
+      if (hero.titre) {
+        const parts = hero.titre.split(' ');
+        const mid = Math.ceil(parts.length / 2);
+        if ($id('welcome-line1')) $id('welcome-line1').textContent = parts.slice(0, mid).join(' ');
+        if ($id('welcome-line2')) $id('welcome-line2').textContent = parts.slice(mid).join(' ');
+      }
+      if (hero.texte_subtitle && $id('welcome-subtitle'))
+        $id('welcome-subtitle').innerHTML = hero.texte_subtitle;
+      if (hero.texte_body && $id('welcome-body'))
+        $id('welcome-body').innerHTML = hero.texte_body;
+      if (hero.image_bienvenue && $id('welcome-photo'))
+        $id('welcome-photo').src = hero.image_bienvenue;
+
+      // ── Menu ──────────────────────────────────────────────────
+      if (menu.image_menu && $id('menu-photo'))
+        $id('menu-photo').src = menu.image_menu;
+      if (menu.midi) {
+        if (menu.midi.suggestion && $id('menu-midi-suggestion'))
+          $id('menu-midi-suggestion').textContent = menu.midi.suggestion;
+        if (menu.midi.formules && $id('menu-formules'))
+          $id('menu-formules').innerHTML = menu.midi.formules.map(f => {
+            const parts = f.texte.split('—');
+            return `<div class="formulaRow"><span>${parts[0].trim()}</span><span>${parts[1] ? '— '+parts[1].trim() : ''}</span></div>`;
+          }).join('');
+        if (menu.midi.classiques && $id('menu-midi-classiques'))
+          $id('menu-midi-classiques').innerHTML = menu.midi.classiques.map(p => `<li>${p.nom}</li>`).join('');
+      }
+      if (menu.soir) {
+        if (menu.soir.suggestion && $id('menu-soir-suggestion'))
+          $id('menu-soir-suggestion').textContent = menu.soir.suggestion;
+        if (menu.soir.classiques && $id('menu-soir-classiques'))
+          $id('menu-soir-classiques').innerHTML = menu.soir.classiques.map(p => `<li>${p.nom}</li>`).join('');
+      }
+
+      // ── Galerie slider ────────────────────────────────────────
+      if (galerie.photos && galerie.photos.length && $id('photo-slider')) {
+        $id('photo-slider').innerHTML = galerie.photos.map(p =>
+          `<div class="photoSlide" style="width:550px"><img alt="${p.alt || 'Photo du restaurant'}" src="./${p.image}" /></div>`
+        ).join('');
+      }
+
+      // ── Infos pratiques ───────────────────────────────────────
+      if (infos.statut && $id('infos-statut'))
+        $id('infos-statut').textContent = infos.statut;
+      if (infos.horaires_semaine) {
+        if ($id('infos-horaires-jours')) $id('infos-horaires-jours').textContent = infos.horaires_semaine.jours;
+        if ($id('infos-horaires-heures')) $id('infos-horaires-heures').innerHTML = infos.horaires_semaine.heures.replace('/', '/<br>');
+      }
+      if (infos.horaires_weekend && $id('infos-horaires-weekend'))
+        $id('infos-horaires-weekend').textContent = infos.horaires_weekend.jours + ' - ' + infos.horaires_weekend.statut;
+      if (infos.adresse && $id('infos-adresse'))
+        $id('infos-adresse').innerHTML = infos.adresse;
+      if (infos.telephone && $id('infos-tel')) {
+        $id('infos-tel').textContent = infos.telephone;
+        const telLink = document.querySelector('a[href^="tel:"]');
+        if (telLink) telLink.href = 'tel:+33' + infos.telephone.replace(/[^0-9]/g,'').substring(1);
+      }
+
+      // ── La Suite ──────────────────────────────────────────────
+      const ls = restau.lasuite;
+      if (ls) {
+        if (ls.image        && $id('lasuite-img'))       $id('lasuite-img').src                  = './' + ls.image;
+        if (ls.tag          && $id('lasuite-kicker'))    $id('lasuite-kicker').textContent        = ls.tag;
+        if (ls.titre        && $id('lasuite-titre'))     $id('lasuite-titre').textContent         = ls.titre;
+        if (ls.texte        && $id('lasuite-desc'))      $id('lasuite-desc').textContent          = ls.texte;
+        if (ls.bouton_lien  && $id('lasuite-cta'))       $id('lasuite-cta').href                  = ls.bouton_lien;
+        if (ls.bouton_label && $id('lasuite-cta-label')) $id('lasuite-cta-label').textContent     = ls.bouton_label;
+      }
+
+      // ── Piennolo ──────────────────────────────────────────────
+      const pi = restau.piennolo;
+      if (pi) {
+        if (pi.image        && $id('piennolo-img'))       $id('piennolo-img').src                 = './' + pi.image;
+        if (pi.tag          && $id('piennolo-kicker'))    $id('piennolo-kicker').textContent       = pi.tag;
+        if (pi.titre        && $id('piennolo-titre'))     $id('piennolo-titre').textContent        = pi.titre;
+        if (pi.texte        && $id('piennolo-desc'))      $id('piennolo-desc').textContent         = pi.texte;
+        if (pi.bouton_lien  && $id('piennolo-cta'))       $id('piennolo-cta').href                 = pi.bouton_lien;
+        if (pi.bouton_label && $id('piennolo-cta-label')) $id('piennolo-cta-label').textContent    = pi.bouton_label;
+      }
+
+      // ── Modale alerte ─────────────────────────────────────────
+      const alertEl = document.querySelector('.alert');
+      if (alertEl) {
+        if (!modale.active) {
+          alertEl.style.display = 'none';
+          const reopenBtn = document.querySelector('.alert__reopen');
+          if (reopenBtn) reopenBtn.style.display = 'none';
+        } else {
+          if (modale.titre   && $id('alert-titre'))
+            $id('alert-titre').textContent = modale.titre;
+          if (modale.contenu && $id('alert-contenu')) {
+            $id('alert-contenu').innerHTML = modale.contenu
+              .split('\n').filter(l => l.trim())
+              .map(l => `<p>${l}</p>`).join('');
+            if (modale.sous_texte)
+              $id('alert-contenu').innerHTML += `<p>&nbsp;</p><p>${modale.sous_texte}</p>`;
+          }
+          if (modale.bouton_lien  && $id('alert-cta'))       $id('alert-cta').href                  = modale.bouton_lien;
+          if (modale.bouton_label && $id('alert-cta-label')) $id('alert-cta-label').textContent      = modale.bouton_label;
+        }
+      }
+
+    } catch(e) {
+      // Si les fichiers JSON sont absents, le contenu statique reste affiché
+      console.warn('CMS content not loaded:', e);
+    }
+  })();
   </script>
 
 </body>
