@@ -2,8 +2,8 @@
   "image_header": "le-grand-pan-assets/Img-header-2.webp",
   "image_header_mobile": "le-grand-pan-assets/Img-header-mobile.webp",
   "titre": "bienvenue a table",
-  "texte_subtitle": "",
-  "texte_body": "",
+  "texte_subtitle": "Au Grand Pan, la gastronomie française se vit et se partage.",
+  "texte_body": "Des produits de saison, une cuisine sincère et raffinée, où chaque assiette raconte une histoire de goût.\n\nMenu — Midi :\n\nSuggestion : Pour votre déjeuner laissez-vous tenter par les plats phares du moment\nClassiques : Côte de veau / Côte de boeuf / Côte de porc / Saint-Jaques en hiver / Homard en été\n\nEt ainsi de suite pour chaque section. Publie, puis recharge index-test.html — le contenu apparaîtra. 🎯",
   "image_bienvenue": "le-grand-pan-assets/Image-bienvenue-2.webp",
   "bouton_reservation": {
     "label": "Réserver",
