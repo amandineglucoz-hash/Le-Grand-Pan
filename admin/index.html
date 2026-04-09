@@ -127,11 +127,19 @@
 
       <div class="section" id="section-galerie">
         <h2>Galerie photos</h2>
-        <p style="font-size:13px;color:#888;margin-bottom:16px;">Clique ✕ pour supprimer. Pour ajouter, uploade d'abord la photo dans le dossier <code>le-grand-pan-assets</code> sur GitHub.</p>
+        <p style="font-size:13px;color:#888;margin-bottom:16px;">Clique ✕ pour supprimer une photo du slider.</p>
         <div class="gallery-grid" id="gallery-grid"></div>
-        <div class="divider">Ajouter une photo</div>
-        <div class="field"><label>Nom du fichier (ex: image-12.webp)</label><input type="text" id="new-photo-name" placeholder="image-12.webp"></div>
-        <button onclick="addPhoto()" style="background:#321D16;color:#fff;border:none;border-radius:8px;padding:10px 20px;font-size:14px;cursor:pointer;">Ajouter</button>
+        <div class="divider">Ajouter des photos</div>
+        <div id="drop-zone" style="border:2px dashed #c9b8a8;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
+          <div style="font-size:28px;margin-bottom:8px;color:#c06336;">+</div>
+          <div style="font-size:14px;color:#9f4e2f;font-weight:500;margin-bottom:4px;">Glisse tes photos ici</div>
+          <div style="font-size:12px;color:#888;">ou clique pour ouvrir le Finder</div>
+          <input type="file" id="photo-upload" accept="image/*" multiple style="display:none;">
+        </div>
+        <div id="upload-progress" style="display:none;margin-top:12px;">
+          <div style="font-size:13px;color:#321D16;margin-bottom:6px;" id="upload-status">Upload en cours...</div>
+          <div style="background:#e0d5c8;border-radius:4px;height:6px;"><div id="upload-bar" style="background:#c06336;height:6px;border-radius:4px;width:0%;"></div></div>
+        </div>
       </div>
 
       <div class="section" id="section-infos">
@@ -229,7 +237,45 @@ function renderGallery(photos){
   $('gallery-grid').innerHTML=photos.map((p,i)=>`<div class="gallery-item"><img src="../${p.image}" alt=""><button class="gallery-item-del" onclick="removePhoto(${i})">✕</button></div>`).join('');
 }
 function removePhoto(i){galleryPhotos.splice(i,1);renderGallery(galleryPhotos);}
-function addPhoto(){const n=$('new-photo-name').value.trim();if(!n)return;galleryPhotos.push({image:`le-grand-pan-assets/${n}`,alt:'Photo du restaurant Le Grand Pan'});renderGallery(galleryPhotos);$('new-photo-name').value='';showToast('Photo ajoutée — clique Publier');}
+
+async function uploadPhoto(file){
+  return new Promise((resolve,reject)=>{
+    const reader=new FileReader();
+    reader.onload=async function(e){
+      const base64=e.target.result.split(",")[1];
+      const filename="le-grand-pan-assets/"+file.name;
+      try{
+        let sha=null;
+        try{const ex=await api(filename);sha=ex.sha;}catch(e){}
+        const body={message:"Upload "+file.name,content:base64,branch:BRANCH};
+        if(sha)body.sha=sha;
+        await api(filename,{method:"PUT",body:JSON.stringify(body)});
+        resolve(filename);
+      }catch(e){reject(e);}
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+async function handleFiles(files){
+  const prog=$("upload-progress");const bar=$("upload-bar");const status=$("upload-status");
+  prog.style.display="block";
+  for(let i=0;i<files.length;i++){
+    const file=files[i];
+    status.textContent="Upload "+file.name+" ("+(i+1)+"/"+files.length+")";
+    bar.style.width=Math.round((i/files.length)*100)+"%";
+    try{
+      const path=await uploadPhoto(file);
+      galleryPhotos.push({image:path,alt:"Photo du restaurant Le Grand Pan"});
+      renderGallery(galleryPhotos);
+    }catch(e){showToast("Erreur upload "+file.name,"error");}
+  }
+  bar.style.width="100%";
+  status.textContent="Upload terminé ✓";
+  setTimeout(()=>{prog.style.display="none";},2000);
+  showToast("Photos ajoutées — clique Publier");
+}
+
 
 async function saveAll(){
   const btn=$('save-btn');btn.disabled=true;btn.textContent='Publication...';
@@ -254,6 +300,18 @@ function showSection(name,el){
 }
 
 const saved=localStorage.getItem('lgp_token');
+
+// Drag & drop et click pour upload
+document.addEventListener("DOMContentLoaded",function(){
+  const dz=document.getElementById("drop-zone");
+  const inp=document.getElementById("photo-upload");
+  if(!dz||!inp)return;
+  dz.addEventListener("click",()=>inp.click());
+  inp.addEventListener("change",e=>handleFiles(Array.from(e.target.files)));
+  dz.addEventListener("dragover",e=>{e.preventDefault();dz.style.borderColor="#c06336";dz.style.background="#fdf5ec";});
+  dz.addEventListener("dragleave",()=>{dz.style.borderColor="#c9b8a8";dz.style.background="#fff";});
+  dz.addEventListener("drop",e=>{e.preventDefault();dz.style.borderColor="#c9b8a8";dz.style.background="#fff";handleFiles(Array.from(e.dataTransfer.files));});
+});
 if(saved){TOKEN=saved;$('token-input').value=saved;login();}
 </script>
 </body>
