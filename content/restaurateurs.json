@@ -1,0 +1,18 @@
+{
+  "lasuite": {
+    "image": "le-grand-pan-assets/img-lasuite.webp",
+    "tag": "Salle privée",
+    "titre": "Privatisation & réservation",
+    "texte": "Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.",
+    "bouton_label": "Privatiser",
+    "bouton_lien": "mailto:contact@legrandpan.fr"
+  },
+  "piennolo": {
+    "image": "le-grand-pan-assets/image-piennolo.webp",
+    "tag": "Pizzeria",
+    "titre": "Piennolo",
+    "texte": "Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.",
+    "bouton_label": "Découvrir la carte",
+    "bouton_lien": "le-grand-pan-assets/Menu-piennolo.pdf"
+  }
+}
