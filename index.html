@@ -2147,7 +2147,11 @@
       if(galerie.photos&&galerie.photos.length){
         const slider=document.querySelector('.photoSlider');
         if(slider){
+          // Met à jour les slides
           slider.innerHTML=galerie.photos.map(p=>`<div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./${p.image}"/></div>`).join('');
+          // Réinitialise l'animation du slider
+          slider.scrollLeft=0;
+          Array.from(slider.children).forEach(slide=>slider.appendChild(slide.cloneNode(true)));
         }
       }
 
