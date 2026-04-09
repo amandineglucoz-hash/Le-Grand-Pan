@@ -146,10 +146,12 @@ Promise.all([
     var e=document.querySelector('.follow__cta');if(e)e.href=footer.instagram;
   }
 
-  if(mentions&&mentions.contenu&&mentions.contenu.trim()){
+  if(mentions&&mentions.sections&&mentions.sections.length){
     var main=document.querySelector('main');
     if(main&&window.location.pathname.includes('mentions-legales')){
-      main.innerHTML=mentions.contenu;
+      main.innerHTML=mentions.sections.map(function(s){
+        return '<section class="ml-section"><h2>'+s.titre+'</h2><div>'+s.contenu+'</div></section>';
+      }).join('');
     }
   }
 });
