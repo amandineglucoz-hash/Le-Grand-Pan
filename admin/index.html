@@ -122,20 +122,22 @@
           <label>Grande photo en haut de page</label>
           <div class="img-upload-zone" onclick="triggerUpload('hero-img-header-file')">
             <img id="hero-img-header-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="hero-img-header-label"><span>+ Changer l'image</span><small>1920×1080px — WebP ou JPG</small></div>
+            <div class="upload-label" id="hero-img-header-label"><span>+ Changer l'image</span></div>
             <button class="img-change-btn" style="display:none;" id="hero-img-header-btn">Changer</button>
             <input type="file" id="hero-img-header-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-header','hero_image_header')">
           </div>
+          <p class="hint">1920×1080px — WebP ou JPG recommandé</p>
           <input type="hidden" id="hero_image_header" value="le-grand-pan-assets/Img-header-2.webp">
         </div>
         <div class="field">
           <label>Photo bienvenue</label>
           <div class="img-upload-zone" onclick="triggerUpload('hero-img-bienvenue-file')">
             <img id="hero-img-bienvenue-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="hero-img-bienvenue-label"><span>+ Changer l'image</span><small>800×600px — WebP ou JPG</small></div>
+            <div class="upload-label" id="hero-img-bienvenue-label"><span>+ Changer l'image</span></div>
             <button class="img-change-btn" style="display:none;" id="hero-img-bienvenue-btn">Changer</button>
             <input type="file" id="hero-img-bienvenue-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-bienvenue','hero_image_bienvenue')">
           </div>
+          <p class="hint">800×600px — WebP ou JPG recommandé</p>
           <input type="hidden" id="hero_image_bienvenue" value="le-grand-pan-assets/Image-bienvenue-2.webp">
         </div>
         <div class="divider">Textes</div>
@@ -157,10 +159,11 @@
           <label>Photo du menu</label>
           <div class="img-upload-zone" onclick="triggerUpload('menu-img-file')">
             <img id="menu-img-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="menu-img-label"><span>+ Changer l'image</span><small>600×800px — WebP ou JPG</small></div>
+            <div class="upload-label" id="menu-img-label"><span>+ Changer l'image</span></div>
             <button class="img-change-btn" style="display:none;" id="menu-img-btn">Changer</button>
             <input type="file" id="menu-img-file" accept="image/*" onchange="handleSingleUpload(this,'menu-img','menu_image_menu')">
           </div>
+          <p class="hint">600×800px — WebP ou JPG recommandé</p>
           <input type="hidden" id="menu_image_menu" value="le-grand-pan-assets/Image-menu.webp">
         </div>
         <div class="divider">Midi — Formules</div>
@@ -219,10 +222,11 @@
           <label>Photo La Suite</label>
           <div class="img-upload-zone" onclick="triggerUpload('ls-img-file')">
             <img id="ls-img-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="ls-img-label"><span>+ Changer l'image</span><small>800×600px — WebP ou JPG</small></div>
+            <div class="upload-label" id="ls-img-label"><span>+ Changer l'image</span></div>
             <button class="img-change-btn" style="display:none;" id="ls-img-btn">Changer</button>
             <input type="file" id="ls-img-file" accept="image/*" onchange="handleSingleUpload(this,'ls-img','ls_image')">
           </div>
+          <p class="hint">800×600px — WebP ou JPG recommandé</p>
           <input type="hidden" id="ls_image" value="le-grand-pan-assets/img-lasuite.webp">
         </div>
         <div class="field"><label>Tag</label><input type="text" id="ls-tag"></div>
@@ -237,10 +241,11 @@
           <label>Photo Piennolo</label>
           <div class="img-upload-zone" onclick="triggerUpload('pi-img-file')">
             <img id="pi-img-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="pi-img-label"><span>+ Changer l'image</span><small>800×600px — WebP ou JPG</small></div>
+            <div class="upload-label" id="pi-img-label"><span>+ Changer l'image</span></div>
             <button class="img-change-btn" style="display:none;" id="pi-img-btn">Changer</button>
             <input type="file" id="pi-img-file" accept="image/*" onchange="handleSingleUpload(this,'pi-img','pi_image')">
           </div>
+          <p class="hint">800×600px — WebP ou JPG recommandé</p>
           <input type="hidden" id="pi_image" value="le-grand-pan-assets/image-piennolo.webp">
         </div>
         <div class="field"><label>Tag</label><input type="text" id="pi-tag"></div>
@@ -259,10 +264,11 @@
           <label>Photo de fond du footer</label>
           <div class="img-upload-zone" onclick="triggerUpload('footer-img-file')">
             <img id="footer-img-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="footer-img-label"><span>+ Changer l\'image</span><small>1920×1080px — WebP ou JPG</small></div>
+            <div class="upload-label" id="footer-img-label"><span>+ Changer l\'image</span></div>
             <button class="img-change-btn" style="display:none;" id="footer-img-btn">Changer</button>
             <input type="file" id="footer-img-file" accept="image/*" onchange="handleSingleUpload(this,\'footer-img\',\'footer_image\')">
           </div>
+          <p class="hint">1920×1080px — WebP ou JPG recommandé</p>
           <input type="hidden" id="footer_image" value="le-grand-pan-assets/image-footer.webp">
         </div>
         <div class="field"><label>Texte "Suivez-nous"</label><input type="text" id="footer-suivez"></div>
