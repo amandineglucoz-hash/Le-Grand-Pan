@@ -14,14 +14,14 @@
     #login-screen button { width: 340px; padding: 12px; background: #321D16; color: #fbf5ee; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
     #login-screen button:hover { background: #c06336; }
     #app { display: none; }
-    .topbar { background: #321D16; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
+    .topbar { background: #321D16; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .topbar-right { display: flex; gap: 12px; }
     .save-btn { background: #c06336; color: #fff; border: none; border-radius: 6px; padding: 8px 20px; font-size: 14px; cursor: pointer; font-weight: 500; }
     .save-btn:hover { background: #9f4e2f; }
     .save-btn:disabled { background: #888; cursor: not-allowed; }
     .logout-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; min-height: calc(100vh - 56px); }
-    .sidebar { width: 200px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; }
+    .sidebar { width: 200px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
     .nav-item { padding: 10px 20px; font-size: 13px; color: #aaa; cursor: pointer; border-left: 2px solid transparent; }
     .nav-item:hover { color: #fff; background: #222; }
     .nav-item.active { color: #fff; background: #2a2a2a; border-left-color: #c06336; }
@@ -60,6 +60,18 @@
     .img-upload-zone .upload-label small { font-size: 11px; color: #888; }
     .img-upload-zone input[type=file] { display: none; }
     .img-change-btn { position: absolute; bottom: 8px; right: 8px; background: rgba(50,29,22,0.85); color: #fff; border: none; border-radius: 6px; padding: 5px 12px; font-size: 12px; cursor: pointer; }
+    .ml-block { background: #fff; border: 1px solid #c9b8a8; border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+    .ml-block-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .ml-block-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: #9f4e2f; }
+    .ml-remove-btn { background: transparent; border: 1px solid #e0d5c8; border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #aaa; cursor: pointer; }
+    .ml-remove-btn:hover { border-color: #c06336; color: #c06336; }
+    .rte-toolbar { display: flex; gap: 4px; margin-bottom: 4px; }
+    .rte-toolbar button { background: #f5f0ea; border: 1px solid #c9b8a8; border-radius: 4px; padding: 3px 10px; font-size: 13px; cursor: pointer; line-height: 1.4; }
+    .rte-toolbar button:hover { background: #eed5ba; }
+    .rte-editor { min-height: 100px; padding: 10px 12px; border: 1px solid #c9b8a8; border-radius: 8px; font-size: 14px; background: #fff; color: #321D16; line-height: 1.6; font-family: inherit; }
+    .rte-editor:focus { outline: none; border-color: #c06336; }
+    .add-ml-btn { width: 100%; padding: 11px; background: #f5f0ea; border: 1px dashed #c9b8a8; border-radius: 8px; font-size: 14px; color: #9f4e2f; cursor: pointer; font-weight: 500; margin-top: 4px; }
+    .add-ml-btn:hover { background: #eed5ba; border-color: #c06336; }
   </style>
 </head>
 <body>
@@ -291,11 +303,8 @@
       <!-- MENTIONS LEGALES -->
       <div class="section" id="section-mentions">
         <h2>Mentions légales</h2>
-        <p style="font-size:13px;color:#888;margin-bottom:16px;">Édite directement le contenu HTML de la page. Les balises &lt;h2&gt;, &lt;p&gt;, &lt;a&gt; sont acceptées.</p>
-        <div class="field">
-          <label>Contenu de la page</label>
-          <textarea id="mentions-contenu" rows="24" style="font-family:monospace;font-size:12px;"></textarea>
-        </div>
+        <div id="mentions-sections"></div>
+        <button class="add-ml-btn" onclick="addMentionsSection()">+ Ajouter une section</button>
       </div>
 
     </div>
@@ -305,7 +314,46 @@
 
 <script>
 const REPO='amandineglucoz-hash/Le-Grand-Pan',BRANCH='main';
-let TOKEN='',filesData={},galleryPhotos=[];
+let TOKEN='',filesData={},galleryPhotos=[],mentionsSections=[];
+
+function escAttr(s){return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
+function renderMentionsSections(){
+  $('mentions-sections').innerHTML=mentionsSections.map((s,i)=>`
+    <div class="ml-block">
+      <div class="ml-block-header">
+        <span class="ml-block-label">Section ${i+1}</span>
+        <button class="ml-remove-btn" onclick="removeMentionsSection(${i})">Supprimer</button>
+      </div>
+      <div class="field">
+        <label>Titre</label>
+        <input type="text" value="${escAttr(s.titre)}" oninput="mentionsSections[${i}].titre=this.value" style="width:100%;padding:10px 12px;border:1px solid #c9b8a8;border-radius:8px;font-size:14px;background:#fff;color:#321D16;font-family:inherit;">
+      </div>
+      <div class="field">
+        <label>Paragraphe</label>
+        <div class="rte-toolbar">
+          <button type="button" onmousedown="event.preventDefault();document.execCommand('bold')" title="Gras"><b>G</b></button>
+          <button type="button" onmousedown="event.preventDefault();document.execCommand('italic')" title="Italique"><i>I</i></button>
+          <button type="button" onmousedown="event.preventDefault();rteLink()" title="Lien">Lien</button>
+          <button type="button" onmousedown="event.preventDefault();document.execCommand('unlink')" title="Supprimer lien">Sans lien</button>
+        </div>
+        <div class="rte-editor" contenteditable="true">${s.contenu||''}</div>
+      </div>
+    </div>`).join('');
+}
+function addMentionsSection(){
+  mentionsSections.push({titre:'',contenu:''});
+  renderMentionsSections();
+  const inputs=$('mentions-sections').querySelectorAll('input[type=text]');
+  if(inputs.length)inputs[inputs.length-1].focus();
+}
+function removeMentionsSection(i){
+  mentionsSections.splice(i,1);
+  renderMentionsSections();
+}
+function rteLink(){
+  const url=prompt('URL du lien (ex: https://...)');
+  if(url)document.execCommand('createLink',false,url);
+}
 const $=id=>document.getElementById(id);
 const BASE_URL='https://amandineglucoz-hash.github.io/Le-Grand-Pan/';
 
@@ -419,7 +467,7 @@ async function loadAll(){
     if(footer.image){$("footer_image").value=footer.image;setImagePreview("footer-img",footer.image);}else{setImagePreview("footer-img","le-grand-pan-assets/image-footer.webp");}
     $("footer-suivez").value=footer.suivez||"suivez-nous !";
     $("footer-instagram").value=footer.instagram||"https://www.instagram.com/restaurant_legrandpan/";
-    $("mentions-contenu").value=mentions.contenu||"";
+    mentionsSections=mentions.sections||[];renderMentionsSections();
     showToast('Contenu chargé ✓');
   }catch(e){showToast('Erreur chargement','error');}
 }
@@ -477,7 +525,8 @@ async function saveAll(){
     await putFile('content/infos.json',{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}});
     await putFile('content/restaurateurs.json',{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}});
     await putFile('content/footer.json',{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value});
-    await putFile('content/mentions.json',{contenu:$('mentions-contenu').value});
+    document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
+    await putFile('content/mentions.json',{sections:mentionsSections});
     // Rafraîchit seulement les SHA sans écraser les champs
 await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Publié avec succès ✓');
