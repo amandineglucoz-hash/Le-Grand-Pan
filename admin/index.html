@@ -130,6 +130,17 @@
           <input type="hidden" id="hero_image_header" value="le-grand-pan-assets/Img-header-2.webp">
         </div>
         <div class="field">
+          <label>Image header mobile</label>
+          <div class="img-upload-zone" onclick="triggerUpload('hero-img-header-mobile-file')">
+            <img id="hero-img-header-mobile-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="hero-img-header-mobile-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="hero-img-header-mobile-btn">Changer</button>
+            <input type="file" id="hero-img-header-mobile-file" accept="image/*" onchange="handleSingleUpload(this,'hero-img-header-mobile','hero_image_header_mobile')">
+          </div>
+          <p class="hint">750×1334px — WebP ou JPG recommandé (format portrait)</p>
+          <input type="hidden" id="hero_image_header_mobile" value="le-grand-pan-assets/Img-header-mobile.webp">
+        </div>
+        <div class="field">
           <label>Photo bienvenue</label>
           <div class="img-upload-zone" onclick="triggerUpload('hero-img-bienvenue-file')">
             <img id="hero-img-bienvenue-preview" class="preview" src="" style="display:none;">
@@ -389,6 +400,7 @@ async function loadAll(){
     $('hero-texte_subtitle').value=h.texte_subtitle||'';$('hero-texte_body').value=h.texte_body||'';
     $('hero-bouton_label').value=h.bouton_reservation?.label||'';$('hero-bouton_lien').value=h.bouton_reservation?.lien||'';
     if(h.image_header){$('hero_image_header').value=h.image_header;setImagePreview('hero-img-header',h.image_header);}
+    if(h.image_header_mobile){$('hero_image_header_mobile').value=h.image_header_mobile;setImagePreview('hero-img-header-mobile',h.image_header_mobile);}
     if(h.image_bienvenue){$('hero_image_bienvenue').value=h.image_bienvenue;setImagePreview('hero-img-bienvenue',h.image_bienvenue);}
     $('menu-formule1').value=menu.midi?.formules?.[0]?.texte||'';$('menu-formule2').value=menu.midi?.formules?.[1]?.texte||'';$('menu-formule3').value=menu.midi?.formules?.[2]?.texte||'';
     $('menu-midi-suggestion').value=menu.midi?.suggestion||'';$('menu-midi-classiques').value=(menu.midi?.classiques||[]).map(p=>p.nom).join('\n');
@@ -457,7 +469,7 @@ async function saveAll(){
   const btn=$('save-btn');btn.disabled=true;btn.textContent='Publication...';
   try{
     await putFile('content/modale.json',{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value});
-    await putFile('content/hero.json',{image_header:$('hero_image_header').value,image_header_mobile:'le-grand-pan-assets/Img-header-mobile.webp',titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}});
+    await putFile('content/hero.json',{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}});
     await putFile('content/menu.json',{image_menu:$('menu_image_menu').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}});
     await putFile('content/galerie.json',{photos:galleryPhotos});
     await putFile('content/infos.json',{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}});
