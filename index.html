@@ -1781,7 +1781,9 @@
           <p class="privPanel__kicker">Salle privée</p>
           <h2 class="privPanel__title">Privatisation &amp; réservation</h2>
           <p class="privPanel__desc">Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.</p>
-          <a class="privPanel__cta" href="/cdn-cgi/l/email-protection#35565a5b415456417559505247545b5145545b1b5347" aria-label="Privatiser — envoyer un email">
+          <a class="privPanel__cta"
+             href="mailto:contact@legrandpan.fr"
+             aria-label="Privatiser — envoyer un email">
             <span>Privatiser</span>
           </a>
         </div>
@@ -1875,7 +1877,7 @@
         </div>
         <nav class="follow__footerLinks" aria-label="Liens légaux">
           <a href="./mentions-legales.html">Mentions légales</a>
-          <a href="/cdn-cgi/l/email-protection#bbd8d4d5cfdad8cffbd7dedcc9dad5dfcbdad595ddc9">Contact</a>
+          <a href="mailto:contact@legrandpan.fr">Contact</a>
         </nav>
       </footer>
     </div>
@@ -1901,7 +1903,7 @@
       <p>&nbsp;</p>
       <p>Commandes ouvertes<br /><strong style="font-weight:600;">jusqu'au 15 décembre</strong></p>
     </div>
-    <a class="alert__cta" href="/cdn-cgi/l/email-protection#70131f1e04111304301c151702111e1400111e5e1602" aria-label="Commander">
+    <a class="alert__cta" href="mailto:contact@legrandpan.fr" aria-label="Commander">
       <span>Commander</span>
     </a>
   </div>
@@ -1917,7 +1919,7 @@
   <!-- ================================================
        SCRIPTS
   ================================================ -->
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     // ── Hero parallax (scroll-over effect) ──────────────────────
     const headerEl = document.querySelector('.header');
     function updateHeroParallax() {
@@ -2054,207 +2056,13 @@
         closeBtn.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') hideAlert(); });
         reopenBtn.addEventListener('click',  showAlert);
 
-        /* Fermée par défaut sur mobile         if (window.innerWidth < 768) {
+        /* Fermée par défaut sur mobile */
+        if (window.matchMedia('(max-width: 768px)').matches) {
           alertEl.style.display = 'none';
+          reopenBtn.classList.add('is-visible');
         }
       }
     })();
-  </script>
-
-  <!-- CMS LOADER — met à jour le contenu depuis les fichiers JSON -->
-  <script>
-  (async function() {
-    try {
-      const [hero, menu, galerie, infos, restau, modale] = await Promise.all([
-        fetch('./content/hero.json').then(r=>r.json()),
-        fetch('./content/menu.json').then(r=>r.json()),
-        fetch('./content/galerie.json').then(r=>r.json()),
-        fetch('./content/infos.json').then(r=>r.json()),
-        fetch('./content/restaurateurs.json').then(r=>r.json()),
-        fetch('./content/modale.json').then(r=>r.json()),
-      ]);
-
-      // ── Hero image ───────────────────────────────────────────
-      if(hero.image_header){
-        const img=document.querySelector('.header__hero img');
-        if(img)img.src='./'+hero.image_header;
-      }
-      if(hero.image_header_mobile){
-        const src=document.querySelector('.header__hero source');
-        if(src)src.srcset='./'+hero.image_header_mobile;
-      }
-
-      // ── Bienvenue ────────────────────────────────────────────
-      if(hero.titre){
-        const pts=hero.titre.split(' '), mid=Math.ceil(pts.length/2);
-        const l1=document.querySelector('.welcome__heading .line1');
-        const l2=document.querySelector('.welcome__heading .line2');
-        if(l1)l1.textContent=pts.slice(0,mid).join(' ');
-        if(l2)l2.textContent=pts.slice(mid).join(' ');
-      }
-      if(hero.texte_subtitle){
-        const el=document.querySelector('.welcome__text .subtitle');
-        if(el)el.innerHTML=hero.texte_subtitle;
-      }
-      if(hero.texte_body){
-        const el=document.querySelector('.welcome__text .body-p');
-        if(el)el.innerHTML=hero.texte_body;
-      }
-      if(hero.image_bienvenue){
-        const el=document.querySelector('.welcome__photo');
-        if(el)el.src='./'+hero.image_bienvenue;
-      }
-      if(hero.bouton_reservation){
-        document.querySelectorAll('a.nav-cta, a.infos__reserverBtn').forEach(el=>{
-          if(hero.bouton_reservation.lien)el.href=hero.bouton_reservation.lien;
-        });
-      }
-
-      // ── Menu ─────────────────────────────────────────────────
-      if(menu.image_menu){
-        const el=document.querySelector('.menuPage__imgWrap img');
-        if(el)el.src='./'+menu.image_menu;
-      }
-      if(menu.midi){
-        if(menu.midi.formules){
-          const wrap=document.querySelector('.formulasWrap');
-          if(wrap)wrap.innerHTML=menu.midi.formules.map(f=>{
-            const p=f.texte.split('—');
-            return `<div class="formulaRow"><span>${p[0].trim()}</span><span>${p[1]?'— '+p[1].trim():''}</span></div>`;
-          }).join('');
-        }
-        if(menu.midi.suggestion){
-          const els=document.querySelectorAll('.menuBlock__text');
-          if(els[0])els[0].textContent=menu.midi.suggestion;
-        }
-        if(menu.midi.classiques){
-          const ul=document.querySelectorAll('.menuList')[0];
-          if(ul)ul.innerHTML=menu.midi.classiques.map(p=>`<li>${p.nom}</li>`).join('');
-        }
-      }
-      if(menu.soir){
-        if(menu.soir.suggestion){
-          const els=document.querySelectorAll('.menuBlock__text');
-          if(els[2])els[2].textContent=menu.soir.suggestion;
-        }
-        if(menu.soir.classiques){
-          const ul=document.querySelectorAll('.menuList')[1];
-          if(ul)ul.innerHTML=menu.soir.classiques.map(p=>`<li>${p.nom}</li>`).join('');
-        }
-      }
-
-      // ── Galerie ───────────────────────────────────────────────
-      if(galerie.photos&&galerie.photos.length){
-        const slider=document.querySelector('.photoSlider');
-        if(slider){
-          // Met à jour les slides
-          slider.innerHTML=galerie.photos.map(p=>`<div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./${p.image}"/></div>`).join('');
-          // Réinitialise l'animation du slider
-          slider.scrollLeft=0;
-          Array.from(slider.children).forEach(slide=>slider.appendChild(slide.cloneNode(true)));
-        }
-      }
-
-      // ── Infos pratiques ───────────────────────────────────────
-      if(infos.statut){
-        const el=document.querySelector('.openBar__left p');
-        if(el)el.textContent=infos.statut;
-      }
-      if(infos.horaires_semaine){
-        const smalls=document.querySelectorAll('.infoCard .small');
-        if(smalls[0])smalls[0].textContent=infos.horaires_semaine.jours;
-        const big=document.querySelector('.infoCard .big');
-        if(big)big.innerHTML=infos.horaires_semaine.heures;
-      }
-      if(infos.horaires_weekend){
-        const smalls=document.querySelectorAll('.infoCard .small');
-        if(smalls[1])smalls[1].textContent=infos.horaires_weekend.jours+' - '+infos.horaires_weekend.statut;
-      }
-      if(infos.adresse){
-        const el=document.querySelector('.infoCard--address .small');
-        if(el)el.innerHTML=infos.adresse;
-      }
-      if(infos.telephone){
-        const big=document.querySelectorAll('.infoCard .big')[1];
-        if(big)big.textContent=infos.telephone;
-        const tel=document.querySelector('a[href^="tel:"]');
-        if(tel)tel.href='tel:+33'+infos.telephone.replace(/[^0-9]/g,'').substring(1);
-      }
-
-      // ── La Suite ──────────────────────────────────────────────
-      if(restau.lasuite){
-        const ls=restau.lasuite;
-        const panel=document.querySelectorAll('.privPanel')[0];
-        if(panel){
-          const img=panel.querySelector('.privPanel__imgBox > img');
-          if(img&&ls.image)img.src='./'+ls.image;
-          const kicker=panel.querySelector('.privPanel__kicker');
-          if(kicker&&ls.tag)kicker.textContent=ls.tag;
-          const titre=panel.querySelector('.privPanel__title');
-          if(titre&&ls.titre)titre.textContent=ls.titre;
-          const desc=panel.querySelector('.privPanel__desc');
-          if(desc&&ls.texte)desc.textContent=ls.texte;
-          const cta=panel.querySelector('.privPanel__cta');
-          if(cta){
-            if(ls.bouton_lien)cta.href=ls.bouton_lien;
-            const span=cta.querySelector('span');
-            if(span&&ls.bouton_label)span.textContent=ls.bouton_label;
-          }
-        }
-      }
-
-      // ── Piennolo ──────────────────────────────────────────────
-      if(restau.piennolo){
-        const pi=restau.piennolo;
-        const panel=document.querySelectorAll('.privPanel')[1];
-        if(panel){
-          const img=panel.querySelector('.privPanel__imgBox > img');
-          if(img&&pi.image)img.src='./'+pi.image;
-          const kicker=panel.querySelector('.privPanel__kicker');
-          if(kicker&&pi.tag)kicker.textContent=pi.tag;
-          const titre=panel.querySelector('.privPanel__title');
-          if(titre&&pi.titre)titre.textContent=pi.titre;
-          const desc=panel.querySelector('.privPanel__desc');
-          if(desc&&pi.texte)desc.textContent=pi.texte;
-          const cta=panel.querySelector('.privPanel__cta');
-          if(cta){
-            if(pi.bouton_lien)cta.href=pi.bouton_lien;
-            const span=cta.querySelector('span');
-            if(span&&pi.bouton_label)span.textContent=pi.bouton_label;
-          }
-        }
-      }
-
-      // ── Modale ────────────────────────────────────────────────
-      const alertEl=document.querySelector('.alert');
-      if(alertEl){
-        if(!modale.active){
-          alertEl.style.display='none';
-          const rb=document.querySelector('.alert__reopen');
-          if(rb)rb.style.display='none';
-        } else {
-          if(modale.titre){
-            const el=alertEl.querySelector('.alert__text');
-            if(el)el.textContent=modale.titre;
-          }
-          if(modale.contenu){
-            const el=alertEl.querySelector('.alert__list');
-            if(el){
-              el.innerHTML=modale.contenu.split('\n').filter(l=>l.trim()).map(l=>`<p>${l}</p>`).join('');
-              if(modale.sous_texte)el.innerHTML+=`<p>&nbsp;</p><p>${modale.sous_texte}</p>`;
-            }
-          }
-          const cta=alertEl.querySelector('.alert__cta');
-          if(cta){
-            if(modale.bouton_lien)cta.href=modale.bouton_lien;
-            const span=cta.querySelector('span');
-            if(span&&modale.bouton_label)span.textContent=modale.bouton_label;
-          }
-        }
-      }
-
-    } catch(e){ console.warn('CMS non chargé:', e); }
-  })();
   </script>
 
 </body>
