@@ -2,7 +2,7 @@
   "statut": "Nous sommes ouvert !",
   "horaires_semaine": {
     "jours": "Lun - Ven",
-    "heures": "12h-14h/ 19h30-23h"
+    "heures": "12h-14h/ <br /> 19h30-23h"
   },
   "horaires_weekend": {
     "jours": "Dim-Samedi",
