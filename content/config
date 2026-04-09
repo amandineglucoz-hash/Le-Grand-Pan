@@ -1,3 +1,6 @@
 {
-  "password": "LeGrandTest.2026"
+  "users": [
+    { "login": "amandine", "password": "LeGrandTest.2026" },
+    { "login": "restaurant", "password": "GrandPan2026" }
+  ]
 }
