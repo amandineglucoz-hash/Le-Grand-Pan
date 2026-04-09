@@ -1,11 +1,7 @@
 backend:
-  name: netlify
+  name: github
   repo: amandineglucoz-hash/Le-Grand-Pan
   branch: main
-  site_domain: clever-raindrop-7bf930.netlify.app
-  base_url: https://api.netlify.com
-  auth_endpoint: auth
-
 
 media_folder: "le-grand-pan-assets"
 public_folder: "le-grand-pan-assets"
@@ -135,3 +131,11 @@ collections:
               - { label: "Texte", name: "texte", widget: "text" }
               - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
               - { label: "Lien du bouton", name: "bouton_lien", widget: "string" }
+
+      - name: "footer"
+        label: "Footer & Instagram"
+        file: "content/footer.json"
+        fields:
+          - { label: "Image de fond (section Instagram)", name: "image", widget: "image", hint: "Photo d'ambiance affichée derrière le bouton Instagram" }
+          - { label: "Titre (ex: Suivez-nous)", name: "suivez", widget: "string", default: "Suivez-nous sur Instagram" }
+          - { label: "Lien Instagram", name: "instagram", widget: "string", hint: "Ex: https://www.instagram.com/legrandpan" }
