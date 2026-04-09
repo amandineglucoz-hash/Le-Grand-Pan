@@ -1,7 +1,9 @@
 {
   "image_header": "le-grand-pan-assets/Img-header-2.webp",
+  "image_header_mobile": "le-grand-pan-assets/Img-header-mobile.webp",
   "titre": "bienvenue a table",
-  "texte": "Au Grand Pan, la gastronomie française se vit et se partage.\n\nDes produits de saison, une cuisine sincère et raffinée, où chaque assiette raconte une histoire de goût.",
+  "texte_subtitle": "",
+  "texte_body": "",
   "image_bienvenue": "le-grand-pan-assets/Image-bienvenue-2.webp",
   "bouton_reservation": {
     "label": "Réserver",
