@@ -93,7 +93,8 @@
       <div class="nav-item" onclick="showSection('infos',this)">Infos pratiques</div>
       <div class="nav-item" onclick="showSection('restaurateurs',this)">La Suite & Piennolo</div>
       <div class="nav-item" onclick="showSection('footer',this)">Footer</div>
-      <div class="nav-item" onclick="showSection('mentions',this)">Mentions légales</div>    </div>
+      <div class="nav-item" onclick="showSection('mentions',this)">Mentions légales</div>
+    </div>
     <div class="content">
 
       <!-- MODALE -->
@@ -258,23 +259,23 @@
           <label>Photo de fond du footer</label>
           <div class="img-upload-zone" onclick="triggerUpload('footer-img-file')">
             <img id="footer-img-preview" class="preview" src="" style="display:none;">
-            <div class="upload-label" id="footer-img-label"><span>+ Changer l'image</span><small>1920x1080px recommandé</small></div>
+            <div class="upload-label" id="footer-img-label"><span>+ Changer l\'image</span><small>1920x1080px recommandé</small></div>
             <button class="img-change-btn" style="display:none;" id="footer-img-btn">Changer</button>
-            <input type="file" id="footer-img-file" accept="image/*" onchange="handleSingleUpload(this,'footer-img','footer_image')">
+            <input type="file" id="footer-img-file" accept="image/*" onchange="handleSingleUpload(this,\'footer-img\',\'footer_image\')">
           </div>
           <input type="hidden" id="footer_image" value="le-grand-pan-assets/image-footer.webp">
         </div>
-        <div class="field"><label>Texte suivez-nous</label><input type="text" id="footer-suivez"></div>
+        <div class="field"><label>Texte "Suivez-nous"</label><input type="text" id="footer-suivez"></div>
         <div class="field"><label>Lien Instagram</label><input type="text" id="footer-instagram"></div>
       </div>
 
       <!-- MENTIONS LEGALES -->
       <div class="section" id="section-mentions">
         <h2>Mentions légales</h2>
+        <p style="font-size:13px;color:#888;margin-bottom:16px;">Édite directement le contenu HTML de la page. Les balises &lt;h2&gt;, &lt;p&gt;, &lt;a&gt; sont acceptées.</p>
         <div class="field">
           <label>Contenu de la page</label>
-          <textarea id="mentions-contenu" rows="20" style="font-family:monospace;font-size:12px;"></textarea>
-          <p class="hint">HTML accepté. Sera affiché sur mentions-legales.html</p>
+          <textarea id="mentions-contenu" rows="24" style="font-family:monospace;font-size:12px;"></textarea>
         </div>
       </div>
 
@@ -397,7 +398,7 @@ async function loadAll(){
     if(r.piennolo?.image){$('pi_image').value=r.piennolo.image;setImagePreview('pi-img',r.piennolo.image);}
     if(footer.image){$("footer_image").value=footer.image;setImagePreview("footer-img",footer.image);}else{setImagePreview("footer-img","le-grand-pan-assets/image-footer.webp");}
     $("footer-suivez").value=footer.suivez||"suivez-nous !";
-    $("footer-instagram").value=footer.instagram||"";
+    $("footer-instagram").value=footer.instagram||"https://www.instagram.com/restaurant_legrandpan/";
     $("mentions-contenu").value=mentions.contenu||"";
     showToast('Contenu chargé ✓');
   }catch(e){showToast('Erreur chargement','error');}
@@ -458,7 +459,7 @@ async function saveAll(){
     await putFile('content/footer.json',{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value});
     await putFile('content/mentions.json',{contenu:$('mentions-contenu').value});
     // Rafraîchit seulement les SHA sans écraser les champs
-await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
+await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Publié avec succès ✓');
   }catch(e){showToast('Erreur publication','error');}
   finally{btn.disabled=false;btn.textContent='Publier';}
