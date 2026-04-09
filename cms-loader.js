@@ -44,15 +44,18 @@ Promise.all([
   if(menu&&menu.soir&&menu.soir.suggestion){var els=document.querySelectorAll('.menuBlock__text');if(els[2])els[2].textContent=menu.soir.suggestion;}
   if(menu&&menu.soir&&menu.soir.classiques){var ul=document.querySelectorAll('.menuList')[1];if(ul)ul.innerHTML=menu.soir.classiques.map(function(p){return '<li>'+p.nom+'</li>';}).join('');}
 
-  // Galerie — met à jour les srcs sans toucher à la structure ni aux animations
+  // Galerie — reconstruit le slider et relance l'animation
   if(galerie&&galerie.photos&&galerie.photos.length){
     var slider=document.querySelector('.photoSlider');
     if(slider){
-      var slides=slider.querySelectorAll('.photoSlide img');
       var photos=galerie.photos;
-      for(var i=0;i<Math.min(slides.length,photos.length);i++){
-        slides[i].src='./'+photos[i].image;
-      }
+      slider.innerHTML=photos.map(function(p){
+        return '<div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./'+p.image+'"/></div>';
+      }).join('');
+      Array.from(slider.children).forEach(function(slide){
+        slider.appendChild(slide.cloneNode(true));
+      });
+      slider.scrollLeft=0;
     }
   }
 
