@@ -1,6 +1,13 @@
 {
   "users": [
-    { "login": "amandine", "password": "LeGrandTest.2026" },
-    { "login": "restaurant", "password": "GrandPan2026" }
-  ]
+    {
+      "login": "amandine",
+      "password": "LeGrandTest.2026"
+    },
+    {
+      "login": "restaurant",
+      "password": "GrandPan2026"
+    }
+  ],
+  "github_token": ""
 }
