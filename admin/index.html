@@ -423,7 +423,8 @@ async function saveAll(){
     await putFile('content/galerie.json',{photos:galleryPhotos});
     await putFile('content/infos.json',{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}});
     await putFile('content/restaurateurs.json',{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}});
-    await loadAll();
+    // Rafraîchit seulement les SHA sans écraser les champs
+await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Publié avec succès ✓');
   }catch(e){showToast('Erreur publication','error');}
   finally{btn.disabled=false;btn.textContent='Publier';}
