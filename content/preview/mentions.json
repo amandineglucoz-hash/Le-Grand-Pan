@@ -1,0 +1,20 @@
+{
+  "sections": [
+    {
+      "titre": "Informations légales",
+      "contenu": "<p>La simple utilisation et/ou consultation du site <a href=\"https://www.legrandpan.fr\" target=\"_blank\" rel=\"noopener\">www.legrandpan.fr</a> implique, de façon automatique et inconditionnelle, votre acceptation pleine et entière de l'ensemble des présentes conditions d'utilisation.</p><p>Les informations en consultation sur ce site sont proposées sous réserve d'erreur, d'inexactitude ou d'omission affectant les informations. Elles peuvent faire l'objet de modification ou de suppression à tout moment et sans préavis ni indemnités quelconques.</p>"
+    },
+    {
+      "titre": "Responsabilité",
+      "contenu": "<p>De manière générale, le Grand Pan ne peut être tenu pour responsable en cas de problème d'ordre technique de quelque nature que ce soit affectant la diffusion de son site. Le Grand Pan se réserve la possibilité de modifier, d'interrompre temporairement ou de façon permanente, tout ou partie de son site, sans préavis ni indemnité quelconques.</p>"
+    },
+    {
+      "titre": "Crédits",
+      "contenu": "<p><strong>Conception et réalisation graphique :</strong> agence Glucoz — <a href=\"http://www.glucoz.fr\" target=\"_blank\" rel=\"noopener\">www.glucoz.fr</a><br><strong>Crédits photographiques :</strong> ©Pierre Lucet Penato</p>"
+    },
+    {
+      "titre": "Éditeur et responsable de la communication",
+      "contenu": "<p><strong>Benoit Gauthier</strong> — <a href=\"mailto:contact@legrandpan.fr\">contact@legrandpan.fr</a></p>"
+    }
+  ]
+}
