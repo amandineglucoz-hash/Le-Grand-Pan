@@ -383,7 +383,14 @@ async function api(path,opts={}){
 }
 
 async function getFile(path){const d=await api(path);filesData[path]={sha:d.sha};return JSON.parse(decodeURIComponent(escape(atob(d.content.replace(/\n/g,'')))));}
-async function putFile(path,content){const fresh=await api(path);filesData[path]={sha:fresh.sha};return api(path,{method:'PUT',body:JSON.stringify({message:`Update ${path}`,content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),sha:filesData[path].sha,branch:BRANCH})});}
+async function putFile(path,content){
+  let sha=null;
+  try{const fresh=await api(path);sha=fresh.sha;}catch(e){}
+  filesData[path]={sha};
+  const body={message:`Update ${path}`,content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),branch:BRANCH};
+  if(sha)body.sha=sha;
+  return api(path,{method:'PUT',body:JSON.stringify(body)});
+}
 
 async function login(){
   const lgn=$("login-input").value.trim();
