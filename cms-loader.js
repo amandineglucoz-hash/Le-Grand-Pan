@@ -1,11 +1,24 @@
-Promise.all([
-  fetch('./content/hero.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/menu.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/galerie.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/infos.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/restaurateurs.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-]).then(function(results) {
+var _isPreview=new URLSearchParams(window.location.search).get('preview')==='1';
+var _previewData=_isPreview?(function(){try{return JSON.parse(localStorage.getItem('lgp_preview')||'null');}catch(e){return null;}})():null;
+if(_isPreview&&_previewData){document.title='[PRÉVIEW] '+document.title;var bar=document.createElement('div');bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#c06336;color:#fff;text-align:center;padding:8px;font-size:13px;z-index:9999;font-family:sans-serif;';bar.textContent='⚠ Mode prévisualisation — modifications non publiées';document.body.appendChild(bar);document.body.style.paddingTop='36px';}
+
+Promise.resolve(_isPreview&&_previewData?[
+  _previewData.hero||null,
+  _previewData.menu||null,
+  _previewData.galerie||null,
+  _previewData.infos||null,
+  _previewData.restaurateurs||null,
+  _previewData.modale||null,
+]:null).then(function(preview){
+  return preview?Promise.resolve(preview):Promise.all([
+    fetch('./content/hero.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('./content/menu.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('./content/galerie.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('./content/infos.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('./content/restaurateurs.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch('./content/modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  ]);
+}).then(function(results) {
   var hero=results[0], menu=results[1], galerie=results[2];
   var infos=results[3], restau=results[4], modale=results[5];
 
@@ -30,6 +43,13 @@ Promise.all([
 
   // Menu image
   if(menu&&menu.image_menu){var e=document.querySelector('.menuPage__imgWrap img');if(e)e.src='./'+menu.image_menu;}
+
+  // Titres de sections
+  if(menu&&menu.titre_midi){var els=document.querySelectorAll('.menuTab');if(els[0])els[0].textContent=menu.titre_midi;}
+  if(menu&&menu.titre_soir){var els=document.querySelectorAll('.menuTab');if(els[1])els[1].textContent=menu.titre_soir;}
+  if(menu&&menu.titre_formules){var els=document.querySelectorAll('.menuBlock__heading');if(els[0])els[0].textContent=menu.titre_formules;}
+  if(menu&&menu.titre_suggestion){var els=document.querySelectorAll('.menuBlock__heading');if(els[1])els[1].textContent=menu.titre_suggestion;if(els[3])els[3].textContent=menu.titre_suggestion;}
+  if(menu&&menu.titre_classiques){var els=document.querySelectorAll('.menuBlock__heading');if(els[2])els[2].textContent=menu.titre_classiques;if(els[4])els[4].textContent=menu.titre_classiques;}
 
   // Menu midi formules
   if(menu&&menu.midi&&menu.midi.formules){
@@ -128,12 +148,14 @@ Promise.all([
   }
 
 });
+}); // end Promise.resolve
 
 // Footer
-Promise.all([
+var _footerPromise=(_isPreview&&_previewData)?Promise.resolve([_previewData.footer||null,null]):Promise.all([
   fetch('./content/footer.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
   fetch('./content/mentions.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-]).then(function(results){
+]);
+_footerPromise.then(function(results){
   var footer=results[0], mentions=results[1];
 
   if(footer&&footer.image){
