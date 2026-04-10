@@ -562,36 +562,29 @@ await Promise.all(["content/modale.json","content/hero.json","content/menu.json"
   finally{btn.disabled=false;btn.textContent='Publier';}
 }
 
-function previewAll(){
-  const previewData={
-    hero:{
-      image_header:$('hero_image_header').value,
-      image_header_mobile:$('hero_image_header_mobile').value,
-      titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,
-      texte_subtitle:$('hero-texte_subtitle').value,
-      texte_body:$('hero-texte_body').value,
-      image_bienvenue:$('hero_image_bienvenue').value,
-      bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}
-    },
-    menu:{
-      image_menu:$('menu_image_menu').value,
-      titre_midi:$('menu-titre_midi').value,
-      titre_soir:$('menu-titre_soir').value,
-      titre_formules:$('menu-titre_formules').value,
-      titre_suggestion:$('menu-titre_suggestion').value,
-      titre_classiques:$('menu-titre_classiques').value,
-      midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},
-      soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}
-    },
-    galerie:{photos:galleryPhotos},
-    infos:{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
-    restaurateurs:{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
-    footer:{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
-    modale:{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value}
-  };
-  const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
-  localStorage.setItem('lgp_preview',JSON.stringify(previewData));
-  window.open(base+'/?preview=1','_blank');
+async function previewAll(){
+  const btn=document.querySelector('.preview-btn');
+  btn.disabled=true;btn.textContent='Envoi preprod...';
+  try{
+    const files={
+      'content/preview/hero.json':{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}},
+      'content/preview/menu.json':{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}},
+      'content/preview/galerie.json':{photos:galleryPhotos},
+      'content/preview/infos.json':{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
+      'content/preview/restaurateurs.json':{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
+      'content/preview/footer.json':{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
+      'content/preview/modale.json':{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value}
+    };
+    document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
+    files['content/preview/mentions.json']={sections:mentionsSections};
+    for(const[path,content] of Object.entries(files)){
+      await putFile(path,content);
+    }
+    showToast('Preprod mise à jour ✓');
+    const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
+    window.open(base+'/?preview=1','_blank');
+  }catch(e){showToast('Erreur preprod','error');}
+  finally{btn.disabled=false;btn.textContent='Prévisualiser';}
 }
 
 function showSection(name,el){
