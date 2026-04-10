@@ -7,27 +7,53 @@
   "titre_classiques": "Les classiques",
   "midi": {
     "formules": [
-      { "texte": "Entrée + Plat— 25€" },
-      { "texte": "Plat + dessert— 26€" },
-      { "texte": "Entrée + Plat + dessert— 34€" }
+      {
+        "texte": "Entrée + Plat— 25€"
+      },
+      {
+        "texte": "Plat + dessert— 26€"
+      },
+      {
+        "texte": "Entrée + Plat + dessert— 34€"
+      }
     ],
     "suggestion": "Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
     "classiques": [
-      { "nom": "Côte de veau" },
-      { "nom": "Côte de boeuf" },
-      { "nom": "Côte de porc" },
-      { "nom": "Saint-Jaques en hiver" },
-      { "nom": "Homard en été" }
+      {
+        "nom": "Côte de veau"
+      },
+      {
+        "nom": "Côte de boeuf"
+      },
+      {
+        "nom": "Côte de porc"
+      },
+      {
+        "nom": "Saint-Jaques en hiver"
+      },
+      {
+        "nom": "Homard en été"
+      }
     ]
   },
   "soir": {
     "suggestion": "Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
     "classiques": [
-      { "nom": "Côte de veau" },
-      { "nom": "Côte de boeuf" },
-      { "nom": "Côte de porc" },
-      { "nom": "Saint-Jaques en hiver" },
-      { "nom": "Homard en été" }
+      {
+        "nom": "Côte de veau"
+      },
+      {
+        "nom": "Côte de boeuf"
+      },
+      {
+        "nom": "Côte de porc"
+      },
+      {
+        "nom": "Saint-Jaques en hiver"
+      },
+      {
+        "nom": "Homard en été"
+      }
     ]
   }
 }
