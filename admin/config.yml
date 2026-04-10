@@ -20,7 +20,7 @@ collections:
           - { label: "Titre", name: "titre", widget: "string" }
           - { label: "Contenu (plats, prix...)", name: "contenu", widget: "text", hint: "Une ligne par article" }
           - { label: "Sous-texte (date limite, info)", name: "sous_texte", widget: "string", required: false }
-          - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
+          - { label: "Texte du bouton",aname: "bouton_label", widget: "string" }
           - { label: "Lien du bouton", name: "bouton_lien", widget: "string", hint: "Ex: mailto:contact@legrandpan.fr ou une URL" }
 
   - name: "accueil"
