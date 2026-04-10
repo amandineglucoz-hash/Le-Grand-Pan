@@ -1,24 +1,15 @@
 var _isPreview=new URLSearchParams(window.location.search).get('preview')==='1';
-var _previewData=_isPreview?(function(){try{return JSON.parse(localStorage.getItem('lgp_preview')||'null');}catch(e){return null;}})():null;
-if(_isPreview&&_previewData){document.title='[PRÉVIEW] '+document.title;var bar=document.createElement('div');bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#c06336;color:#fff;text-align:center;padding:8px;font-size:13px;z-index:9999;font-family:sans-serif;';bar.textContent='⚠ Mode prévisualisation — modifications non publiées';document.body.appendChild(bar);document.body.style.paddingTop='36px';}
+var _dir=_isPreview?'./content/preview/':'./content/';
+if(_isPreview){document.title='[PREPROD] '+document.title;var bar=document.createElement('div');bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#c06336;color:#fff;text-align:center;padding:8px 16px;font-size:13px;z-index:9999;font-family:sans-serif;display:flex;align-items:center;justify-content:center;gap:16px;';bar.innerHTML='<span>⚠ Mode préprod — modifications non publiées</span><a href="'+window.location.pathname+'" style="color:#fff;font-size:12px;border:1px solid rgba(255,255,255,0.5);border-radius:4px;padding:2px 10px;text-decoration:none;">Voir la prod</a>';document.body.appendChild(bar);document.body.style.paddingTop='36px';}
 
-Promise.resolve(_isPreview&&_previewData?[
-  _previewData.hero||null,
-  _previewData.menu||null,
-  _previewData.galerie||null,
-  _previewData.infos||null,
-  _previewData.restaurateurs||null,
-  _previewData.modale||null,
-]:null).then(function(preview){
-  return preview?Promise.resolve(preview):Promise.all([
-    fetch('./content/hero.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-    fetch('./content/menu.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-    fetch('./content/galerie.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-    fetch('./content/infos.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-    fetch('./content/restaurateurs.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-    fetch('./content/modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  ]);
-}).then(function(results) {
+Promise.all([
+  fetch(_dir+'hero.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch(_dir+'menu.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch(_dir+'galerie.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch(_dir+'infos.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch(_dir+'restaurateurs.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch(_dir+'modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+]).then(function(results) {
   var hero=results[0], menu=results[1], galerie=results[2];
   var infos=results[3], restau=results[4], modale=results[5];
 
@@ -148,12 +139,11 @@ Promise.resolve(_isPreview&&_previewData?[
   }
 
 });
-}); // end Promise.resolve
 
 // Footer
-var _footerPromise=(_isPreview&&_previewData)?Promise.resolve([_previewData.footer||null,null]):Promise.all([
-  fetch('./content/footer.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
-  fetch('./content/mentions.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+var _footerPromise=Promise.all([
+  fetch(_dir+'footer.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+  fetch(_dir+'mentions.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
 ]);
 _footerPromise.then(function(results){
   var footer=results[0], mentions=results[1];
