@@ -21,6 +21,20 @@
     .save-btn:disabled { background: #888; cursor: not-allowed; }
     .preview-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
     .preview-btn:hover { background: rgba(255,255,255,0.1); }
+    .preview-drawer { position: fixed; top: 0; right: -55vw; width: 55vw; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.2); z-index: 200; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
+    .preview-drawer.open { right: 0; }
+    .preview-drawer-bar { background: #321D16; color: #fbf5ee; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; }
+    .preview-drawer-bar span { font-size: 13px; font-weight: 500; }
+    .preview-drawer-bar .drawer-btns { display: flex; gap: 8px; align-items: center; }
+    .preview-drawer-device { display: flex; gap: 4px; }
+    .preview-drawer-device button { background: rgba(255,255,255,0.1); border: none; color: #fbf5ee; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+    .preview-drawer-device button.active { background: #c06336; }
+    .preview-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fbf5ee; border-radius: 4px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
+    .preview-close:hover { background: rgba(255,255,255,0.1); }
+    .preview-iframe-wrap { flex: 1; overflow: hidden; display: flex; justify-content: center; background: #e8e0d8; transition: all 0.3s; }
+    .preview-iframe-wrap iframe { border: none; height: 100%; transition: width 0.3s; }
+    .preview-iframe-wrap.desktop iframe { width: 100%; }
+    .preview-iframe-wrap.mobile iframe { width: 390px; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
     .logout-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; min-height: calc(100vh - 56px); }
     .sidebar { width: 200px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
@@ -329,6 +343,22 @@
 </div>
 <div id="toast"></div>
 
+<div class="preview-drawer" id="preview-drawer">
+  <div class="preview-drawer-bar">
+    <span>Préprod</span>
+    <div class="drawer-btns">
+      <div class="preview-drawer-device">
+        <button class="active" id="btn-desktop" onclick="setDrawerDevice('desktop')">Desktop</button>
+        <button id="btn-mobile" onclick="setDrawerDevice('mobile')">Mobile</button>
+      </div>
+      <button class="preview-close" onclick="closeDrawer()">✕ Fermer</button>
+    </div>
+  </div>
+  <div class="preview-iframe-wrap desktop" id="preview-iframe-wrap">
+    <iframe id="preview-iframe" src="about:blank"></iframe>
+  </div>
+</div>
+
 <script>
 const REPO='amandineglucoz-hash/Le-Grand-Pan',BRANCH='main';
 let TOKEN='',filesData={},galleryPhotos=[],mentionsSections=[];
@@ -589,9 +619,24 @@ async function previewAll(){
     }
     showToast('Preprod mise à jour ✓');
     const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
-    window.open(base+'/?preview=1','_blank');
+    openDrawer(base+'/?preview=1&v='+Date.now());
   }catch(e){showToast('Erreur preprod','error');}
   finally{btn.disabled=false;btn.textContent='Prévisualiser';}
+}
+
+function openDrawer(url){
+  const iframe=$('preview-iframe');
+  iframe.src=url;
+  $('preview-drawer').classList.add('open');
+}
+function closeDrawer(){
+  $('preview-drawer').classList.remove('open');
+  $('preview-iframe').src='about:blank';
+}
+function setDrawerDevice(mode){
+  $('preview-iframe-wrap').className='preview-iframe-wrap '+mode;
+  $('btn-desktop').classList.toggle('active',mode==='desktop');
+  $('btn-mobile').classList.toggle('active',mode==='mobile');
 }
 
 function showSection(name,el){
