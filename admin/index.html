@@ -19,6 +19,8 @@
     .save-btn { background: #c06336; color: #fff; border: none; border-radius: 6px; padding: 8px 20px; font-size: 14px; cursor: pointer; font-weight: 500; }
     .save-btn:hover { background: #9f4e2f; }
     .save-btn:disabled { background: #888; cursor: not-allowed; }
+    .preview-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
+    .preview-btn:hover { background: rgba(255,255,255,0.1); }
     .logout-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; min-height: calc(100vh - 56px); }
     .sidebar { width: 200px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
@@ -95,6 +97,7 @@
   <div class="topbar">
     <span class="topbar-logo">LE GRAND PAN — ADMIN</span>
     <div class="topbar-right">
+      <button class="preview-btn" onclick="previewAll()">Prévisualiser</button>
       <button class="save-btn" id="save-btn" onclick="saveAll()">Publier</button>
       <button class="logout-btn" onclick="logout()">Déconnexion</button>
     </div>
@@ -194,6 +197,16 @@
           <p class="hint">600×800px — WebP ou JPG recommandé</p>
           <input type="hidden" id="menu_image_menu" value="le-grand-pan-assets/Image-menu.webp">
         </div>
+        <div class="divider">Titres des sections</div>
+        <div class="row2">
+          <div class="field"><label>Titre déjeuner</label><input type="text" id="menu-titre_midi"></div>
+          <div class="field"><label>Titre dîner</label><input type="text" id="menu-titre_soir"></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label>Titre bloc Formules</label><input type="text" id="menu-titre_formules"></div>
+          <div class="field"><label>Titre bloc Suggestion</label><input type="text" id="menu-titre_suggestion"></div>
+        </div>
+        <div class="field"><label>Titre bloc Classiques</label><input type="text" id="menu-titre_classiques"></div>
         <div class="divider">Midi — Formules</div>
         <div class="field"><label>Formule 1</label><input type="text" id="menu-formule1"></div>
         <div class="field"><label>Formule 2</label><input type="text" id="menu-formule2"></div>
@@ -215,6 +228,7 @@
           <div style="font-size:28px;margin-bottom:8px;color:#c06336;">+</div>
           <div style="font-size:14px;color:#9f4e2f;font-weight:500;margin-bottom:4px;">Glisse tes photos ici</div>
           <div style="font-size:12px;color:#888;">ou clique pour ouvrir le Finder</div>
+          <div style="font-size:11px;color:#aaa;margin-top:8px;">800×800px — WebP ou JPG recommandé</div>
           <input type="file" id="photo-upload" accept="image/*" multiple style="display:none;">
         </div>
         <div id="upload-progress" style="display:none;margin-top:12px;">
@@ -455,6 +469,8 @@ async function loadAll(){
     if(h.image_header){$('hero_image_header').value=h.image_header;setImagePreview('hero-img-header',h.image_header);}
     if(h.image_header_mobile){$('hero_image_header_mobile').value=h.image_header_mobile;setImagePreview('hero-img-header-mobile',h.image_header_mobile);}
     if(h.image_bienvenue){$('hero_image_bienvenue').value=h.image_bienvenue;setImagePreview('hero-img-bienvenue',h.image_bienvenue);}
+    $('menu-titre_midi').value=menu.titre_midi||'';$('menu-titre_soir').value=menu.titre_soir||'';
+    $('menu-titre_formules').value=menu.titre_formules||'';$('menu-titre_suggestion').value=menu.titre_suggestion||'';$('menu-titre_classiques').value=menu.titre_classiques||'';
     $('menu-formule1').value=menu.midi?.formules?.[0]?.texte||'';$('menu-formule2').value=menu.midi?.formules?.[1]?.texte||'';$('menu-formule3').value=menu.midi?.formules?.[2]?.texte||'';
     $('menu-midi-suggestion').value=menu.midi?.suggestion||'';$('menu-midi-classiques').value=(menu.midi?.classiques||[]).map(p=>p.nom).join('\n');
     $('menu-soir-suggestion').value=menu.soir?.suggestion||'';$('menu-soir-classiques').value=(menu.soir?.classiques||[]).map(p=>p.nom).join('\n');
@@ -532,7 +548,7 @@ async function saveAll(){
   try{
     await putFile('content/modale.json',{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value});
     await putFile('content/hero.json',{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}});
-    await putFile('content/menu.json',{image_menu:$('menu_image_menu').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}});
+    await putFile('content/menu.json',{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}});
     await putFile('content/galerie.json',{photos:galleryPhotos});
     await putFile('content/infos.json',{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}});
     await putFile('content/restaurateurs.json',{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}});
@@ -544,6 +560,38 @@ await Promise.all(["content/modale.json","content/hero.json","content/menu.json"
     showToast('Publié avec succès ✓');
   }catch(e){showToast('Erreur publication','error');}
   finally{btn.disabled=false;btn.textContent='Publier';}
+}
+
+function previewAll(){
+  const previewData={
+    hero:{
+      image_header:$('hero_image_header').value,
+      image_header_mobile:$('hero_image_header_mobile').value,
+      titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,
+      texte_subtitle:$('hero-texte_subtitle').value,
+      texte_body:$('hero-texte_body').value,
+      image_bienvenue:$('hero_image_bienvenue').value,
+      bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}
+    },
+    menu:{
+      image_menu:$('menu_image_menu').value,
+      titre_midi:$('menu-titre_midi').value,
+      titre_soir:$('menu-titre_soir').value,
+      titre_formules:$('menu-titre_formules').value,
+      titre_suggestion:$('menu-titre_suggestion').value,
+      titre_classiques:$('menu-titre_classiques').value,
+      midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},
+      soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}
+    },
+    galerie:{photos:galleryPhotos},
+    infos:{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
+    restaurateurs:{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
+    footer:{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
+    modale:{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value}
+  };
+  const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
+  localStorage.setItem('lgp_preview',JSON.stringify(previewData));
+  window.open(base+'/?preview=1','_blank');
 }
 
 function showSection(name,el){
