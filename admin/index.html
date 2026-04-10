@@ -23,6 +23,8 @@
     .preview-btn:hover { background: rgba(255,255,255,0.1); }
     .preview-drawer { position: fixed; top: 0; right: -55vw; width: 55vw; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.2); z-index: 200; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
     .preview-drawer.open { right: 0; }
+    .preview-resize-handle { position: absolute; left: 0; top: 0; width: 5px; height: 100%; cursor: ew-resize; background: transparent; z-index: 10; }
+    .preview-resize-handle:hover { background: rgba(192,99,54,0.3); }
     .preview-drawer-bar { background: #321D16; color: #fbf5ee; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; }
     .preview-drawer-bar span { font-size: 13px; font-weight: 500; }
     .preview-drawer-bar .drawer-btns { display: flex; gap: 8px; align-items: center; }
@@ -344,6 +346,7 @@
 <div id="toast"></div>
 
 <div class="preview-drawer" id="preview-drawer">
+  <div class="preview-resize-handle" id="preview-resize-handle"></div>
   <div class="preview-drawer-bar">
     <span>Préprod</span>
     <div class="drawer-btns">
@@ -599,29 +602,46 @@ await Promise.all(["content/modale.json","content/hero.json","content/menu.json"
   finally{btn.disabled=false;btn.textContent='Publier';}
 }
 
-async function previewAll(){
+function previewAll(){
   const btn=document.querySelector('.preview-btn');
-  btn.disabled=true;btn.textContent='Envoi preprod...';
-  try{
-    const files={
-      'content/preview/hero.json':{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}},
-      'content/preview/menu.json':{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}},
-      'content/preview/galerie.json':{photos:galleryPhotos},
-      'content/preview/infos.json':{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
-      'content/preview/restaurateurs.json':{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
-      'content/preview/footer.json':{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
-      'content/preview/modale.json':{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value}
-    };
-    document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
-    files['content/preview/mentions.json']={sections:mentionsSections};
-    for(const[path,content] of Object.entries(files)){
-      await putFile(path,content);
-    }
-    showToast('Preprod mise à jour ✓');
-    const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
-    openDrawer(base+'/?preview=1&v='+Date.now());
-  }catch(e){showToast('Erreur preprod','error');}
-  finally{btn.disabled=false;btn.textContent='Prévisualiser';}
+  const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
+
+  // Collect current data
+  document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
+  const data={
+    hero:{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}},
+    menu:{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}},
+    galerie:{photos:galleryPhotos},
+    infos:{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
+    restaurateurs:{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
+    footer:{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
+    modale:{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value},
+    mentions:{sections:mentionsSections}
+  };
+
+  // Open drawer INSTANTLY with inline data via URL hash
+  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+  openDrawer(base+'/?preview=1#cms='+encoded);
+
+  // Save to GitHub in background (non-blocking)
+  btn.textContent='Sync...';
+  (async()=>{
+    try{
+      const files={
+        'content/preview/hero.json':data.hero,
+        'content/preview/menu.json':data.menu,
+        'content/preview/galerie.json':data.galerie,
+        'content/preview/infos.json':data.infos,
+        'content/preview/restaurateurs.json':data.restaurateurs,
+        'content/preview/footer.json':data.footer,
+        'content/preview/modale.json':data.modale,
+        'content/preview/mentions.json':data.mentions
+      };
+      for(const[path,content] of Object.entries(files)){await putFile(path,content);}
+      showToast('Preprod synchronisée ✓');
+    }catch(e){showToast('Erreur sync preprod','error');}
+    finally{btn.disabled=false;btn.textContent='Prévisualiser';}
+  })();
 }
 
 function openDrawer(url){
@@ -649,6 +669,31 @@ function showSection(name,el){
 const savedLogin=localStorage.getItem("lgp_login");
 const savedPwd=localStorage.getItem("lgp_pwd");
 if(savedLogin&&savedPwd){$("login-input").value=savedLogin;$("password-input").value=savedPwd;login();}
+
+// Drawer resize handle
+(function(){
+  var handle=document.getElementById('preview-resize-handle');
+  var drawer=document.getElementById('preview-drawer');
+  if(!handle||!drawer)return;
+  var startX,startW;
+  handle.addEventListener('mousedown',function(e){
+    startX=e.clientX;startW=drawer.offsetWidth;
+    drawer.style.transition='none';
+    document.addEventListener('mousemove',onMove);
+    document.addEventListener('mouseup',onUp);
+    e.preventDefault();
+  });
+  function onMove(e){
+    var dx=startX-e.clientX;
+    var newW=Math.min(Math.max(startW+dx,320),window.innerWidth-100);
+    drawer.style.width=newW+'px';
+  }
+  function onUp(){
+    document.removeEventListener('mousemove',onMove);
+    document.removeEventListener('mouseup',onUp);
+    drawer.style.transition='';
+  }
+})();
 
 document.addEventListener("DOMContentLoaded",function(){
   const dz=document.getElementById("drop-zone");
