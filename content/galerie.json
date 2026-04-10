@@ -25,6 +25,10 @@
       "alt": "Photo du restaurant Le Grand Pan"
     },
     {
+      "image": "le-grand-pan-assets/image-12.webp",
+      "alt": "Photo du restaurant Le Grand Pan"
+    },
+    {
       "image": "le-grand-pan-assets/image-4.webp",
       "alt": "Photo du restaurant Le Grand Pan"
     },
@@ -38,10 +42,6 @@
     },
     {
       "image": "le-grand-pan-assets/image-10.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
-    },
-    {
-      "image": "le-grand-pan-assets/image-12.webp",
       "alt": "Photo du restaurant Le Grand Pan"
     }
   ]
