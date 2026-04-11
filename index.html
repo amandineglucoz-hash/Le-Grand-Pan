@@ -91,8 +91,8 @@
     ================================================ */
     @font-face {
       font-family: 'Bigilla';
-      src: url('./le-grand-pan-assets/Bigilla.otf') format('opentype');
-      font-weight: 100 900; /* couvre toutes les graisses → pas de faux gras */
+      src: url('./le-grand-pan-assets/Bigilla-Bold.otf') format('opentype');
+      font-weight: 100 900;
       font-style: normal;
       font-display: swap;
     }
@@ -909,6 +909,9 @@
       line-height: 1.2;
       font-weight: 400;
     }
+    .openBar--closed p { color: #7a6055; }
+    .openBar__statusDot { width: 8px; height: 8px; border-radius: 50%; background: #4caf50; flex-shrink: 0; transition: background 0.3s; }
+    .openBar--closed .openBar__statusDot { background: #b04040; }
     .openBar img { width: 20px; height: 20px; object-fit: contain; display: block; flex-shrink: 0; }
     /* Réserver button */
     .infos__reserverBtn {
@@ -1713,10 +1716,11 @@
         </div>
       </div>
 
-      <div class="openBar reveal" data-delay="100">
+      <div class="openBar reveal" id="open-bar" data-delay="100">
         <div class="openBar__left">
           <img alt="" src="./le-grand-pan-assets/clock.svg" aria-hidden="true" />
-          <p>Nous sommes ouvert !</p>
+          <span class="openBar__statusDot" id="open-bar-dot"></span>
+          <p id="open-bar-text">Nous sommes ouverts !</p>
         </div>
         <a class="infos__reserverBtn"
            href="https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR&gei=fiPVaberNrCekdUPrqaYmQU&sourceurl=https://www.google.com/search?q%3Dle%2Bgrand%2Bpan%2Br%25C3%25A9servation%26sourceid%3Dchrome%26ie%3DUTF-8"
