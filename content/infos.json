@@ -1,17 +1,21 @@
 {
-  "statut": "Profitez de nos tables en terrasse !",
+  "statut": "Nous sommes ouverts !",
   "horaires_semaine": {
     "jours": "Lun - Ven",
-    "heures": "12h-14h/ <br />19h30-23h"
+    "heures": "12h-14h / 19h30-23h"
   },
   "horaires_weekend": {
-    "jours": "Dim-Samedi",
+    "jours": "Dim - Samedi",
     "statut": "Fermé"
   },
-  "adresse": "20 Rue Rosenwald<br />75015 Paris",
+  "horaires_machine": [
+    { "jours": [1,2,3,4,5], "debut": "12:00", "fin": "14:30" },
+    { "jours": [1,2,3,4,5], "debut": "19:30", "fin": "23:00" }
+  ],
+  "adresse": "20 Rue Rosenwald",
   "telephone": "01 42 50 02 50",
   "bouton_reservation": {
     "label": "Réserver",
-    "lien": "https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM"
+    "lien": "https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM?source=pa&opi=89978449&hl=fr-FR"
   }
 }
