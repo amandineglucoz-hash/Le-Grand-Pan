@@ -103,11 +103,11 @@ _mainPromise.then(function(results) {
       }
     }
     if(open){
-      txt.textContent='Nous sommes ouverts !';
+      txt.textContent=(infos&&infos.msg_ouvert)||'Nous sommes ouverts !';
       bar.classList.remove('openBar--closed');
       if(dot)dot.style.background='#4caf50';
     }else{
-      txt.textContent='Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard';
+      txt.textContent=(infos&&infos.msg_ferme)||'Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard';
       bar.classList.add('openBar--closed');
       if(dot)dot.style.background='#b04040';
     }
