@@ -19,33 +19,27 @@
     .save-btn { background: #c06336; color: #fff; border: none; border-radius: 6px; padding: 8px 20px; font-size: 14px; cursor: pointer; font-weight: 500; }
     .save-btn:hover { background: #9f4e2f; }
     .save-btn:disabled { background: #888; cursor: not-allowed; }
-    .preview-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
-    .preview-btn:hover { background: rgba(255,255,255,0.1); }
-    .preview-drawer { position: fixed; top: 0; right: -55vw; width: 55vw; height: 100vh; background: #fff; box-shadow: -4px 0 24px rgba(0,0,0,0.2); z-index: 200; transition: right 0.35s cubic-bezier(0.4,0,0.2,1); display: flex; flex-direction: column; }
-    .preview-drawer.open { right: 0; }
-    .preview-resize-handle { position: absolute; left: 0; top: 0; width: 5px; height: 100%; cursor: ew-resize; background: transparent; z-index: 10; }
-    .preview-resize-handle:hover { background: rgba(192,99,54,0.3); }
-    .preview-drawer-bar { background: #321D16; color: #fbf5ee; padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; gap: 12px; }
-    .preview-drawer-bar span { font-size: 13px; font-weight: 500; }
-    .preview-drawer-bar .drawer-btns { display: flex; gap: 8px; align-items: center; }
-    .preview-drawer-device { display: flex; gap: 4px; }
-    .preview-drawer-device button { background: rgba(255,255,255,0.1); border: none; color: #fbf5ee; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
-    .preview-drawer-device button.active { background: #c06336; }
-    .preview-close { background: transparent; border: 1px solid rgba(255,255,255,0.3); color: #fbf5ee; border-radius: 4px; padding: 4px 12px; font-size: 12px; cursor: pointer; }
-    .preview-close:hover { background: rgba(255,255,255,0.1); }
-    .preview-iframe-wrap { flex: 1; overflow: hidden; display: flex; justify-content: center; background: #e8e0d8; transition: all 0.3s; }
-    .preview-iframe-wrap iframe { border: none; height: 100%; transition: width 0.3s; }
-    .preview-iframe-wrap.desktop iframe { width: 100%; }
-    .preview-iframe-wrap.mobile iframe { width: 390px; box-shadow: 0 0 20px rgba(0,0,0,0.15); }
+    .sync-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
+    .sync-btn:hover { background: rgba(255,255,255,0.1); }
+    .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .logout-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
-    .layout { display: flex; min-height: calc(100vh - 56px); }
-    .sidebar { width: 200px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; position: sticky; top: 56px; height: calc(100vh - 56px); overflow-y: auto; }
-    .nav-item { padding: 10px 20px; font-size: 13px; color: #aaa; cursor: pointer; border-left: 2px solid transparent; }
+    .layout { display: flex; height: calc(100vh - 56px); overflow: hidden; }
+    .sidebar { width: 160px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; overflow-y: auto; }
+    .nav-item { padding: 10px 16px; font-size: 12px; color: #aaa; cursor: pointer; border-left: 2px solid transparent; line-height: 1.4; }
     .nav-item:hover { color: #fff; background: #222; }
     .nav-item.active { color: #fff; background: #2a2a2a; border-left-color: #c06336; }
-    .content { flex: 1; padding: 28px; overflow-y: auto; max-width: 800px; }
-    .section { display: none; }
-    .section.active { display: block; }
+    .edit-panel { width: 360px; flex-shrink: 0; overflow-y: auto; padding: 24px; background: #f5f0ea; border-right: 1px solid #e0d5c8; }
+    .preview-panel { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; min-width: 0; }
+    .preview-panel-bar { background: #1a1a1a; color: #fbf5ee; padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .preview-panel-bar span { font-size: 11px; font-weight: 500; opacity: 0.6; letter-spacing: 0.06em; text-transform: uppercase; }
+    .preview-device-toggle { display: flex; gap: 4px; align-items: center; }
+    .preview-device-toggle button { background: rgba(255,255,255,0.1); border: none; color: #fbf5ee; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+    .preview-device-toggle button.active { background: #c06336; }
+    .preview-iframe-wrap { flex: 1; overflow: hidden; display: flex; justify-content: center; background: #e8e0d8; }
+    .preview-iframe-wrap iframe { border: none; width: 100%; height: 100%; }
+    .preview-iframe-wrap.mobile { padding: 16px; }
+    .preview-iframe-wrap.mobile iframe { max-width: 390px; border-radius: 16px; box-shadow: 0 4px 32px rgba(0,0,0,0.2); }
+    .preview-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #e8e0d8; font-size: 13px; color: #888; pointer-events: none; }
     h2 { font-size: 18px; font-weight: 500; margin-bottom: 24px; }
     .field { margin-bottom: 20px; }
     .field label { display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #9f4e2f; margin-bottom: 6px; }
@@ -113,13 +107,13 @@
   <div class="topbar">
     <span class="topbar-logo">LE GRAND PAN — ADMIN</span>
     <div class="topbar-right">
-      <button class="preview-btn" onclick="previewAll()">Prévisualiser</button>
+      <button class="sync-btn" id="sync-btn" onclick="syncPreprod()">↑ Sync préprod</button>
       <button class="save-btn" id="save-btn" onclick="saveAll()">Publier</button>
       <button class="logout-btn" onclick="logout()">Déconnexion</button>
     </div>
   </div>
   <div class="layout">
-    <div class="sidebar">
+    <nav class="sidebar">
       <div class="nav-item active" onclick="showSection('modale',this)">Modale alerte</div>
       <div class="nav-item" onclick="showSection('hero',this)">Hero & intro</div>
       <div class="nav-item" onclick="showSection('menu',this)">Menu</div>
@@ -128,8 +122,8 @@
       <div class="nav-item" onclick="showSection('restaurateurs',this)">La Suite & Piennolo</div>
       <div class="nav-item" onclick="showSection('footer',this)">Footer</div>
       <div class="nav-item" onclick="showSection('mentions',this)">Mentions légales</div>
-    </div>
-    <div class="content">
+    </nav>
+    <div class="edit-panel" id="edit-panel">
 
       <!-- MODALE -->
       <div class="section active" id="section-modale">
@@ -351,26 +345,24 @@
       </div>
 
     </div>
+
+    <!-- PREVIEW PANEL — toujours visible -->
+    <div class="preview-panel">
+      <div class="preview-panel-bar">
+        <span>Prévisualisation en direct</span>
+        <div class="preview-device-toggle">
+          <button class="active" id="btn-desktop" onclick="setDevice('desktop')">Desktop</button>
+          <button id="btn-mobile" onclick="setDevice('mobile')">Mobile</button>
+        </div>
+      </div>
+      <div class="preview-iframe-wrap desktop" id="preview-iframe-wrap">
+        <iframe id="preview-iframe" src="about:blank" onload="onPreviewLoad()"></iframe>
+      </div>
+    </div>
+
   </div>
 </div>
 <div id="toast"></div>
-
-<div class="preview-drawer" id="preview-drawer">
-  <div class="preview-resize-handle" id="preview-resize-handle"></div>
-  <div class="preview-drawer-bar">
-    <span>Préprod</span>
-    <div class="drawer-btns">
-      <div class="preview-drawer-device">
-        <button class="active" id="btn-desktop" onclick="setDrawerDevice('desktop')">Desktop</button>
-        <button id="btn-mobile" onclick="setDrawerDevice('mobile')">Mobile</button>
-      </div>
-      <button class="preview-close" onclick="closeDrawer()">✕ Fermer</button>
-    </div>
-  </div>
-  <div class="preview-iframe-wrap desktop" id="preview-iframe-wrap">
-    <iframe id="preview-iframe" src="about:blank"></iframe>
-  </div>
-</div>
 
 <script>
 const REPO='amandineglucoz-hash/Le-Grand-Pan',BRANCH='main';
@@ -591,6 +583,9 @@ async function loadAll(){
     $("footer-instagram").value=footer.instagram||"https://www.instagram.com/restaurant_legrandpan/";
     mentionsSections=mentions.sections||[];renderMentionsSections();
     showToast('Contenu chargé ✓');
+    // Lancer la preview avec les vraies données
+    previewReady=false;
+    refreshPreview();
   }catch(e){showToast('Erreur chargement','error');}
 }
 
@@ -604,7 +599,7 @@ function renderGallery(photos){
     el.addEventListener('dragend',()=>grid.querySelectorAll('.gallery-item').forEach(x=>x.classList.remove('dragging','drag-over')));
     el.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move';grid.querySelectorAll('.gallery-item').forEach(x=>x.classList.remove('drag-over'));el.classList.add('drag-over');});
     el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
-    el.addEventListener('drop',e=>{e.preventDefault();const destIndex=+el.dataset.index;if(dragSrcIndex===null||dragSrcIndex===destIndex)return;const moved=galleryPhotos.splice(dragSrcIndex,1)[0];galleryPhotos.splice(destIndex,0,moved);renderGallery(galleryPhotos);showToast('Ordre mis à jour — clique Publier');});
+    el.addEventListener('drop',e=>{e.preventDefault();const destIndex=+el.dataset.index;if(dragSrcIndex===null||dragSrcIndex===destIndex)return;const moved=galleryPhotos.splice(dragSrcIndex,1)[0];galleryPhotos.splice(destIndex,0,moved);renderGallery(galleryPhotos);schedulePreview();showToast('Ordre mis à jour — clique Publier');});
   });
 }
 function removePhoto(i){galleryPhotos.splice(i,1);renderGallery(galleryPhotos);}
@@ -665,13 +660,14 @@ await Promise.all(["content/modale.json","content/hero.json","content/menu.json"
   finally{btn.disabled=false;btn.textContent='Publier';}
 }
 
-function previewAll(){
-  const btn=document.querySelector('.preview-btn');
-  const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
+// ─── Live preview ───────────────────────────────────────────────
+let previewReady=false;
+let pendingMsg=null;
+let previewDebounce;
 
-  // Collect current data
+function buildPreviewData(){
   document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
-  const data={
+  return {
     hero:{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}},
     menu:{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}},
     galerie:{photos:galleryPhotos},
@@ -681,13 +677,44 @@ function previewAll(){
     modale:{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value},
     mentions:{sections:mentionsSections}
   };
+}
 
-  // Open drawer INSTANTLY with inline data via URL hash
-  const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-  openDrawer(base+'/?preview=1#cms='+encoded);
+function refreshPreview(){
+  const data=buildPreviewData();
+  const iframe=$('preview-iframe');
+  const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
+  if(previewReady){
+    iframe.contentWindow.postMessage({type:'cms-preview',data},'*');
+  } else {
+    const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    iframe.src=base+'/?preview=1#cms='+encoded;
+  }
+}
 
-  // Save to GitHub in background (non-blocking)
-  btn.textContent='Sync...';
+function onPreviewLoad(){
+  previewReady=true;
+  if(pendingMsg){
+    $('preview-iframe').contentWindow.postMessage({type:'cms-preview',data:pendingMsg},'*');
+    pendingMsg=null;
+  }
+}
+
+function schedulePreview(){
+  clearTimeout(previewDebounce);
+  previewDebounce=setTimeout(refreshPreview,450);
+}
+
+function setDevice(mode){
+  $('preview-iframe-wrap').className='preview-iframe-wrap '+mode;
+  $('btn-desktop').classList.toggle('active',mode==='desktop');
+  $('btn-mobile').classList.toggle('active',mode==='mobile');
+}
+
+// ─── Sync préprod (sauvegarde GitHub) ───────────────────────────
+function syncPreprod(){
+  const btn=$('sync-btn');
+  btn.disabled=true;btn.textContent='Sync...';
+  const data=buildPreviewData();
   (async()=>{
     try{
       const files={
@@ -701,25 +728,10 @@ function previewAll(){
         'content/preview/mentions.json':data.mentions
       };
       for(const[path,content] of Object.entries(files)){await putFile(path,content);}
-      showToast('Preprod synchronisée ✓');
-    }catch(e){showToast('Erreur sync preprod','error');}
-    finally{btn.disabled=false;btn.textContent='Prévisualiser';}
+      showToast('Préprod synchronisée ✓');
+    }catch(e){showToast('Erreur sync préprod','error');}
+    finally{btn.disabled=false;btn.textContent='↑ Sync préprod';}
   })();
-}
-
-function openDrawer(url){
-  const iframe=$('preview-iframe');
-  iframe.src=url;
-  $('preview-drawer').classList.add('open');
-}
-function closeDrawer(){
-  $('preview-drawer').classList.remove('open');
-  $('preview-iframe').src='about:blank';
-}
-function setDrawerDevice(mode){
-  $('preview-iframe-wrap').className='preview-iframe-wrap '+mode;
-  $('btn-desktop').classList.toggle('active',mode==='desktop');
-  $('btn-mobile').classList.toggle('active',mode==='mobile');
 }
 
 function showSection(name,el){
@@ -733,33 +745,14 @@ const savedLogin=localStorage.getItem("lgp_login");
 const savedPwd=localStorage.getItem("lgp_pwd");
 if(savedLogin&&savedPwd){$("login-input").value=savedLogin;$("password-input").value=savedPwd;login();}
 
-// Drawer resize handle
-(function(){
-  var handle=document.getElementById('preview-resize-handle');
-  var drawer=document.getElementById('preview-drawer');
-  if(!handle||!drawer)return;
-  var startX,startW;
-  handle.addEventListener('mousedown',function(e){
-    startX=e.clientX;startW=drawer.offsetWidth;
-    drawer.style.transition='none';
-    document.addEventListener('mousemove',onMove);
-    document.addEventListener('mouseup',onUp);
-    e.preventDefault();
-  });
-  function onMove(e){
-    var dx=startX-e.clientX;
-    var newW=Math.min(Math.max(startW+dx,320),window.innerWidth-100);
-    drawer.style.width=newW+'px';
-  }
-  function onUp(){
-    document.removeEventListener('mousemove',onMove);
-    document.removeEventListener('mouseup',onUp);
-    drawer.style.transition='';
-  }
-})();
-
 document.addEventListener("DOMContentLoaded",function(){
   renderCreneaux();
+  // Auto-preview: écouter tous les changements dans le panneau d'édition
+  const panel=document.getElementById('edit-panel');
+  if(panel){
+    panel.addEventListener('input',schedulePreview);
+    panel.addEventListener('change',schedulePreview);
+  }
   const dz=document.getElementById("drop-zone");
   const inp=document.getElementById("photo-upload");
   if(!dz||!inp)return;
