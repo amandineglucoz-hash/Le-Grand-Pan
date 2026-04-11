@@ -79,8 +79,39 @@ _mainPromise.then(function(results) {
     }
   }
 
-  // Infos
-  if(infos&&infos.statut){var e=document.querySelector('.openBar__left p');if(e)e.textContent=infos.statut;}
+  // Barre ouverture dynamique
+  (function(){
+    var bar=document.getElementById('open-bar');
+    var dot=document.getElementById('open-bar-dot');
+    var txt=document.getElementById('open-bar-text');
+    if(!bar||!txt)return;
+    var plages=infos&&infos.horaires_machine;
+    var open=false;
+    if(plages&&plages.length){
+      var now=new Date();
+      var parisStr=now.toLocaleString('en-US',{timeZone:'Europe/Paris'});
+      var paris=new Date(parisStr);
+      var day=paris.getDay();
+      var mins=paris.getHours()*60+paris.getMinutes();
+      for(var i=0;i<plages.length;i++){
+        var p=plages[i];
+        if(p.jours.indexOf(day)===-1)continue;
+        var dp=p.debut.split(':'),fp=p.fin.split(':');
+        var d=parseInt(dp[0])*60+parseInt(dp[1]);
+        var f=parseInt(fp[0])*60+parseInt(fp[1]);
+        if(mins>=d&&mins<f){open=true;break;}
+      }
+    }
+    if(open){
+      txt.textContent='Nous sommes ouverts !';
+      bar.classList.remove('openBar--closed');
+      if(dot)dot.style.background='#4caf50';
+    }else{
+      txt.textContent='Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard';
+      bar.classList.add('openBar--closed');
+      if(dot)dot.style.background='#b04040';
+    }
+  })();
   if(infos&&infos.horaires_semaine){
     var smalls=document.querySelectorAll('.infoCard .small');
     if(smalls[0])smalls[0].textContent=infos.horaires_semaine.jours;
