@@ -256,8 +256,15 @@
       <!-- INFOS -->
       <div class="section" id="section-infos">
         <h2>Infos pratiques</h2>
-        <div class="field"><label>Statut ouverture</label><input type="text" id="infos-statut"></div>
-        <div class="divider">Horaires semaine</div>
+        <div class="field">
+          <label>Statut en ce moment</label>
+          <div id="infos-statut-computed" style="padding:10px 14px;border-radius:6px;font-size:13px;font-weight:500;background:#eee;color:#666">Calcul en cours…</div>
+        </div>
+        <div class="divider">Créneaux d'ouverture automatique</div>
+        <p style="font-size:12px;color:#888;margin-bottom:12px">Ces créneaux déterminent l'affichage "ouvert / fermé" en temps réel sur le site.</p>
+        <div id="creneaux-list"></div>
+        <button onclick="addCreneau()" style="margin-bottom:20px;background:transparent;border:1px solid #c06336;color:#c06336;border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer">+ Ajouter un créneau</button>
+        <div class="divider">Horaires affichés (texte)</div>
         <div class="row2">
           <div class="field"><label>Jours</label><input type="text" id="infos-semaine-jours"></div>
           <div class="field"><label>Heures</label><input type="text" id="infos-semaine-heures"></div>
@@ -365,6 +372,55 @@
 <script>
 const REPO='amandineglucoz-hash/Le-Grand-Pan',BRANCH='main';
 let TOKEN='',filesData={},galleryPhotos=[],mentionsSections=[];
+let horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
+
+const JOURS_LABELS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+function renderCreneaux(){
+  const list=document.getElementById('creneaux-list');
+  if(!list)return;
+  list.innerHTML=horairesMachine.map((c,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:#f9f5f1;padding:10px;border-radius:6px;">
+      <div style="display:flex;gap:6px;">${JOURS_LABELS.map((j,d)=>`
+        <label style="display:flex;flex-direction:column;align-items:center;font-size:10px;gap:2px;cursor:pointer;color:#555">
+          <input type="checkbox" ${c.jours.includes(d)?'checked':''} onchange="toggleJour(${i},${d},this.checked)" style="margin:0;accent-color:#c06336">
+          ${j}
+        </label>`).join('')}</div>
+      <input type="time" value="${c.debut}" onchange="updateCreneau(${i},'debut',this.value)" style="padding:5px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px">
+      <span style="font-size:12px;color:#999">→</span>
+      <input type="time" value="${c.fin}" onchange="updateCreneau(${i},'fin',this.value)" style="padding:5px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px">
+      <button onclick="removeCreneau(${i})" style="background:transparent;border:none;color:#c06336;cursor:pointer;font-size:18px;line-height:1;padding:0 4px">×</button>
+    </div>`).join('');
+  updateComputedStatus();
+}
+function toggleJour(i,d,checked){
+  if(checked){if(!horairesMachine[i].jours.includes(d))horairesMachine[i].jours.push(d);}
+  else{horairesMachine[i].jours=horairesMachine[i].jours.filter(x=>x!==d);}
+  updateComputedStatus();
+}
+function updateCreneau(i,field,val){horairesMachine[i][field]=val;updateComputedStatus();}
+function addCreneau(){horairesMachine.push({jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'});renderCreneaux();}
+function removeCreneau(i){horairesMachine.splice(i,1);renderCreneaux();}
+function isOpenNow(plages){
+  const now=new Date();
+  const paris=new Date(now.toLocaleString('en-US',{timeZone:'Europe/Paris'}));
+  const day=paris.getDay(),mins=paris.getHours()*60+paris.getMinutes();
+  for(const p of plages){
+    if(!p.jours.includes(day))continue;
+    const dp=p.debut.split(':'),fp=p.fin.split(':');
+    const d=parseInt(dp[0])*60+parseInt(dp[1]),f=parseInt(fp[0])*60+parseInt(fp[1]);
+    if(mins>=d&&mins<f)return true;
+  }
+  return false;
+}
+function updateComputedStatus(){
+  const el=document.getElementById('infos-statut-computed');
+  if(!el)return;
+  const open=isOpenNow(horairesMachine);
+  el.style.background=open?'#e8f5e9':'#fce4ec';
+  el.style.color=open?'#2e7d32':'#c62828';
+  el.textContent=open?'🟢 Le restaurant est actuellement ouvert':'🔴 Le restaurant est actuellement fermé';
+}
 
 function escAttr(s){return (s||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;');}
 function renderMentionsSections(){
@@ -516,7 +572,9 @@ async function loadAll(){
     $('menu-soir-suggestion').value=menu.soir?.suggestion||'';$('menu-soir-classiques').value=(menu.soir?.classiques||[]).map(p=>p.nom).join('\n');
     if(menu.image_menu){$('menu_image_menu').value=menu.image_menu;setImagePreview('menu-img',menu.image_menu);}
     renderGallery(g.photos||[]);
-    $('infos-statut').value=inf.statut||'';$('infos-semaine-jours').value=inf.horaires_semaine?.jours||'';$('infos-semaine-heures').value=inf.horaires_semaine?.heures||'';
+    if(inf.horaires_machine&&inf.horaires_machine.length)horairesMachine=inf.horaires_machine;
+    renderCreneaux();
+    $('infos-semaine-jours').value=inf.horaires_semaine?.jours||'';$('infos-semaine-heures').value=inf.horaires_semaine?.heures||'';
     $('infos-weekend-jours').value=inf.horaires_weekend?.jours||'';$('infos-weekend-statut').value=inf.horaires_weekend?.statut||'';
     $('infos-adresse').value=inf.adresse||'';$('infos-telephone').value=inf.telephone||'';
     $('ls-tag').value=r.lasuite?.tag||'';$('ls-titre').value=r.lasuite?.titre||'';$('ls-texte').value=r.lasuite?.texte||'';$('ls-bouton_label').value=r.lasuite?.bouton_label||'';$('ls-bouton_lien').value=r.lasuite?.bouton_lien||'';
@@ -590,7 +648,7 @@ async function saveAll(){
     await putFile('content/hero.json',{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}});
     await putFile('content/menu.json',{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}});
     await putFile('content/galerie.json',{photos:galleryPhotos});
-    await putFile('content/infos.json',{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}});
+    await putFile('content/infos.json',{horaires_machine:horairesMachine,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}});
     await putFile('content/restaurateurs.json',{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}});
     await putFile('content/footer.json',{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value});
     document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
@@ -612,7 +670,7 @@ function previewAll(){
     hero:{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}},
     menu:{image_menu:$('menu_image_menu').value,titre_midi:$('menu-titre_midi').value,titre_soir:$('menu-titre_soir').value,titre_formules:$('menu-titre_formules').value,titre_suggestion:$('menu-titre_suggestion').value,titre_classiques:$('menu-titre_classiques').value,midi:{formules:[{texte:$('menu-formule1').value},{texte:$('menu-formule2').value},{texte:$('menu-formule3').value}],suggestion:$('menu-midi-suggestion').value,classiques:$('menu-midi-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))},soir:{suggestion:$('menu-soir-suggestion').value,classiques:$('menu-soir-classiques').value.split('\n').filter(l=>l.trim()).map(n=>({nom:n.trim()}))}},
     galerie:{photos:galleryPhotos},
-    infos:{statut:$('infos-statut').value,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
+    infos:{horaires_machine:horairesMachine,horaires_semaine:{jours:$('infos-semaine-jours').value,heures:$('infos-semaine-heures').value},horaires_weekend:{jours:$('infos-weekend-jours').value,statut:$('infos-weekend-statut').value},adresse:$('infos-adresse').value,telephone:$('infos-telephone').value,bouton_reservation:{label:'Réserver',lien:'https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM'}},
     restaurateurs:{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
     footer:{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
     modale:{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value},
@@ -696,6 +754,7 @@ if(savedLogin&&savedPwd){$("login-input").value=savedLogin;$("password-input").v
 })();
 
 document.addEventListener("DOMContentLoaded",function(){
+  renderCreneaux();
   const dz=document.getElementById("drop-zone");
   const inp=document.getElementById("photo-upload");
   if(!dz||!inp)return;
