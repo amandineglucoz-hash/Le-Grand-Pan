@@ -7,6 +7,15 @@ try{var _m=window.location.hash.match(/^#cms=(.+)/);if(_m)_hashData=JSON.parse(d
 
 if(_isPreview){document.title='[PREPROD] '+document.title;var bar=document.createElement('div');bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#c06336;color:#fff;text-align:center;padding:8px 16px;font-size:13px;z-index:9999;font-family:sans-serif;display:flex;align-items:center;justify-content:center;gap:16px;';bar.innerHTML='<span>⚠ Mode préprod — modifications non publiées</span><a href="'+window.location.pathname+'" style="color:#fff;font-size:12px;border:1px solid rgba(255,255,255,0.5);border-radius:4px;padding:2px 10px;text-decoration:none;">Voir la prod</a>';document.body.appendChild(bar);document.body.style.paddingTop='36px';}
 
+// Live update via postMessage (depuis l'admin CMS)
+window.addEventListener('message',function(e){
+  if(e.data&&e.data.type==='cms-preview'){
+    var d=e.data.data;
+    _applyMain(d.hero,d.menu,d.galerie,d.infos,d.restaurateurs,d.modale);
+    _applyFooter(d.footer,d.mentions);
+  }
+});
+
 var _mainPromise=_hashData
   ?Promise.resolve([_hashData.hero,_hashData.menu,_hashData.galerie,_hashData.infos,_hashData.restaurateurs,_hashData.modale])
   :Promise.all([
@@ -18,9 +27,7 @@ var _mainPromise=_hashData
     fetch(_dir+'modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
   ]);
 
-_mainPromise.then(function(results) {
-  var hero=results[0], menu=results[1], galerie=results[2];
-  var infos=results[3], restau=results[4], modale=results[5];
+function _applyMain(hero,menu,galerie,infos,restau,modale){
 
   // Hero image
   if(hero&&hero.image_header){var e=document.querySelector('.header__hero img');if(e)e.src='./'+hero.image_header;}
@@ -178,7 +185,9 @@ _mainPromise.then(function(results) {
     }
   }
 
-});
+}
+
+_mainPromise.then(function(r){_applyMain(r[0],r[1],r[2],r[3],r[4],r[5]);});
 
 // Footer
 var _footerPromise=_hashData
@@ -188,8 +197,7 @@ var _footerPromise=_hashData
     fetch(_dir+'mentions.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
   ]);
 
-_footerPromise.then(function(results){
-  var footer=results[0], mentions=results[1];
+function _applyFooter(footer,mentions){
 
   if(footer&&footer.image){
     var e=document.querySelector('.follow__bg');if(e)e.src='./'+footer.image;
@@ -209,4 +217,6 @@ _footerPromise.then(function(results){
       }).join('');
     }
   }
-});
+}
+
+_footerPromise.then(function(r){_applyFooter(r[0],r[1]);});
