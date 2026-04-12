@@ -24,11 +24,23 @@
     .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .logout-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; height: calc(100vh - 56px); overflow: hidden; }
-    .sidebar { width: 160px; background: #1a1a1a; padding: 16px 0; flex-shrink: 0; overflow-y: auto; }
-    .nav-item { padding: 10px 16px; font-size: 12px; color: #aaa; cursor: pointer; border-left: 2px solid transparent; line-height: 1.4; }
+    .sidebar { width: 190px; background: #1a1a1a; padding: 12px 0 24px; flex-shrink: 0; overflow-y: auto; }
+    .nav-group { }
+    .nav-group-header { padding: 14px 16px 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+    .nav-group-header:hover { color: #888; }
+    .nav-group-header .arrow { font-size: 9px; transition: transform 0.2s; opacity: 0.6; }
+    .nav-group.collapsed .nav-group-items { display: none; }
+    .nav-group.collapsed .arrow { transform: rotate(-90deg); }
+    .nav-item { padding: 8px 16px 8px 24px; font-size: 12px; color: #888; cursor: pointer; border-left: 2px solid transparent; line-height: 1.4; }
     .nav-item:hover { color: #fff; background: #222; }
     .nav-item.active { color: #fff; background: #2a2a2a; border-left-color: #c06336; }
-    .edit-panel { width: 360px; flex-shrink: 0; overflow-y: auto; padding: 24px; background: #f5f0ea; border-right: 1px solid #e0d5c8; }
+    .edit-panel { width: 360px; flex-shrink: 0; overflow: hidden; background: #f5f0ea; display: flex; flex-direction: column; transition: width 0.28s cubic-bezier(0.4,0,0.2,1); }
+    .edit-panel.collapsed { width: 0; }
+    .edit-panel-scroll { flex: 1; overflow-y: auto; padding: 0; }
+    .panel-toggle-strip { width: 18px; flex-shrink: 0; background: #e8e2da; display: flex; align-items: center; justify-content: center; cursor: pointer; border-left: 1px solid #d4cbc0; border-right: 1px solid #d4cbc0; transition: background 0.15s; }
+    .panel-toggle-strip:hover { background: #d4cbc0; }
+    .panel-toggle-strip svg { transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
+    .edit-panel.collapsed ~ .panel-toggle-strip svg { transform: rotate(180deg); }
     .preview-panel { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; min-width: 0; }
     .preview-panel-bar { background: #1a1a1a; color: #fbf5ee; padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .preview-panel-bar span { font-size: 11px; font-weight: 500; opacity: 0.6; letter-spacing: 0.06em; text-transform: uppercase; }
@@ -40,7 +52,12 @@
     .preview-iframe-wrap.mobile { padding: 16px; }
     .preview-iframe-wrap.mobile iframe { max-width: 390px; border-radius: 16px; box-shadow: 0 4px 32px rgba(0,0,0,0.2); }
     .preview-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #e8e0d8; font-size: 13px; color: #888; pointer-events: none; }
-    h2 { font-size: 18px; font-weight: 500; margin-bottom: 24px; }
+    .section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: #321D16; position: sticky; top: 0; z-index: 5; background: #ede8e2; margin: 0 0 0; padding: 13px 20px; border-bottom: 1px solid #d4cbc0; }
+    .section-body { padding: 20px; }
+    .divider { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #e0d5c8; padding-bottom: 6px; margin: 20px 0 14px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; }
+    .divider::after { content: '▾'; font-size: 9px; opacity: 0.5; transition: transform 0.2s; }
+    .divider.acc-closed::after { transform: rotate(-90deg); }
+    .acc-body.acc-hidden { display: none; }
     .field { margin-bottom: 20px; }
     .field label { display: block; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.05em; color: #9f4e2f; margin-bottom: 6px; }
     .field input, .field textarea { width: 100%; padding: 10px 12px; border: 1px solid #c9b8a8; border-radius: 8px; font-size: 14px; background: #fff; color: #321D16; font-family: inherit; }
@@ -55,7 +72,6 @@
     .toggle input:checked + .toggle-slider { background: #c06336; }
     .toggle input:checked + .toggle-slider:before { transform: translateX(20px); }
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-    .divider { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #e0d5c8; padding-bottom: 6px; margin: 24px 0 16px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
     .gallery-item { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #c9b8a8; background: #e8e0d8; cursor: grab; }
     .gallery-item:active { cursor: grabbing; }
@@ -114,38 +130,61 @@
   </div>
   <div class="layout">
     <nav class="sidebar">
-      <div class="nav-item active" onclick="showSection('modale',this)">Modale alerte</div>
-      <div class="nav-item" onclick="showSection('hero',this)">Hero & intro</div>
-      <div class="nav-item" onclick="showSection('menu',this)">Menu</div>
-      <div class="nav-item" onclick="showSection('galerie',this)">Galerie photos</div>
-      <div class="nav-item" onclick="showSection('infos',this)">Infos pratiques</div>
-      <div class="nav-item" onclick="showSection('restaurateurs',this)">La Suite & Piennolo</div>
-      <div class="nav-item" onclick="showSection('footer',this)">Footer</div>
-      <div class="nav-item" onclick="showSection('mentions',this)">Mentions légales</div>
+      <div class="nav-group">
+        <div class="nav-group-header" onclick="toggleNavGroup(this)">
+          <span>Page restaurant</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="nav-group-items">
+          <div class="nav-item active" onclick="showSection('modale',this)">Modale alerte</div>
+          <div class="nav-item" onclick="showSection('hero',this)">Hero & intro</div>
+          <div class="nav-item" onclick="showSection('menu',this)">Menu</div>
+          <div class="nav-item" onclick="showSection('galerie',this)">Galerie photos</div>
+          <div class="nav-item" onclick="showSection('infos',this)">Infos pratiques</div>
+          <div class="nav-item" onclick="showSection('restaurateurs',this)">La Suite & Piennolo</div>
+          <div class="nav-item" onclick="showSection('footer',this)">Footer</div>
+        </div>
+      </div>
+      <div class="nav-group">
+        <div class="nav-group-header" onclick="toggleNavGroup(this)">
+          <span>Mentions légales</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="nav-group-items">
+          <div class="nav-item" onclick="showSection('mentions',this)">Contenu</div>
+        </div>
+      </div>
     </nav>
     <div class="edit-panel" id="edit-panel">
+    <div class="edit-panel-scroll">
 
       <!-- MODALE -->
       <div class="section active" id="section-modale">
         <h2>Modale alerte</h2>
-        <div class="toggle-row">
-          <span>Afficher la modale sur le site</span>
-          <label class="toggle"><input type="checkbox" id="modale-active"><span class="toggle-slider"></span></label>
-        </div>
-        <div class="field"><label>Titre</label><input type="text" id="modale-titre"></div>
-        <div class="field"><label>Contenu</label><textarea id="modale-contenu" rows="4"></textarea><p class="hint">Une ligne par article</p></div>
-        <div class="field"><label>Sous-texte (date limite)</label><input type="text" id="modale-sous_texte"></div>
-        <div class="divider">Bouton</div>
-        <div class="row2">
-          <div class="field"><label>Texte du bouton</label><input type="text" id="modale-bouton_label"></div>
-          <div class="field"><label>Lien du bouton</label><input type="text" id="modale-bouton_lien"></div>
+        <div class="section-body">
+          <div class="toggle-row">
+            <span>Afficher la modale sur le site</span>
+            <label class="toggle"><input type="checkbox" id="modale-active"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="field"><label>Titre</label><input type="text" id="modale-titre"></div>
+          <div class="field"><label>Contenu</label><textarea id="modale-contenu" rows="4"></textarea><p class="hint">Une ligne par article</p></div>
+          <div class="field"><label>Sous-texte (date limite)</label><input type="text" id="modale-sous_texte"></div>
+          <div class="divider">Bouton</div>
+          <div class="acc-body">
+            <div class="row2">
+              <div class="field"><label>Texte du bouton</label><input type="text" id="modale-bouton_label"></div>
+              <div class="field"><label>Lien du bouton</label><input type="text" id="modale-bouton_lien"></div>
+            </div>
+          </div>
         </div>
       </div>
 
       <!-- HERO -->
       <div class="section" id="section-hero">
         <h2>Hero & Introduction</h2>
+        <div class="section-body">
         <div class="divider">Image header</div>
+        <div class="acc-body">
         <div class="row2">
           <div class="field">
             <label>Desktop</label>
@@ -181,21 +220,28 @@
           <p class="hint">800×600px — WebP ou JPG recommandé</p>
           <input type="hidden" id="hero_image_bienvenue" value="le-grand-pan-assets/Image-bienvenue-2.webp">
         </div>
+        </div>
         <div class="divider">Textes</div>
+        <div class="acc-body">
         <div class="field"><label>Titre ligne 1</label><input type="text" id="hero-titre-l1"></div>
         <div class="field"><label>Titre ligne 2</label><input type="text" id="hero-titre-l2"></div>
         <div class="field"><label>Sous-titre</label><textarea id="hero-texte_subtitle" rows="2"></textarea></div>
         <div class="field"><label>Texte corps</label><textarea id="hero-texte_body" rows="3"></textarea></div>
+        </div>
         <div class="divider">Bouton réservation</div>
+        <div class="acc-body">
         <div class="row2">
           <div class="field"><label>Texte</label><input type="text" id="hero-bouton_label"></div>
           <div class="field"><label>Lien</label><input type="text" id="hero-bouton_lien"></div>
+        </div>
+        </div>
         </div>
       </div>
 
       <!-- MENU -->
       <div class="section" id="section-menu">
         <h2>Menu</h2>
+        <div class="section-body">
         <div class="field">
           <label>Photo du menu</label>
           <div class="img-upload-zone" onclick="triggerUpload('menu-img-file')">
@@ -208,6 +254,7 @@
           <input type="hidden" id="menu_image_menu" value="le-grand-pan-assets/Image-menu.webp">
         </div>
         <div class="divider">Titres des sections</div>
+        <div class="acc-body">
         <div class="row2">
           <div class="field"><label>Titre déjeuner</label><input type="text" id="menu-titre_midi"></div>
           <div class="field"><label>Titre dîner</label><input type="text" id="menu-titre_soir"></div>
@@ -217,23 +264,31 @@
           <div class="field"><label>Titre bloc Suggestion</label><input type="text" id="menu-titre_suggestion"></div>
         </div>
         <div class="field"><label>Titre bloc Classiques</label><input type="text" id="menu-titre_classiques"></div>
+        </div>
         <div class="divider">Midi — Formules</div>
+        <div class="acc-body">
         <div class="field"><label>Formule 1</label><input type="text" id="menu-formule1"></div>
         <div class="field"><label>Formule 2</label><input type="text" id="menu-formule2"></div>
         <div class="field"><label>Formule 3</label><input type="text" id="menu-formule3"></div>
         <div class="field"><label>Suggestion du chef (midi)</label><textarea id="menu-midi-suggestion" rows="3"></textarea></div>
         <div class="field"><label>Les classiques (midi) — un plat par ligne</label><textarea id="menu-midi-classiques" rows="6"></textarea></div>
+        </div>
         <div class="divider">Soir</div>
+        <div class="acc-body">
         <div class="field"><label>Suggestion du chef (soir)</label><textarea id="menu-soir-suggestion" rows="3"></textarea></div>
         <div class="field"><label>Les classiques (soir) — un plat par ligne</label><textarea id="menu-soir-classiques" rows="6"></textarea></div>
+        </div>
+        </div>
       </div>
 
       <!-- GALERIE -->
       <div class="section" id="section-galerie">
         <h2>Galerie photos</h2>
+        <div class="section-body">
         <p style="font-size:13px;color:#888;margin-bottom:16px;">Glisse les photos pour les réordonner · Clique ✕ pour en supprimer une.</p>
         <div class="gallery-grid" id="gallery-grid"></div>
         <div class="divider">Ajouter des photos</div>
+        <div class="acc-body">
         <div id="drop-zone" style="border:2px dashed #c9b8a8;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
           <div style="font-size:28px;margin-bottom:8px;color:#c06336;">+</div>
           <div style="font-size:14px;color:#9f4e2f;font-weight:500;margin-bottom:4px;">Glisse tes photos ici</div>
@@ -245,41 +300,57 @@
           <div style="font-size:13px;color:#321D16;margin-bottom:6px;" id="upload-status">Upload en cours...</div>
           <div style="background:#e0d5c8;border-radius:4px;height:6px;"><div id="upload-bar" style="background:#c06336;height:6px;border-radius:4px;width:0%;"></div></div>
         </div>
+        </div>
+        </div>
       </div>
 
       <!-- INFOS -->
       <div class="section" id="section-infos">
         <h2>Infos pratiques</h2>
+        <div class="section-body">
         <div class="field">
           <label>Statut en ce moment</label>
           <div id="infos-statut-computed" style="padding:10px 14px;border-radius:6px;font-size:13px;font-weight:500;background:#eee;color:#666">Calcul en cours…</div>
         </div>
         <div class="divider">Messages ouvert / fermé</div>
+        <div class="acc-body">
         <div class="field"><label>Message quand le restaurant est <strong style="color:#2e7d32">ouvert</strong></label><input type="text" id="infos-msg-ouvert" value="Nous sommes ouverts !"></div>
         <div class="field"><label>Message quand le restaurant est <strong style="color:#c62828">fermé</strong></label><input type="text" id="infos-msg-ferme" value="Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard"></div>
+        </div>
         <div class="divider">Créneaux d'ouverture automatique</div>
+        <div class="acc-body">
         <p style="font-size:12px;color:#888;margin-bottom:12px">Ces créneaux déterminent l'affichage "ouvert / fermé" en temps réel sur le site.</p>
         <div id="creneaux-list"></div>
         <button onclick="addCreneau()" style="margin-bottom:20px;background:transparent;border:1px solid #c06336;color:#c06336;border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer">+ Ajouter un créneau</button>
+        </div>
         <div class="divider">Horaires affichés (texte)</div>
+        <div class="acc-body">
         <div class="row2">
           <div class="field"><label>Jours</label><input type="text" id="infos-semaine-jours"></div>
           <div class="field"><label>Heures</label><input type="text" id="infos-semaine-heures"></div>
         </div>
+        </div>
         <div class="divider">Week-end</div>
+        <div class="acc-body">
         <div class="row2">
           <div class="field"><label>Jours</label><input type="text" id="infos-weekend-jours"></div>
           <div class="field"><label>Statut</label><input type="text" id="infos-weekend-statut"></div>
         </div>
+        </div>
         <div class="divider">Contact</div>
+        <div class="acc-body">
         <div class="field"><label>Adresse</label><input type="text" id="infos-adresse"></div>
         <div class="field"><label>Téléphone</label><input type="text" id="infos-telephone"></div>
+        </div>
+        </div>
       </div>
 
       <!-- RESTAURATEURS -->
       <div class="section" id="section-restaurateurs">
         <h2>La Suite & Piennolo</h2>
+        <div class="section-body">
         <div class="divider">La Suite</div>
+        <div class="acc-body">
         <div class="field">
           <label>Photo La Suite</label>
           <div class="img-upload-zone" onclick="triggerUpload('ls-img-file')">
@@ -298,7 +369,9 @@
           <div class="field"><label>Texte bouton</label><input type="text" id="ls-bouton_label"></div>
           <div class="field"><label>Lien bouton</label><input type="text" id="ls-bouton_lien"></div>
         </div>
+        </div>
         <div class="divider">Piennolo</div>
+        <div class="acc-body">
         <div class="field">
           <label>Photo Piennolo</label>
           <div class="img-upload-zone" onclick="triggerUpload('pi-img-file')">
@@ -317,11 +390,14 @@
           <div class="field"><label>Texte bouton</label><input type="text" id="pi-bouton_label"></div>
           <div class="field"><label>Lien bouton</label><input type="text" id="pi-bouton_lien"></div>
         </div>
+        </div>
+        </div>
       </div>
 
       <!-- FOOTER -->
       <div class="section" id="section-footer">
         <h2>Footer</h2>
+        <div class="section-body">
         <div class="field">
           <label>Photo de fond du footer</label>
           <div class="img-upload-zone" onclick="triggerUpload('footer-img-file')">
@@ -335,15 +411,22 @@
         </div>
         <div class="field"><label>Texte "Suivez-nous"</label><input type="text" id="footer-suivez"></div>
         <div class="field"><label>Lien Instagram</label><input type="text" id="footer-instagram"></div>
+        </div>
       </div>
 
       <!-- MENTIONS LEGALES -->
       <div class="section" id="section-mentions">
         <h2>Mentions légales</h2>
+        <div class="section-body">
         <div id="mentions-sections"></div>
         <button class="add-ml-btn" onclick="addMentionsSection()">+ Ajouter une section</button>
+        </div>
       </div>
 
+    </div>
+    </div>
+    <div class="panel-toggle-strip" onclick="toggleEditPanel()" title="Replier/déplier le panneau d'édition">
+      <svg width="8" height="14" viewBox="0 0 8 14" fill="none"><path d="M7 1L1 7L7 13" stroke="#888" stroke-width="1.5" stroke-linecap="round"/></svg>
     </div>
 
     <!-- PREVIEW PANEL — toujours visible -->
@@ -710,6 +793,11 @@ function setDevice(mode){
   $('btn-mobile').classList.toggle('active',mode==='mobile');
 }
 
+function toggleEditPanel(){
+  const p=$('edit-panel');
+  p.classList.toggle('collapsed');
+}
+
 // ─── Sync préprod (sauvegarde GitHub) ───────────────────────────
 function syncPreprod(){
   const btn=$('sync-btn');
@@ -739,6 +827,12 @@ function showSection(name,el){
   document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
   $('section-'+name).classList.add('active');
   el.classList.add('active');
+  // Ouvrir le groupe parent si replié
+  const group=el.closest('.nav-group');
+  if(group)group.classList.remove('collapsed');
+}
+function toggleNavGroup(header){
+  header.closest('.nav-group').classList.toggle('collapsed');
 }
 
 const savedLogin=localStorage.getItem("lgp_login");
@@ -747,6 +841,16 @@ if(savedLogin&&savedPwd){$("login-input").value=savedLogin;$("password-input").v
 
 document.addEventListener("DOMContentLoaded",function(){
   renderCreneaux();
+  // Accordéons : chaque .divider toggle son .acc-body suivant
+  document.querySelectorAll('.divider').forEach(div=>{
+    const body=div.nextElementSibling;
+    if(body&&body.classList.contains('acc-body')){
+      div.addEventListener('click',()=>{
+        div.classList.toggle('acc-closed');
+        body.classList.toggle('acc-hidden');
+      });
+    }
+  });
   // Auto-preview: écouter tous les changements dans le panneau d'édition
   const panel=document.getElementById('edit-panel');
   if(panel){
