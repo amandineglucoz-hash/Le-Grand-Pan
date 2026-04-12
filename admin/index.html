@@ -750,6 +750,7 @@ await Promise.all(["content/modale.json","content/hero.json","content/menu.json"
 let previewReady=false;
 let pendingMsg=null;
 let previewDebounce;
+let lastPreviewData=null;
 
 function buildPreviewData(){
   document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
@@ -767,6 +768,7 @@ function buildPreviewData(){
 
 function refreshPreview(){
   const data=buildPreviewData();
+  lastPreviewData=data;
   const iframe=$('preview-iframe');
   const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
   if(previewReady){
@@ -779,9 +781,13 @@ function refreshPreview(){
 
 function onPreviewLoad(){
   previewReady=true;
-  if(pendingMsg){
-    $('preview-iframe').contentWindow.postMessage({type:'cms-preview',data:pendingMsg},'*');
+  // Ré-injecter les données à chaque chargement (navigation entre pages dans l'iframe)
+  const data=lastPreviewData||(pendingMsg?pendingMsg:null);
+  if(data){
     pendingMsg=null;
+    setTimeout(()=>{
+      try{$('preview-iframe').contentWindow.postMessage({type:'cms-preview',data},'*');}catch(e){}
+    },150);
   }
 }
 
