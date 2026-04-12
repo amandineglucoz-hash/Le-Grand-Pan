@@ -24,7 +24,13 @@
     .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .logout-btn { background: transparent; color: #fbf5ee; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; height: calc(100vh - 56px); overflow: hidden; }
-    .sidebar { width: 190px; background: #1a1a1a; padding: 12px 0 24px; flex-shrink: 0; overflow-y: auto; }
+    .sidebar { width: 190px; background: #1a1a1a; padding: 0 0 24px; flex-shrink: 0; overflow-y: auto; display: flex; flex-direction: column; }
+    .site-switcher { padding: 10px 10px 8px; border-bottom: 1px solid #2a2a2a; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
+    .site-tab { display: flex; align-items: center; gap: 8px; width: 100%; background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 7px 10px; cursor: pointer; color: #888; font-size: 12px; text-align: left; font-family: inherit; transition: background 0.15s, color 0.15s; }
+    .site-tab:hover { background: #222; color: #ddd; }
+    .site-tab.active { background: #2a2a2a; color: #fff; border-color: #333; }
+    .site-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .sidebar-nav { flex: 1; padding-top: 8px; }
     .nav-group { }
     .nav-group-header { padding: 14px 16px 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
     .nav-group-header:hover { color: #888; }
@@ -124,7 +130,7 @@
 
 <div id="app">
   <div class="topbar">
-    <span class="topbar-logo">LE GRAND PAN — ADMIN</span>
+    <span class="topbar-logo" id="topbar-site-name">LE GRAND PAN — ADMIN</span>
     <div class="topbar-right">
       <button class="sync-btn" id="sync-btn" onclick="syncPreprod()">↑ Sync préprod</button>
       <button class="save-btn" id="save-btn" onclick="saveAll()">Publier</button>
@@ -133,6 +139,15 @@
   </div>
   <div class="layout">
     <nav class="sidebar">
+      <div class="site-switcher">
+        <button class="site-tab active" id="tab-legrandpan" onclick="switchSite('legrandpan')">
+          <span class="site-dot" style="background:#c06336"></span>Le Grand Pan
+        </button>
+        <button class="site-tab" id="tab-piennolo" onclick="switchSite('piennolo')">
+          <span class="site-dot" style="background:#4a7c59"></span>Piennolo
+        </button>
+      </div>
+      <div class="sidebar-nav">
       <div class="nav-group">
         <div class="nav-group-header" onclick="toggleNavGroup(this)">
           <span>Page restaurant</span>
@@ -157,6 +172,7 @@
           <div class="nav-item" onclick="showSection('mentions',this)">Contenu</div>
         </div>
       </div>
+      </div><!-- end sidebar-nav -->
     </nav>
     <div class="edit-panel" id="edit-panel">
     <div class="edit-panel-scroll">
@@ -451,11 +467,56 @@
 <div id="toast"></div>
 
 <script>
-const REPO='amandineglucoz-hash/Le-Grand-Pan',BRANCH='main';
+// ─── Config multi-sites ─────────────────────────────────────────
+const SITES={
+  legrandpan:{
+    name:'Le Grand Pan',
+    repo:'amandineglucoz-hash/Le-Grand-Pan',
+    branch:'main',
+    baseUrl:window.location.hostname==='localhost'?'http://localhost:3939/':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/',
+    previewBase:window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan',
+    color:'#c06336'
+  },
+  piennolo:{
+    name:'Piennolo',
+    repo:'amandineglucoz-hash/Piennolo',   // ← à mettre à jour avec le vrai repo
+    branch:'main',
+    baseUrl:window.location.hostname==='localhost'?'http://localhost:3940/':'https://piennolo.fr/',
+    previewBase:window.location.hostname==='localhost'?'http://localhost:3940':'https://piennolo.fr',
+    color:'#4a7c59'
+  }
+};
+let currentSite='legrandpan';
+let REPO=SITES.legrandpan.repo;
+let BRANCH=SITES.legrandpan.branch;
+let BASE_URL=SITES.legrandpan.baseUrl;
+let PREVIEW_BASE=SITES.legrandpan.previewBase;
+
 let TOKEN='',filesData={},galleryPhotos=[],mentionsSections=[];
 let horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
 
 const JOURS_LABELS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
+
+// ─── Sélecteur de site ──────────────────────────────────────────
+async function switchSite(key){
+  if(key===currentSite)return;
+  currentSite=key;
+  const site=SITES[key];
+  REPO=site.repo; BRANCH=site.branch; BASE_URL=site.baseUrl; PREVIEW_BASE=site.previewBase;
+  // UI
+  document.querySelectorAll('.site-tab').forEach(t=>t.classList.remove('active'));
+  const tab=document.getElementById('tab-'+key);
+  if(tab)tab.classList.add('active');
+  const logo=document.getElementById('topbar-site-name');
+  if(logo)logo.textContent=site.name.toUpperCase()+' — ADMIN';
+  // Reset
+  filesData={};galleryPhotos=[];mentionsSections=[];
+  horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
+  previewReady=false;lastPreviewData=null;
+  $('preview-iframe').src='about:blank';
+  // Recharger le contenu du nouveau site
+  await loadAll();
+}
 
 function renderCreneaux(){
   const list=document.getElementById('creneaux-list');
@@ -542,7 +603,7 @@ function rteLink(){
   if(url)document.execCommand('createLink',false,url);
 }
 const $=id=>document.getElementById(id);
-const BASE_URL=window.location.hostname==='localhost'?'http://localhost:3940/':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/';
+// BASE_URL est défini dynamiquement via SITES (voir plus haut)
 
 function showToast(msg,type='success'){const t=$('toast');t.textContent=msg;t.className=type;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
@@ -770,7 +831,7 @@ function refreshPreview(){
   const data=buildPreviewData();
   lastPreviewData=data;
   const iframe=$('preview-iframe');
-  const base=window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan';
+  const base=PREVIEW_BASE;
   if(previewReady){
     iframe.contentWindow.postMessage({type:'cms-preview',data},'*');
   } else {
