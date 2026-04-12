@@ -36,7 +36,7 @@
     .nav-item.active { color: #fff; background: #2a2a2a; border-left-color: #c06336; }
     .edit-panel { width: 360px; flex-shrink: 0; overflow: hidden; background: #f5f0ea; display: flex; flex-direction: column; transition: width 0.28s cubic-bezier(0.4,0,0.2,1); }
     .edit-panel.collapsed { width: 0; }
-    .edit-panel-scroll { flex: 1; overflow-y: auto; padding: 0; }
+    .edit-panel-scroll { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
     .panel-toggle-strip { width: 18px; flex-shrink: 0; background: #e8e2da; display: flex; align-items: center; justify-content: center; cursor: pointer; border-left: 1px solid #d4cbc0; border-right: 1px solid #d4cbc0; transition: background 0.15s; }
     .panel-toggle-strip:hover { background: #d4cbc0; }
     .panel-toggle-strip svg { transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
@@ -52,7 +52,10 @@
     .preview-iframe-wrap.mobile { padding: 16px; }
     .preview-iframe-wrap.mobile iframe { max-width: 390px; border-radius: 16px; box-shadow: 0 4px 32px rgba(0,0,0,0.2); }
     .preview-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #e8e0d8; font-size: 13px; color: #888; pointer-events: none; }
-    .section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: #321D16; position: sticky; top: 0; z-index: 5; background: #ede8e2; margin: 0 0 0; padding: 13px 20px; border-bottom: 1px solid #d4cbc0; }
+    .section { display: none; }
+    .section.active { display: flex; flex-direction: column; flex: 1; min-height: 0; }
+    .section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: #321D16; position: sticky; top: 0; z-index: 5; background: #ede8e2; margin: 0; padding: 13px 20px; border-bottom: 1px solid #d4cbc0; flex-shrink: 0; }
+    .section-body { flex: 1; overflow-y: auto; padding: 20px; }
     .section-body { padding: 20px; }
     .divider { font-size: 11px; color: #888; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #e0d5c8; padding-bottom: 6px; margin: 20px 0 14px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; }
     .divider::after { content: '▾'; font-size: 9px; opacity: 0.5; transition: transform 0.2s; }
