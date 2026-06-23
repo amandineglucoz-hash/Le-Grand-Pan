@@ -156,6 +156,22 @@ function _applyAll(modale,hero,bienvenue,menu,infos,chef,galerie,restaurateurs,f
     if(chef.texte){var e=document.querySelector('.chef-body p:first-child');if(e)e.textContent=chef.texte;}
     if(chef.sous_texte){var e=document.querySelector('.chef-body p:last-child');if(e)e.textContent=chef.sous_texte;}
     if(chef.image_bg){var e=document.querySelector('.chef-bg');if(e)e.src='./'+chef.image_bg;}
+    var videoWrap=document.querySelector('.chef-video-wrap');
+    var muteBtn=document.querySelector('.chef-mute-btn');
+    if(chef.media_type==='photo'){
+      if(videoWrap){
+        var video=videoWrap.querySelector('video');
+        if(video)video.pause();
+        videoWrap.innerHTML='<img class="chef-video" src="./'+(chef.media_photo||'')+'" style="width:100%;height:100%;object-fit:cover;border-radius:12px;" alt="">';
+      }
+      if(muteBtn)muteBtn.style.display='none';
+    } else {
+      if(videoWrap&&chef.media_video){
+        var video=videoWrap.querySelector('video');
+        if(video){var source=video.querySelector('source');if(source)source.src='./'+chef.media_video;video.load();}
+      }
+      if(muteBtn)muteBtn.style.display='';
+    }
   }
 
   // Galerie

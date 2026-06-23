@@ -633,6 +633,38 @@
           <p class="hint">1920×1080px — WebP ou JPG recommandé</p>
           <input type="hidden" id="pi-chef_image_bg" value="">
         </div>
+        <div class="divider">Média (vidéo ou photo)</div>
+        <div class="acc-body">
+          <div class="field"><label class="field-label">Type de média</label>
+            <select id="pi-chef-media_type" class="field-input" onchange="togglePiChefMedia()">
+              <option value="video">Vidéo</option>
+              <option value="photo">Photo</option>
+            </select>
+          </div>
+          <div id="pi-chef-media-video-wrap">
+            <div class="field"><label class="field-label">Fichier vidéo</label>
+              <div class="img-upload-zone" onclick="triggerUpload('pi-chef-video-file')">
+                <input type="file" id="pi-chef-video-file" accept="video/*" style="display:none" onchange="handlePiChefVideoUpload(this)">
+                <input type="hidden" id="pi-chef_media_video" value="">
+                <span id="pi-chef-video-label" style="font-size:12px;color:#888;padding:20px;display:block;">Cliquer pour uploader une vidéo</span>
+                <button id="pi-chef-video-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-chef-video-file')">Changer</button>
+              </div>
+              <p class="hint">MP4 recommandé — max 10 Mo</p>
+            </div>
+          </div>
+          <div id="pi-chef-media-photo-wrap" style="display:none">
+            <div class="field"><label class="field-label">Photo</label>
+              <div class="img-upload-zone" onclick="triggerUpload('pi-chef-media-photo-file')">
+                <input type="file" id="pi-chef-media-photo-file" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'pi-chef-media-photo-img','pi-chef_media_photo')">
+                <input type="hidden" id="pi-chef_media_photo" value="">
+                <img id="pi-chef-media-photo-img-preview" class="preview" src="" style="display:none;">
+                <div class="upload-label" id="pi-chef-media-photo-img-label"><span>+ Uploader une photo</span></div>
+                <button class="img-change-btn" style="display:none;" id="pi-chef-media-photo-img-btn">Changer</button>
+              </div>
+              <p class="hint">600×900px — WebP ou JPG recommandé</p>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
 
@@ -1204,6 +1236,12 @@ async function loadAllPiennolo(){
     renderPiMenuList('antipasti');renderPiMenuList('pizzas');renderPiMenuList('desserts');
     $('pi-chef-titre').value=chef.titre||'';$('pi-chef-texte').value=chef.texte||'';$('pi-chef-sous_texte').value=chef.sous_texte||'';
     if(chef.image_bg){$('pi-chef_image_bg').value=chef.image_bg;setImagePreview('pi-chef-img',chef.image_bg);}
+    $("pi-chef-media_type").value=chef.media_type||"video";
+    $("pi-chef_media_video").value=chef.media_video||"";
+    $("pi-chef_media_photo").value=chef.media_photo||"";
+    if(chef.media_video){$("pi-chef-video-label").textContent="✓ "+chef.media_video.split("/").pop();$("pi-chef-video-btn").style.display="block";}
+    if(chef.media_photo){setImagePreview("pi-chef-media-photo-img",chef.media_photo);}
+    togglePiChefMedia();
     if(infos.horaires_machine&&infos.horaires_machine.length)piHorairesMachine=infos.horaires_machine;
     renderPiCreneaux();
     piHorairesDisplay=infos.horaires_display||[{jours:'',heures:''}];
@@ -1230,7 +1268,7 @@ async function saveAllPiennolo(){
     await putFile('content/hero.json',{image_header:$('pi-hero_image_header').value,image_header_mobile:$('pi-hero_image_header_mobile').value});
     await putFile('content/bienvenue.json',{titre:$('pi-bienvenue-titre').value,texte_1:$('pi-bienvenue-texte_1').value,texte_2:$('pi-bienvenue-texte_2').value,image_1:$('pi-bv_image_1').value,image_2:$('pi-bv_image_2').value,image_3:$('pi-bv_image_3').value});
     await putFile('content/menu.json',{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts,bouton_label:$('pi-menu-bouton_label').value,bouton_type:$('pi-menu-bouton_type').value,bouton_lien:$('pi-menu-bouton_lien').value,bouton_pdf:$('pi-menu-bouton_pdf').value});
-    await putFile('content/chef.json',{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value});
+    await putFile('content/chef.json',{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value,media_type:$('pi-chef-media_type').value,media_video:$('pi-chef_media_video').value,media_photo:$('pi-chef_media_photo').value});
     await putFile('content/infos.json',{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}});
     await putFile('content/galerie.json',{photos:piGalleryPhotos});
     await putFile("content/restaurateurs.json",{lasuite:{image:$("pi-ls_image").value,tag:$("pi-ls-tag").value,titre:$("pi-ls-titre").value,texte:$("pi-ls-texte").value,bouton_label:$("pi-ls-bouton_label").value,bouton_lien:$("pi-ls-bouton_lien").value},legrandpan:{image:$("pi-gp_image").value,tag:$("pi-gp-tag").value,titre:$("pi-gp-titre").value,texte:$("pi-gp-texte").value,bouton_label:$("pi-gp-bouton_label").value,bouton_lien:$("pi-gp-bouton_lien").value}});
@@ -1260,6 +1298,38 @@ function renderPiMenuList(cat){
     </div>`).join('');
 }
 function addPiMenuItem(cat){piMenuData[cat].push({nom:'',badge:''});renderPiMenuList(cat);}
+
+function togglePiChefMedia(){
+  var t=$("pi-chef-media_type").value;
+  $("pi-chef-media-video-wrap").style.display=t==="video"?"block":"none";
+  $("pi-chef-media-photo-wrap").style.display=t==="photo"?"block":"none";
+}
+async function handlePiChefVideoUpload(input){
+  var file=input.files[0];if(!file)return;
+  var dir=currentSite==="piennolo"?"Piennolo/piennolo-assets":"le-grand-pan-assets";
+  try{
+    if(window.location.hostname==="localhost"){
+      var path=await localUpload(file,dir);
+    }else{
+      var reader=new FileReader();
+      var path=await new Promise(function(resolve,reject){
+        reader.onload=async function(e){
+          var base64=e.target.result.split(",")[1];
+          var filename=(currentSite==="piennolo"?"piennolo-assets/":"le-grand-pan-assets/")+file.name;
+          var sha=null;try{var ex=await api(filename);sha=ex.sha;}catch(e){}
+          var body={message:"Upload "+file.name,content:base64,branch:BRANCH};
+          if(sha)body.sha=sha;
+          await api(filename,{method:"PUT",body:JSON.stringify(body)});
+          resolve(filename);
+        };reader.readAsDataURL(file);
+      });
+    }
+    $("pi-chef_media_video").value=path;
+    $("pi-chef-video-label").textContent="✓ "+file.name;
+    $("pi-chef-video-btn").style.display="block";
+    showToast("Vidéo uploadée ✓");
+  }catch(e){showToast("Erreur upload vidéo","error");console.error(e);}
+}
 
 function togglePiMenuBoutonType(){
   var t=$("pi-menu-bouton_type").value;
@@ -1428,7 +1498,7 @@ function buildPreviewDataPiennolo(){
     hero:{image_header:$('pi-hero_image_header').value,image_header_mobile:$('pi-hero_image_header_mobile').value},
     bienvenue:{titre:$('pi-bienvenue-titre').value,texte_1:$('pi-bienvenue-texte_1').value,texte_2:$('pi-bienvenue-texte_2').value,image_1:$('pi-bv_image_1').value,image_2:$('pi-bv_image_2').value,image_3:$('pi-bv_image_3').value},
     menu:{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts,bouton_label:$('pi-menu-bouton_label').value,bouton_type:$('pi-menu-bouton_type').value,bouton_lien:$('pi-menu-bouton_lien').value,bouton_pdf:$('pi-menu-bouton_pdf').value},
-    chef:{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value},
+    chef:{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value,media_type:$('pi-chef-media_type').value,media_video:$('pi-chef_media_video').value,media_photo:$('pi-chef_media_photo').value},
     infos:{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}},
     galerie:{photos:piGalleryPhotos},
     restaurateurs:{lasuite:{image:$('pi-ls_image').value,tag:$('pi-ls-tag').value,titre:$('pi-ls-titre').value,texte:$('pi-ls-texte').value,bouton_label:$('pi-ls-bouton_label').value,bouton_lien:$('pi-ls-bouton_lien').value},legrandpan:{image:$('pi-gp_image').value,tag:$('pi-gp-tag').value,titre:$('pi-gp-titre').value,texte:$('pi-gp-texte').value,bouton_label:$('pi-gp-bouton_label').value,bouton_lien:$('pi-gp-bouton_lien').value}},    footer:{titre:$('pi-footer-titre').value,instagram:$('pi-footer-instagram').value,image:$('pi-footer_image').value}
