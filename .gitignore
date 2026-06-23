@@ -1,0 +1,7 @@
+.DS_Store
+.claude/
+local-server.py
+serve-admin.py
+legrandpan-cms/
+__pycache__/
+*.pyc

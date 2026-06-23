@@ -1,0 +1,21 @@
+{
+  "msg_ouvert": "Nous sommes ouverts !",
+  "msg_ferme": "Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard",
+  "horaires_machine": [
+    { "jours": [0], "debut": "19:00", "fin": "22:30" },
+    { "jours": [2,3,4,5,6], "debut": "12:00", "fin": "14:00" },
+    { "jours": [2,3,4,5,6], "debut": "19:00", "fin": "22:30" }
+  ],
+  "horaires_display": [
+    { "jours": "Lundi", "heures": "Fermé" },
+    { "jours": "Mar – Sam", "heures": "12h–14h / 19h–22h30" },
+    { "jours": "Dimanche", "heures": "19h–22h30" }
+  ],
+  "adresse": "18 Rue Rosenwald",
+  "ville": "75 015 Paris",
+  "telephone": "01 XX XX XX XX",
+  "bouton_reservation": {
+    "label": "Réserver",
+    "lien": "https://www.google.com/maps/reserve/v/dine/c/Qj06-Yg_K9c?source=pa&opi=89978449&hl=fr-FR"
+  }
+}

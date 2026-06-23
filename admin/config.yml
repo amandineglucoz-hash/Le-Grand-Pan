@@ -20,7 +20,7 @@ collections:
           - { label: "Titre", name: "titre", widget: "string" }
           - { label: "Contenu (plats, prix...)", name: "contenu", widget: "text", hint: "Une ligne par article" }
           - { label: "Sous-texte (date limite, info)", name: "sous_texte", widget: "string", required: false }
-          - { label: "Texte du bouton",aname: "bouton_label", widget: "string" }
+          - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
           - { label: "Lien du bouton", name: "bouton_lien", widget: "string", hint: "Ex: mailto:contact@legrandpan.fr ou une URL" }
 
   - name: "accueil"
@@ -139,3 +139,131 @@ collections:
           - { label: "Image de fond (section Instagram)", name: "image", widget: "image", hint: "Photo d'ambiance affichée derrière le bouton Instagram" }
           - { label: "Titre (ex: Suivez-nous)", name: "suivez", widget: "string", default: "Suivez-nous sur Instagram" }
           - { label: "Lien Instagram", name: "instagram", widget: "string", hint: "Ex: https://www.instagram.com/legrandpan" }
+
+  # ════════════════════════════════════════
+  # PIENNOLO
+  # ════════════════════════════════════════
+
+  - name: "piennolo_modale"
+    label: "🍕 Piennolo – Modale note"
+    files:
+      - name: "piennolo_modale"
+        label: "Modale note Google"
+        file: "Piennolo/content/modale.json"
+        fields:
+          - { label: "Afficher la modale", name: "active", widget: "boolean", default: true }
+          - { label: "Note (ex: 4,9)", name: "note", widget: "string" }
+          - { label: "Note max (ex: 5)", name: "note_max", widget: "string", default: "5" }
+          - { label: "Label qualité (ex: Excellent)", name: "label_qualite", widget: "string" }
+          - { label: "Texte avis (ex: Note Google sur 514 avis)", name: "label_avis", widget: "string" }
+          - { label: "Texte du bouton", name: "bouton_label", widget: "string", default: "Réserver" }
+          - { label: "Lien du bouton", name: "bouton_lien", widget: "string" }
+
+  - name: "piennolo_accueil"
+    label: "🍕 Piennolo – Contenu"
+    files:
+      - name: "piennolo_hero"
+        label: "Image Header"
+        file: "Piennolo/content/hero.json"
+        fields:
+          - { label: "Image desktop", name: "image_header", widget: "image", hint: "1920px de large recommandé" }
+          - { label: "Image mobile (optionnelle)", name: "image_header_mobile", widget: "image", required: false }
+
+      - name: "piennolo_bienvenue"
+        label: "Section Bienvenue (Come a Casa)"
+        file: "Piennolo/content/bienvenue.json"
+        fields:
+          - { label: "Titre", name: "titre", widget: "string", default: "Come a Casa" }
+          - { label: "Paragraphe 1", name: "texte_1", widget: "text" }
+          - { label: "Paragraphe 2", name: "texte_2", widget: "text" }
+          - { label: "Photo principale (pizza)", name: "image_1", widget: "image" }
+          - { label: "Photo droite (antipasti)", name: "image_2", widget: "image" }
+          - { label: "Photo gauche (cucina)", name: "image_3", widget: "image" }
+
+      - name: "piennolo_menu"
+        label: "Menu (A Tavola!)"
+        file: "Piennolo/content/menu.json"
+        fields:
+          - { label: "Titre du menu", name: "titre", widget: "string", default: "A Tavola!" }
+          - label: "Antipastis"
+            name: "antipasti"
+            widget: "list"
+            fields:
+              - { label: "Nom du plat", name: "nom", widget: "string" }
+              - { label: "Badge", name: "badge", widget: "select", options: ["", "vege", "poisson", "piquant"], default: "", hint: "Laisser vide si aucun badge" }
+          - label: "Pizzas"
+            name: "pizzas"
+            widget: "list"
+            fields:
+              - { label: "Nom du plat", name: "nom", widget: "string" }
+              - { label: "Badge", name: "badge", widget: "select", options: ["", "vege", "poisson", "piquant"], default: "" }
+          - label: "Desserts"
+            name: "desserts"
+            widget: "list"
+            fields:
+              - { label: "Nom du plat", name: "nom", widget: "string" }
+              - { label: "Badge", name: "badge", widget: "select", options: ["", "vege", "poisson", "piquant"], default: "" }
+
+      - name: "piennolo_chef"
+        label: "Section Chef (Arte Pizzaiola)"
+        file: "Piennolo/content/chef.json"
+        fields:
+          - { label: "Titre", name: "titre", widget: "string" }
+          - { label: "Texte principal", name: "texte", widget: "text" }
+          - { label: "Sous-texte (chef)", name: "sous_texte", widget: "string" }
+          - { label: "Image de fond", name: "image_bg", widget: "image" }
+
+      - name: "piennolo_galerie"
+        label: "Galerie photos (slider)"
+        file: "Piennolo/content/galerie.json"
+        fields:
+          - label: "Photos"
+            name: "photos"
+            widget: "list"
+            fields:
+              - { label: "Photo", name: "image", widget: "image", hint: "800x800px recommandé" }
+              - { label: "Description (alt)", name: "alt", widget: "string", default: "Photo Piennolo" }
+
+  - name: "piennolo_infos"
+    label: "🍕 Piennolo – Infos pratiques"
+    files:
+      - name: "piennolo_infos"
+        label: "Horaires & Contact"
+        file: "Piennolo/content/infos.json"
+        fields:
+          - { label: "Message quand ouvert", name: "msg_ouvert", widget: "string", default: "Nous sommes ouverts !" }
+          - { label: "Message quand fermé", name: "msg_ferme", widget: "string" }
+          - label: "Horaires machine (calcul ouvert/fermé)"
+            name: "horaires_machine"
+            widget: "list"
+            hint: "Jours: 0=dim, 1=lun, 2=mar, 3=mer, 4=jeu, 5=ven, 6=sam"
+            fields:
+              - { label: "Jours (tableau)", name: "jours", widget: "list", field: { label: "Jour", name: "jour", widget: "number" } }
+              - { label: "Heure début (HH:MM)", name: "debut", widget: "string" }
+              - { label: "Heure fin (HH:MM)", name: "fin", widget: "string" }
+          - label: "Horaires affichés"
+            name: "horaires_display"
+            widget: "list"
+            fields:
+              - { label: "Jours", name: "jours", widget: "string" }
+              - { label: "Heures", name: "heures", widget: "string" }
+          - { label: "Adresse", name: "adresse", widget: "string" }
+          - { label: "Ville", name: "ville", widget: "string", default: "75 015 Paris" }
+          - { label: "Téléphone", name: "telephone", widget: "string" }
+          - label: "Bouton réservation"
+            name: "bouton_reservation"
+            widget: "object"
+            fields:
+              - { label: "Texte", name: "label", widget: "string" }
+              - { label: "Lien", name: "lien", widget: "string" }
+
+  - name: "piennolo_footer"
+    label: "🍕 Piennolo – Footer"
+    files:
+      - name: "piennolo_footer"
+        label: "Footer & Instagram"
+        file: "Piennolo/content/footer.json"
+        fields:
+          - { label: "Titre (ex: Suivez-nous !)", name: "titre", widget: "string" }
+          - { label: "Lien Instagram", name: "instagram", widget: "string" }
+          - { label: "Image de fond", name: "image", widget: "image" }

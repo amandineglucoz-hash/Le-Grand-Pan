@@ -148,7 +148,8 @@
         </button>
       </div>
       <div class="sidebar-nav">
-      <div class="nav-group">
+      <!-- Le Grand Pan nav -->
+      <div class="nav-group" data-site="legrandpan">
         <div class="nav-group-header" onclick="toggleNavGroup(this)">
           <span>Page restaurant</span>
           <span class="arrow">▾</span>
@@ -163,13 +164,31 @@
           <div class="nav-item" onclick="showSection('footer',this)">Footer</div>
         </div>
       </div>
-      <div class="nav-group">
+      <div class="nav-group" data-site="legrandpan">
         <div class="nav-group-header" onclick="toggleNavGroup(this)">
           <span>Mentions légales</span>
           <span class="arrow">▾</span>
         </div>
         <div class="nav-group-items">
           <div class="nav-item" onclick="showSection('mentions',this)">Contenu</div>
+        </div>
+      </div>
+      <!-- Piennolo nav -->
+      <div class="nav-group" data-site="piennolo" style="display:none">
+        <div class="nav-group-header" onclick="toggleNavGroup(this)">
+          <span>Page Piennolo</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="nav-group-items">
+          <div class="nav-item" onclick="showSection('pi-modale',this)">Modale note</div>
+          <div class="nav-item" onclick="showSection('pi-hero',this)">Header</div>
+          <div class="nav-item" onclick="showSection('pi-bienvenue',this)">Bienvenue</div>
+          <div class="nav-item" onclick="showSection('pi-menu',this)">Menu</div>
+          <div class="nav-item" onclick="showSection('pi-chef',this)">Chef</div>
+          <div class="nav-item" onclick="showSection('pi-galerie',this)">Galerie</div>
+          <div class="nav-item" onclick="showSection('pi-infos',this)">Infos pratiques</div>
+          <div class="nav-item" onclick="showSection('pi-restaurants',this)">La Suite &amp; Le Grand Pan</div>
+          <div class="nav-item" onclick="showSection('pi-footer',this)">Footer</div>
         </div>
       </div>
       </div><!-- end sidebar-nav -->
@@ -442,6 +461,283 @@
         </div>
       </div>
 
+      <!-- ═══ PIENNOLO SECTIONS ═══ -->
+
+      <!-- PI MODALE -->
+      <div class="section" id="section-pi-modale">
+        <h2>Modale note</h2>
+        <div class="section-body">
+          <div class="toggle-row">
+            <span>Afficher la modale sur le site</span>
+            <label class="toggle"><input type="checkbox" id="pi-modale-active"><span class="toggle-slider"></span></label>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Note</label><input type="text" id="pi-modale-note"></div>
+            <div class="field"><label>Note max</label><input type="text" id="pi-modale-note_max"></div>
+          </div>
+          <div class="row2">
+            <div class="field"><label>Label qualité</label><input type="text" id="pi-modale-label_qualite"></div>
+            <div class="field"><label>Label avis</label><input type="text" id="pi-modale-label_avis"></div>
+          </div>
+          <div class="divider">Bouton</div>
+          <div class="acc-body">
+            <div class="row2">
+              <div class="field"><label>Texte du bouton</label><input type="text" id="pi-modale-bouton_label"></div>
+              <div class="field"><label>Lien du bouton</label><input type="text" id="pi-modale-bouton_lien"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PI HERO -->
+      <div class="section" id="section-pi-hero">
+        <h2>Header</h2>
+        <div class="section-body">
+        <div class="row2">
+          <div class="field">
+            <label>Image header desktop</label>
+            <div class="img-upload-zone" onclick="triggerUpload('pi-hero-img-header-file')">
+              <img id="pi-hero-img-header-preview" class="preview" src="" style="display:none;">
+              <div class="upload-label" id="pi-hero-img-header-label"><span>+ Changer l'image</span></div>
+              <button class="img-change-btn" style="display:none;" id="pi-hero-img-header-btn">Changer</button>
+              <input type="file" id="pi-hero-img-header-file" accept="image/*" onchange="handleSingleUpload(this,'pi-hero-img-header','pi-hero_image_header')">
+            </div>
+            <input type="hidden" id="pi-hero_image_header" value="">
+          </div>
+          <div class="field">
+            <label>Image header mobile</label>
+            <div class="img-upload-zone" onclick="triggerUpload('pi-hero-img-mobile-file')">
+              <img id="pi-hero-img-mobile-preview" class="preview" src="" style="display:none;">
+              <div class="upload-label" id="pi-hero-img-mobile-label"><span>+ Changer l'image</span></div>
+              <button class="img-change-btn" style="display:none;" id="pi-hero-img-mobile-btn">Changer</button>
+              <input type="file" id="pi-hero-img-mobile-file" accept="image/*" onchange="handleSingleUpload(this,'pi-hero-img-mobile','pi-hero_image_header_mobile')">
+            </div>
+            <input type="hidden" id="pi-hero_image_header_mobile" value="">
+          </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- PI BIENVENUE -->
+      <div class="section" id="section-pi-bienvenue">
+        <h2>Bienvenue</h2>
+        <div class="section-body">
+        <div class="field"><label>Titre</label><input type="text" id="pi-bienvenue-titre"></div>
+        <div class="field"><label>Texte 1</label><textarea id="pi-bienvenue-texte_1" rows="3"></textarea></div>
+        <div class="field"><label>Texte 2</label><textarea id="pi-bienvenue-texte_2" rows="3"></textarea></div>
+        <div class="divider">Images</div>
+        <div class="acc-body">
+        <div class="field">
+          <label>Image 1</label>
+          <div class="img-upload-zone" onclick="triggerUpload('pi-bv-img1-file')">
+            <img id="pi-bv-img1-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="pi-bv-img1-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="pi-bv-img1-btn">Changer</button>
+            <input type="file" id="pi-bv-img1-file" accept="image/*" onchange="handleSingleUpload(this,'pi-bv-img1','pi-bv_image_1')">
+          </div>
+          <input type="hidden" id="pi-bv_image_1" value="">
+        </div>
+        <div class="field">
+          <label>Image 2</label>
+          <div class="img-upload-zone" onclick="triggerUpload('pi-bv-img2-file')">
+            <img id="pi-bv-img2-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="pi-bv-img2-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="pi-bv-img2-btn">Changer</button>
+            <input type="file" id="pi-bv-img2-file" accept="image/*" onchange="handleSingleUpload(this,'pi-bv-img2','pi-bv_image_2')">
+          </div>
+          <input type="hidden" id="pi-bv_image_2" value="">
+        </div>
+        <div class="field">
+          <label>Image 3</label>
+          <div class="img-upload-zone" onclick="triggerUpload('pi-bv-img3-file')">
+            <img id="pi-bv-img3-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="pi-bv-img3-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="pi-bv-img3-btn">Changer</button>
+            <input type="file" id="pi-bv-img3-file" accept="image/*" onchange="handleSingleUpload(this,'pi-bv-img3','pi-bv_image_3')">
+          </div>
+          <input type="hidden" id="pi-bv_image_3" value="">
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- PI MENU -->
+      <div class="section" id="section-pi-menu">
+        <h2>Menu</h2>
+        <div class="section-body">
+        <div class="field"><label>Titre</label><input type="text" id="pi-menu-titre"></div>
+        <div class="divider">Antipasti</div>
+        <div class="acc-body">
+          <div id="pi-menu-antipasti-list"></div>
+          <button class="add-ml-btn" onclick="addPiMenuItem('antipasti')">+ Ajouter un antipasto</button>
+        </div>
+        <div class="divider">Pizzas</div>
+        <div class="acc-body">
+          <div id="pi-menu-pizzas-list"></div>
+          <button class="add-ml-btn" onclick="addPiMenuItem('pizzas')">+ Ajouter une pizza</button>
+        </div>
+        <div class="divider">Desserts</div>
+        <div class="acc-body">
+          <div id="pi-menu-desserts-list"></div>
+          <button class="add-ml-btn" onclick="addPiMenuItem('desserts')">+ Ajouter un dessert</button>
+        </div>
+        </div>
+      </div>
+
+      <!-- PI CHEF -->
+      <div class="section" id="section-pi-chef">
+        <h2>Chef</h2>
+        <div class="section-body">
+        <div class="field"><label>Titre</label><input type="text" id="pi-chef-titre"></div>
+        <div class="field"><label>Texte</label><textarea id="pi-chef-texte" rows="4"></textarea></div>
+        <div class="field"><label>Sous-texte</label><input type="text" id="pi-chef-sous_texte"></div>
+        <div class="field">
+          <label>Image de fond</label>
+          <div class="img-upload-zone" onclick="triggerUpload('pi-chef-img-file')">
+            <img id="pi-chef-img-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="pi-chef-img-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="pi-chef-img-btn">Changer</button>
+            <input type="file" id="pi-chef-img-file" accept="image/*" onchange="handleSingleUpload(this,'pi-chef-img','pi-chef_image_bg')">
+          </div>
+          <input type="hidden" id="pi-chef_image_bg" value="">
+        </div>
+        </div>
+      </div>
+
+      <!-- PI GALERIE -->
+      <div class="section" id="section-pi-galerie">
+        <h2>Galerie</h2>
+        <div class="section-body">
+        <p style="font-size:13px;color:#888;margin-bottom:16px;">Glisse les photos pour les réordonner · Clique ✕ pour en supprimer une.</p>
+        <div class="gallery-grid" id="pi-gallery-grid"></div>
+        <div class="divider">Ajouter des photos</div>
+        <div class="acc-body">
+        <div id="pi-drop-zone" style="border:2px dashed #c9b8a8;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
+          <div style="font-size:28px;margin-bottom:8px;color:#4a7c59;">+</div>
+          <div style="font-size:14px;color:#4a7c59;font-weight:500;margin-bottom:4px;">Glisse tes photos ici</div>
+          <div style="font-size:12px;color:#888;">ou clique pour ouvrir le Finder</div>
+          <input type="file" id="pi-photo-upload" accept="image/*" multiple style="display:none;">
+        </div>
+        <div id="pi-upload-progress" style="display:none;margin-top:12px;">
+          <div style="font-size:13px;color:#321D16;margin-bottom:6px;" id="pi-upload-status">Upload en cours...</div>
+          <div style="background:#e0d5c8;border-radius:4px;height:6px;"><div id="pi-upload-bar" style="background:#4a7c59;height:6px;border-radius:4px;width:0%;"></div></div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- PI INFOS -->
+      <div class="section" id="section-pi-infos">
+        <h2>Infos pratiques</h2>
+        <div class="section-body">
+        <div class="field">
+          <label>Statut en ce moment</label>
+          <div id="pi-infos-statut-computed" style="padding:10px 14px;border-radius:6px;font-size:13px;font-weight:500;background:#eee;color:#666">Calcul en cours…</div>
+        </div>
+        <div class="divider">Messages ouvert / fermé</div>
+        <div class="acc-body">
+        <div class="field"><label>Message quand <strong style="color:#2e7d32">ouvert</strong></label><input type="text" id="pi-infos-msg-ouvert"></div>
+        <div class="field"><label>Message quand <strong style="color:#c62828">fermé</strong></label><input type="text" id="pi-infos-msg-ferme"></div>
+        </div>
+        <div class="divider">Créneaux d'ouverture automatique</div>
+        <div class="acc-body">
+        <p style="font-size:12px;color:#888;margin-bottom:12px">Ces créneaux déterminent l'affichage "ouvert / fermé" en temps réel sur le site.</p>
+        <div id="pi-creneaux-list"></div>
+        <button onclick="addPiCreneau()" style="margin-bottom:20px;background:transparent;border:1px solid #4a7c59;color:#4a7c59;border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer">+ Ajouter un créneau</button>
+        </div>
+        <div class="divider">Horaires affichés (texte)</div>
+        <div class="acc-body">
+        <div id="pi-horaires-display-list"></div>
+        <button class="add-ml-btn" onclick="addPiHoraireDisplay()">+ Ajouter une ligne</button>
+        </div>
+        <div class="divider">Contact</div>
+        <div class="acc-body">
+        <div class="field"><label>Adresse</label><input type="text" id="pi-infos-adresse"></div>
+        <div class="field"><label>Ville</label><input type="text" id="pi-infos-ville"></div>
+        <div class="field"><label>Téléphone</label><input type="text" id="pi-infos-telephone"></div>
+        </div>
+        <div class="divider">Bouton réservation</div>
+        <div class="acc-body">
+        <div class="row2">
+          <div class="field"><label>Texte</label><input type="text" id="pi-infos-bouton_label"></div>
+          <div class="field"><label>Lien</label><input type="text" id="pi-infos-bouton_lien"></div>
+        </div>
+        </div>
+        </div>
+      </div>
+
+      <!-- PI FOOTER -->
+
+      <div class="section" id="section-pi-restaurants">
+        <div class="section-header">La Suite & Le Grand Pan</div>
+        <div class="section-body">
+          <div class="divider">La Suite</div>
+          <div class="acc-body">
+            <div class="field-group">
+              <div class="field-row">
+                <div class="field"><label class="field-label">Tag</label><input id="pi-ls-tag" class="field-input"></div>
+                <div class="field"><label class="field-label">Titre</label><input id="pi-ls-titre" class="field-input"></div>
+              </div>
+              <div class="field"><label class="field-label">Texte</label><textarea id="pi-ls-texte" class="field-input" rows="3"></textarea></div>
+              <div class="field-row">
+                <div class="field"><label class="field-label">Texte du bouton</label><input id="pi-ls-bouton_label" class="field-input"></div>
+                <div class="field"><label class="field-label">Lien du bouton</label><input id="pi-ls-bouton_lien" class="field-input"></div>
+              </div>
+              <div class="field"><label class="field-label">Image</label>
+                <div class="img-upload-zone" onclick="triggerUpload('pi-ls-upload')">
+                  <input type="file" id="pi-ls-upload" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'pi-ls-img','pi-ls_image')">
+                  <input type="hidden" id="pi-ls_image" value="">
+                  <img id="pi-ls-img-preview" class="preview" src="" style="display:none;">
+                  <span id="pi-ls-img-label" style="font-size:12px;color:#888;">Cliquer pour uploader</span>
+                  <button id="pi-ls-img-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-ls-upload')">Changer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="divider">Le Grand Pan</div>
+          <div class="acc-body">
+            <div class="field-group">
+              <div class="field-row">
+                <div class="field"><label class="field-label">Tag</label><input id="pi-gp-tag" class="field-input"></div>
+                <div class="field"><label class="field-label">Titre</label><input id="pi-gp-titre" class="field-input"></div>
+              </div>
+              <div class="field"><label class="field-label">Texte</label><textarea id="pi-gp-texte" class="field-input" rows="3"></textarea></div>
+              <div class="field-row">
+                <div class="field"><label class="field-label">Texte du bouton</label><input id="pi-gp-bouton_label" class="field-input"></div>
+                <div class="field"><label class="field-label">Lien du bouton</label><input id="pi-gp-bouton_lien" class="field-input"></div>
+              </div>
+              <div class="field"><label class="field-label">Image</label>
+                <div class="img-upload-zone" onclick="triggerUpload('pi-gp-upload')">
+                  <input type="file" id="pi-gp-upload" accept="image/*" style="display:none" onchange="handleSingleUpload(this,'pi-gp-img','pi-gp_image')">
+                  <input type="hidden" id="pi-gp_image" value="">
+                  <img id="pi-gp-img-preview" class="preview" src="" style="display:none;">
+                  <span id="pi-gp-img-label" style="font-size:12px;color:#888;">Cliquer pour uploader</span>
+                  <button id="pi-gp-img-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-gp-upload')">Changer</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="section" id="section-pi-footer">
+        <h2>Footer</h2>
+        <div class="section-body">
+        <div class="field"><label>Titre</label><input type="text" id="pi-footer-titre"></div>
+        <div class="field"><label>Lien Instagram</label><input type="text" id="pi-footer-instagram"></div>
+        <div class="field">
+          <label>Image</label>
+          <div class="img-upload-zone" onclick="triggerUpload('pi-footer-img-file')">
+            <img id="pi-footer-img-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="pi-footer-img-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="pi-footer-img-btn">Changer</button>
+            <input type="file" id="pi-footer-img-file" accept="image/*" onchange="handleSingleUpload(this,'pi-footer-img','pi-footer_image')">
+          </div>
+          <input type="hidden" id="pi-footer_image" value="">
+        </div>
+        </div>
+      </div>
+
     </div>
     </div>
     <div class="panel-toggle-strip" onclick="toggleEditPanel()" title="Replier/déplier le panneau d'édition">
@@ -473,16 +769,16 @@ const SITES={
     name:'Le Grand Pan',
     repo:'amandineglucoz-hash/Le-Grand-Pan',
     branch:'main',
-    baseUrl:window.location.hostname==='localhost'?'http://localhost:3939/':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/',
-    previewBase:window.location.hostname==='localhost'?'http://localhost:3939':'https://amandineglucoz-hash.github.io/Le-Grand-Pan',
+    baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/',
+    previewBase:window.location.hostname==='localhost'?'http://localhost:3941':'https://amandineglucoz-hash.github.io/Le-Grand-Pan',
     color:'#c06336'
   },
   piennolo:{
     name:'Piennolo',
-    repo:'amandineglucoz-hash/Piennolo',   // ← à mettre à jour avec le vrai repo
+    repo:'amandineglucoz-hash/Le-Grand-Pan',
     branch:'main',
-    baseUrl:window.location.hostname==='localhost'?'http://localhost:3940/':'https://piennolo.fr/',
-    previewBase:window.location.hostname==='localhost'?'http://localhost:3940':'https://piennolo.fr',
+    baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://piennolo.fr/',
+    previewBase:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://piennolo.fr',
     color:'#4a7c59'
   }
 };
@@ -494,6 +790,12 @@ let PREVIEW_BASE=SITES.legrandpan.previewBase;
 
 let TOKEN='',filesData={},galleryPhotos=[],mentionsSections=[];
 let horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
+
+// Piennolo state
+let piGalleryPhotos=[];
+let piHorairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
+let piHorairesDisplay=[{jours:'',heures:''}];
+let piMenuData={antipasti:[],pizzas:[],desserts:[]};
 
 const JOURS_LABELS=['Dim','Lun','Mar','Mer','Jeu','Ven','Sam'];
 
@@ -512,8 +814,26 @@ async function switchSite(key){
   // Reset
   filesData={};galleryPhotos=[];mentionsSections=[];
   horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
-  previewReady=false;lastPreviewData=null;
+  piGalleryPhotos=[];piHorairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
+  piHorairesDisplay=[{jours:'',heures:''}];piMenuData={antipasti:[],pizzas:[],desserts:[]};
+  previewReady=false;lastPreviewData=null;currentPreviewPage='index';pendingScrollSelector=null;
   $('preview-iframe').src='about:blank';
+  // Toggle sidebar nav groups
+  document.querySelectorAll('.nav-group[data-site]').forEach(g=>{
+    g.style.display=g.dataset.site===key?'':'none';
+  });
+  // Deselect all sections and nav items, activate the first one for this site
+  document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+  if(key==='piennolo'){
+    $('section-pi-modale').classList.add('active');
+    const firstNav=document.querySelector('.nav-group[data-site="piennolo"] .nav-item');
+    if(firstNav)firstNav.classList.add('active');
+  } else {
+    $('section-modale').classList.add('active');
+    const firstNav=document.querySelector('.nav-group[data-site="legrandpan"] .nav-item');
+    if(firstNav)firstNav.classList.add('active');
+  }
   // Recharger le contenu du nouveau site
   await loadAll();
 }
@@ -607,7 +927,8 @@ const $=id=>document.getElementById(id);
 
 function showToast(msg,type='success'){const t=$('toast');t.textContent=msg;t.className=type;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
-async function api(path,opts={}){
+function sitePrefix(path){if(currentSite==='piennolo'&&!path.startsWith('Piennolo/'))return 'Piennolo/'+path;return path;}
+async function api(path,opts={}){path=sitePrefix(path);
   const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{...opts,headers:{Authorization:`token ${TOKEN}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json',...(opts.headers||{})}});
   if(!r.ok)throw new Error(r.status);
   return r.json();
@@ -663,12 +984,18 @@ function setImagePreview(prefix,src){
   }
 }
 
+async function localUpload(file,targetDir){
+  const form=new FormData();form.append('file',file);
+  const r=await fetch('http://localhost:3941/upload?dir='+encodeURIComponent(targetDir),{method:'POST',body:form});
+  const data=await r.json();return data.path;
+}
+
 function triggerUpload(inputId){
   event.stopPropagation();
   $(inputId).click();
 }
 
-async function handleSingleUpload(input,prefix,hiddenId){
+async function handleSingleUpload(input,prefix,hiddenId){  if(window.location.hostname==='localhost'){    const file=input.files[0];if(!file)return;    const dir=currentSite==='piennolo'?'Piennolo/piennolo-assets':'le-grand-pan-assets';    try{      const path=await localUpload(file,dir);      $(hiddenId).value=path;      const reader=new FileReader();reader.onload=function(ev){        const preview=$(prefix+'-preview');const label=$(prefix+'-label');const btn=$(prefix+'-btn');        if(preview){preview.src=ev.target.result;preview.style.display='block';}        if(label)label.style.display='none';if(btn)btn.style.display='block';      };reader.readAsDataURL(file);      showToast('Image uploadée localement ✓');    }catch(e){showToast('Erreur upload local','error');console.error(e);}    return;  }
   const file=input.files[0];
   if(!file)return;
   showToast('Upload en cours...');
@@ -676,7 +1003,7 @@ async function handleSingleUpload(input,prefix,hiddenId){
     const reader=new FileReader();
     reader.onload=async function(e){
       const base64=e.target.result.split(",")[1];
-      const filename='le-grand-pan-assets/'+file.name;
+      const filename=(currentSite==='piennolo'?'piennolo-assets/':'le-grand-pan-assets/')+file.name;
       let sha=null;
       try{const ex=await api(filename);sha=ex.sha;}catch(e){}
       const body={message:"Upload "+file.name,content:base64,branch:BRANCH};
@@ -696,8 +1023,11 @@ async function handleSingleUpload(input,prefix,hiddenId){
 }
 
 async function loadAll(){
+  if(currentSite==='piennolo') return loadAllPiennolo();
   try{
-    const[m,h,menu,g,inf,r,footer,mentions]=await Promise.all(['content/modale.json','content/hero.json','content/menu.json','content/galerie.json','content/infos.json','content/restaurateurs.json','content/footer.json','content/mentions.json'].map(p=>getFile(p).catch(()=>({}))));
+    const localFallbackGP=window.location.hostname==='localhost';
+    const fetchJsonGP=p=>localFallbackGP?fetch('http://localhost:3941/legrandpan-cms/'+p+'?v='+Date.now()).then(r=>r.json()).catch(()=>({})):getFile(p).catch(()=>({}));
+    const[m,h,menu,g,inf,r,footer,mentions]=await Promise.all(['content/modale.json','content/hero.json','content/menu.json','content/galerie.json','content/infos.json','content/restaurateurs.json','content/footer.json','content/mentions.json'].map(fetchJsonGP));
     $('modale-active').checked=m.active;
     $('modale-titre').value=m.titre||'';$('modale-contenu').value=m.contenu||'';$('modale-sous_texte').value=m.sous_texte||'';$('modale-bouton_label').value=m.bouton_label||'';$('modale-bouton_lien').value=m.bouton_lien||'';
     const pts=(h.titre||'bienvenue a table').split(' '),mid=Math.ceil(pts.length/2);
@@ -751,12 +1081,12 @@ function renderGallery(photos){
 }
 function removePhoto(i){galleryPhotos.splice(i,1);renderGallery(galleryPhotos);}
 
-async function uploadPhoto(file){
+async function uploadPhoto(file){  if(window.location.hostname==='localhost'){    const dir=currentSite==='piennolo'?'Piennolo/piennolo-assets':'le-grand-pan-assets';    return await localUpload(file,dir);  }
   return new Promise((resolve,reject)=>{
     const reader=new FileReader();
     reader.onload=async function(e){
       const base64=e.target.result.split(",")[1];
-      const filename="le-grand-pan-assets/"+file.name;
+      const filename=(currentSite==='piennolo'?'piennolo-assets/':'le-grand-pan-assets/')+file.name;
       try{
         let sha=null;
         try{const ex=await api(filename);sha=ex.sha;}catch(e){}
@@ -789,6 +1119,7 @@ async function handleFiles(files){
 }
 
 async function saveAll(){
+  if(currentSite==='piennolo') return saveAllPiennolo();
   const btn=$('save-btn');btn.disabled=true;btn.textContent='Publication...';
   try{
     await putFile('content/modale.json',{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value});
@@ -807,13 +1138,204 @@ await Promise.all(["content/modale.json","content/hero.json","content/menu.json"
   finally{btn.disabled=false;btn.textContent='Publier';}
 }
 
+// ─── Piennolo: load / save / helpers ────────────────────────────
+
+async function loadAllPiennolo(){
+  try{
+    const localFallback=window.location.hostname==='localhost';
+    const fetchJson=p=>localFallback?fetch('http://localhost:3941/Piennolo/'+p+'?v='+Date.now()).then(r=>r.json()).catch(()=>({})):getFile(p).catch(()=>({}));
+    const[modale,hero,bienvenue,menu,chef,infos,galerie,restau,footer]=await Promise.all(
+      ['content/modale.json','content/hero.json','content/bienvenue.json','content/menu.json','content/chef.json','content/infos.json','content/galerie.json','content/restaurateurs.json','content/footer.json'].map(fetchJson)
+    );
+    $('pi-modale-active').checked=!!modale.active;
+    $('pi-modale-note').value=modale.note||'';$('pi-modale-note_max').value=modale.note_max||'';
+    $('pi-modale-label_qualite').value=modale.label_qualite||'';$('pi-modale-label_avis').value=modale.label_avis||'';
+    $('pi-modale-bouton_label').value=modale.bouton_label||'';$('pi-modale-bouton_lien').value=modale.bouton_lien||'';
+    if(hero.image_header){$('pi-hero_image_header').value=hero.image_header;setImagePreview('pi-hero-img-header',hero.image_header);}
+    if(hero.image_header_mobile){$('pi-hero_image_header_mobile').value=hero.image_header_mobile;setImagePreview('pi-hero-img-mobile',hero.image_header_mobile);}
+    $('pi-bienvenue-titre').value=bienvenue.titre||'';
+    $('pi-bienvenue-texte_1').value=bienvenue.texte_1||'';$('pi-bienvenue-texte_2').value=bienvenue.texte_2||'';
+    if(bienvenue.image_1){$('pi-bv_image_1').value=bienvenue.image_1;setImagePreview('pi-bv-img1',bienvenue.image_1);}
+    if(bienvenue.image_2){$('pi-bv_image_2').value=bienvenue.image_2;setImagePreview('pi-bv-img2',bienvenue.image_2);}
+    if(bienvenue.image_3){$('pi-bv_image_3').value=bienvenue.image_3;setImagePreview('pi-bv-img3',bienvenue.image_3);}
+    $('pi-menu-titre').value=menu.titre||'';
+    piMenuData.antipasti=menu.antipasti||[];piMenuData.pizzas=menu.pizzas||[];piMenuData.desserts=menu.desserts||[];
+    renderPiMenuList('antipasti');renderPiMenuList('pizzas');renderPiMenuList('desserts');
+    $('pi-chef-titre').value=chef.titre||'';$('pi-chef-texte').value=chef.texte||'';$('pi-chef-sous_texte').value=chef.sous_texte||'';
+    if(chef.image_bg){$('pi-chef_image_bg').value=chef.image_bg;setImagePreview('pi-chef-img',chef.image_bg);}
+    if(infos.horaires_machine&&infos.horaires_machine.length)piHorairesMachine=infos.horaires_machine;
+    renderPiCreneaux();
+    piHorairesDisplay=infos.horaires_display||[{jours:'',heures:''}];
+    renderPiHorairesDisplay();
+    $('pi-infos-msg-ouvert').value=infos.msg_ouvert||'';$('pi-infos-msg-ferme').value=infos.msg_ferme||'';
+    $('pi-infos-adresse').value=infos.adresse||'';$('pi-infos-ville').value=infos.ville||'';$('pi-infos-telephone').value=infos.telephone||'';
+    $('pi-infos-bouton_label').value=infos.bouton_reservation?.label||'';$('pi-infos-bouton_lien').value=infos.bouton_reservation?.lien||'';
+    $("pi-ls-tag").value=restau.lasuite?.tag||"";$("pi-ls-titre").value=restau.lasuite?.titre||"";$("pi-ls-texte").value=restau.lasuite?.texte||"";$("pi-ls-bouton_label").value=restau.lasuite?.bouton_label||"";$("pi-ls-bouton_lien").value=restau.lasuite?.bouton_lien||"";
+    if(restau.lasuite?.image){$("pi-ls_image").value=restau.lasuite.image;setImagePreview("pi-ls-img",restau.lasuite.image);}
+    $("pi-gp-tag").value=restau.legrandpan?.tag||"";$("pi-gp-titre").value=restau.legrandpan?.titre||"";$("pi-gp-texte").value=restau.legrandpan?.texte||"";$("pi-gp-bouton_label").value=restau.legrandpan?.bouton_label||"";$("pi-gp-bouton_lien").value=restau.legrandpan?.bouton_lien||"";
+    if(restau.legrandpan?.image){$("pi-gp_image").value=restau.legrandpan.image;setImagePreview("pi-gp-img",restau.legrandpan.image);}
+    piGalleryPhotos=galerie.photos||[];renderPiGallery();
+    $('pi-footer-titre').value=footer.titre||'';$('pi-footer-instagram').value=footer.instagram||'';
+    if(footer.image){$('pi-footer_image').value=footer.image;setImagePreview('pi-footer-img',footer.image);}
+    showToast('Contenu Piennolo chargé ✓');
+    previewReady=false;refreshPreview();
+  }catch(e){showToast('Erreur chargement Piennolo','error');console.error(e);}
+}
+
+async function saveAllPiennolo(){
+  const btn=$('save-btn');btn.disabled=true;btn.textContent='Publication...';
+  try{
+    await putFile('content/modale.json',{active:$('pi-modale-active').checked,note:$('pi-modale-note').value,note_max:$('pi-modale-note_max').value,label_qualite:$('pi-modale-label_qualite').value,label_avis:$('pi-modale-label_avis').value,bouton_label:$('pi-modale-bouton_label').value,bouton_lien:$('pi-modale-bouton_lien').value});
+    await putFile('content/hero.json',{image_header:$('pi-hero_image_header').value,image_header_mobile:$('pi-hero_image_header_mobile').value});
+    await putFile('content/bienvenue.json',{titre:$('pi-bienvenue-titre').value,texte_1:$('pi-bienvenue-texte_1').value,texte_2:$('pi-bienvenue-texte_2').value,image_1:$('pi-bv_image_1').value,image_2:$('pi-bv_image_2').value,image_3:$('pi-bv_image_3').value});
+    await putFile('content/menu.json',{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts});
+    await putFile('content/chef.json',{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value});
+    await putFile('content/infos.json',{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}});
+    await putFile('content/galerie.json',{photos:piGalleryPhotos});
+    await putFile("content/restaurateurs.json",{lasuite:{image:$("pi-ls_image").value,tag:$("pi-ls-tag").value,titre:$("pi-ls-titre").value,texte:$("pi-ls-texte").value,bouton_label:$("pi-ls-bouton_label").value,bouton_lien:$("pi-ls-bouton_lien").value},legrandpan:{image:$("pi-gp_image").value,tag:$("pi-gp-tag").value,titre:$("pi-gp-titre").value,texte:$("pi-gp-texte").value,bouton_label:$("pi-gp-bouton_label").value,bouton_lien:$("pi-gp-bouton_lien").value}});
+    await putFile('content/footer.json',{titre:$('pi-footer-titre').value,instagram:$('pi-footer-instagram').value,image:$('pi-footer_image').value});
+    // Refresh SHAs
+    await Promise.all(['content/modale.json','content/hero.json','content/bienvenue.json','content/menu.json','content/chef.json','content/infos.json','content/galerie.json','content/footer.json'].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
+    showToast('Piennolo publié avec succès ✓');
+  }catch(e){showToast('Erreur publication Piennolo','error');console.error(e);}
+  finally{btn.disabled=false;btn.textContent='Publier';}
+}
+
+// Piennolo menu lists
+const PI_BADGE_OPTIONS=[{value:'',label:'Aucun'},{value:'vege',label:'Végé'},{value:'poisson',label:'Poisson'},{value:'piquant',label:'Piquant'}];
+function renderPiMenuList(cat){
+  const list=$('pi-menu-'+cat+'-list');
+  if(!list)return;
+  list.innerHTML=piMenuData[cat].map((item,i)=>`
+    <div class="ml-block">
+      <div class="ml-block-header">
+        <span class="ml-block-label">${cat} ${i+1}</span>
+        <button class="ml-remove-btn" onclick="removePiMenuItem('${cat}',${i})">Supprimer</button>
+      </div>
+      <div class="field"><label>Nom</label><input type="text" value="${escAttr(item.nom)}" oninput="piMenuData['${cat}'][${i}].nom=this.value"></div>
+      <div class="field"><label>Badge</label><select onchange="piMenuData['${cat}'][${i}].badge=this.value" style="width:100%;padding:10px 12px;border:1px solid #c9b8a8;border-radius:8px;font-size:14px;background:#fff;color:#321D16;font-family:inherit;">
+        ${PI_BADGE_OPTIONS.map(o=>`<option value="${o.value}"${item.badge===o.value?' selected':''}>${o.label}</option>`).join('')}
+      </select></div>
+    </div>`).join('');
+}
+function addPiMenuItem(cat){piMenuData[cat].push({nom:'',badge:''});renderPiMenuList(cat);}
+function removePiMenuItem(cat,i){piMenuData[cat].splice(i,1);renderPiMenuList(cat);}
+
+// Piennolo creneaux
+function renderPiCreneaux(){
+  const list=$('pi-creneaux-list');
+  if(!list)return;
+  list.innerHTML=piHorairesMachine.map((c,i)=>`
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:#f9f5f1;padding:10px;border-radius:6px;">
+      <div style="display:flex;gap:6px;">${JOURS_LABELS.map((j,d)=>`
+        <label style="display:flex;flex-direction:column;align-items:center;font-size:10px;gap:2px;cursor:pointer;color:#555">
+          <input type="checkbox" ${c.jours.includes(d)?'checked':''} onchange="togglePiJour(${i},${d},this.checked)" style="margin:0;accent-color:#4a7c59">
+          ${j}
+        </label>`).join('')}</div>
+      <input type="time" value="${c.debut}" onchange="updatePiCreneau(${i},'debut',this.value)" style="padding:5px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px">
+      <span style="font-size:12px;color:#999">→</span>
+      <input type="time" value="${c.fin}" onchange="updatePiCreneau(${i},'fin',this.value)" style="padding:5px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px">
+      <button onclick="removePiCreneau(${i})" style="background:transparent;border:none;color:#4a7c59;cursor:pointer;font-size:18px;line-height:1;padding:0 4px">×</button>
+    </div>`).join('');
+  updatePiComputedStatus();
+}
+function togglePiJour(i,d,checked){
+  if(checked){if(!piHorairesMachine[i].jours.includes(d))piHorairesMachine[i].jours.push(d);}
+  else{piHorairesMachine[i].jours=piHorairesMachine[i].jours.filter(x=>x!==d);}
+  updatePiComputedStatus();
+}
+function updatePiCreneau(i,field,val){piHorairesMachine[i][field]=val;updatePiComputedStatus();}
+function addPiCreneau(){piHorairesMachine.push({jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'});renderPiCreneaux();}
+function removePiCreneau(i){piHorairesMachine.splice(i,1);renderPiCreneaux();}
+function updatePiComputedStatus(){
+  const el=$('pi-infos-statut-computed');if(!el)return;
+  const open=isOpenNow(piHorairesMachine);
+  el.style.background=open?'#e8f5e9':'#fce4ec';
+  el.style.color=open?'#2e7d32':'#c62828';
+  el.textContent=open?'🟢 Le restaurant est actuellement ouvert':'🔴 Le restaurant est actuellement fermé';
+}
+
+// Piennolo horaires display
+function renderPiHorairesDisplay(){
+  const list=$('pi-horaires-display-list');if(!list)return;
+  list.innerHTML=piHorairesDisplay.map((h,i)=>`
+    <div class="ml-block">
+      <div class="ml-block-header">
+        <span class="ml-block-label">Ligne ${i+1}</span>
+        <button class="ml-remove-btn" onclick="removePiHoraireDisplay(${i})">Supprimer</button>
+      </div>
+      <div class="row2">
+        <div class="field"><label>Jours</label><input type="text" value="${escAttr(h.jours)}" oninput="piHorairesDisplay[${i}].jours=this.value"></div>
+        <div class="field"><label>Heures</label><input type="text" value="${escAttr(h.heures)}" oninput="piHorairesDisplay[${i}].heures=this.value"></div>
+      </div>
+    </div>`).join('');
+}
+function addPiHoraireDisplay(){piHorairesDisplay.push({jours:'',heures:''});renderPiHorairesDisplay();}
+function removePiHoraireDisplay(i){piHorairesDisplay.splice(i,1);renderPiHorairesDisplay();}
+
+// Piennolo gallery
+let piDragSrcIndex=null;
+function renderPiGallery(){
+  const grid=$('pi-gallery-grid');if(!grid)return;
+  grid.innerHTML=piGalleryPhotos.map((p,i)=>`<div class="gallery-item" draggable="true" data-index="${i}"><img src="${BASE_URL}${p.image}" alt="${escAttr(p.alt)}"><button class="gallery-item-del" onclick="removePiPhoto(${i})">✕</button></div>`).join('');
+  grid.querySelectorAll('.gallery-item').forEach(el=>{
+    el.addEventListener('dragstart',e=>{piDragSrcIndex=+el.dataset.index;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
+    el.addEventListener('dragend',()=>grid.querySelectorAll('.gallery-item').forEach(x=>x.classList.remove('dragging','drag-over')));
+    el.addEventListener('dragover',e=>{e.preventDefault();e.dataTransfer.dropEffect='move';grid.querySelectorAll('.gallery-item').forEach(x=>x.classList.remove('drag-over'));el.classList.add('drag-over');});
+    el.addEventListener('dragleave',()=>el.classList.remove('drag-over'));
+    el.addEventListener('drop',e=>{e.preventDefault();const dest=+el.dataset.index;if(piDragSrcIndex===null||piDragSrcIndex===dest)return;const moved=piGalleryPhotos.splice(piDragSrcIndex,1)[0];piGalleryPhotos.splice(dest,0,moved);renderPiGallery();schedulePreview();showToast('Ordre mis à jour — clique Publier');});
+  });
+}
+function removePiPhoto(i){piGalleryPhotos.splice(i,1);renderPiGallery();}
+
+async function handlePiFiles(files){
+  const prog=$('pi-upload-progress');const bar=$('pi-upload-bar');const status=$('pi-upload-status');
+  prog.style.display='block';
+  for(let i=0;i<files.length;i++){
+    const file=files[i];
+    status.textContent='Upload '+file.name+' ('+(i+1)+'/'+files.length+')';
+    bar.style.width=Math.round((i/files.length)*100)+'%';
+    try{
+      const path=await uploadPhoto(file);
+      piGalleryPhotos.push({image:path,alt:'Photo Piennolo'});
+      renderPiGallery();
+    }catch(e){showToast('Erreur upload '+file.name,'error');}
+  }
+  bar.style.width='100%';status.textContent='Upload terminé ✓';
+  setTimeout(()=>{prog.style.display='none';},2000);
+  showToast('Photos ajoutées — clique Publier');
+}
+
 // ─── Live preview ───────────────────────────────────────────────
 let previewReady=false;
 let pendingMsg=null;
 let previewDebounce;
 let lastPreviewData=null;
+let currentPreviewPage='index';
+let pendingScrollSelector=null;
+
+const SECTION_TARGETS={
+  modale:        {page:'index',    selector:'.alert'},
+  hero:          {page:'index',    selector:'.header__hero'},
+  menu:          {page:'index',    selector:'.menuPage'},
+  galerie:       {page:'index',    selector:'.photoSlider'},
+  infos:         {page:'index',    selector:'.infos'},
+  restaurateurs: {page:'index',    selector:'.privPanel'},
+  footer:        {page:'index',    selector:'.follow'},
+  mentions:      {page:'mentions', selector:'main'},
+  'pi-modale':   {page:'index',    selector:'.hero-card'},
+  'pi-hero':     {page:'index',    selector:'.hero'},
+  'pi-bienvenue':{page:'index',    selector:'.benvenuti-section'},
+  'pi-menu':     {page:'index',    selector:'.menu-section'},
+  'pi-chef':     {page:'index',    selector:'.chef-section'},
+  'pi-galerie':  {page:'index',    selector:'.photo-slider'},
+  'pi-infos':    {page:'index',    selector:'.info-section'},
+  'pi-restaurants':{page:'index',  selector:'.promo-section'},
+  'pi-footer':   {page:'index',    selector:'footer'}
+};
 
 function buildPreviewData(){
+  if(currentSite==='piennolo') return buildPreviewDataPiennolo();
   document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
   return {
     hero:{image_header:$('hero_image_header').value,image_header_mobile:$('hero_image_header_mobile').value,titre:$('hero-titre-l1').value+' '+$('hero-titre-l2').value,texte_subtitle:$('hero-texte_subtitle').value,texte_body:$('hero-texte_body').value,image_bienvenue:$('hero_image_bienvenue').value,bouton_reservation:{label:$('hero-bouton_label').value,lien:$('hero-bouton_lien').value}},
@@ -827,6 +1349,19 @@ function buildPreviewData(){
   };
 }
 
+function buildPreviewDataPiennolo(){
+  return {
+    modale:{active:$('pi-modale-active').checked,note:$('pi-modale-note').value,note_max:$('pi-modale-note_max').value,label_qualite:$('pi-modale-label_qualite').value,label_avis:$('pi-modale-label_avis').value,bouton_label:$('pi-modale-bouton_label').value,bouton_lien:$('pi-modale-bouton_lien').value},
+    hero:{image_header:$('pi-hero_image_header').value,image_header_mobile:$('pi-hero_image_header_mobile').value},
+    bienvenue:{titre:$('pi-bienvenue-titre').value,texte_1:$('pi-bienvenue-texte_1').value,texte_2:$('pi-bienvenue-texte_2').value,image_1:$('pi-bv_image_1').value,image_2:$('pi-bv_image_2').value,image_3:$('pi-bv_image_3').value},
+    menu:{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts},
+    chef:{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value},
+    infos:{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}},
+    galerie:{photos:piGalleryPhotos},
+    restaurateurs:{lasuite:{image:$('pi-ls_image').value,tag:$('pi-ls-tag').value,titre:$('pi-ls-titre').value,texte:$('pi-ls-texte').value,bouton_label:$('pi-ls-bouton_label').value,bouton_lien:$('pi-ls-bouton_lien').value},legrandpan:{image:$('pi-gp_image').value,tag:$('pi-gp-tag').value,titre:$('pi-gp-titre').value,texte:$('pi-gp-texte').value,bouton_label:$('pi-gp-bouton_label').value,bouton_lien:$('pi-gp-bouton_lien').value}},    footer:{titre:$('pi-footer-titre').value,instagram:$('pi-footer-instagram').value,image:$('pi-footer_image').value}
+  };
+}
+
 function refreshPreview(){
   const data=buildPreviewData();
   lastPreviewData=data;
@@ -836,7 +1371,7 @@ function refreshPreview(){
     iframe.contentWindow.postMessage({type:'cms-preview',data},'*');
   } else {
     const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    iframe.src=base+'/?preview=1#cms='+encoded;
+    iframe.src=base+'?preview=1#cms='+encoded;
   }
 }
 
@@ -847,7 +1382,15 @@ function onPreviewLoad(){
   if(data){
     pendingMsg=null;
     setTimeout(()=>{
-      try{$('preview-iframe').contentWindow.postMessage({type:'cms-preview',data},'*');}catch(e){}
+      try{
+        const iframe=$('preview-iframe');
+        iframe.contentWindow.postMessage({type:'cms-preview',data},'*');
+        if(pendingScrollSelector){
+          const sel=pendingScrollSelector;
+          pendingScrollSelector=null;
+          setTimeout(()=>{try{iframe.contentWindow.postMessage({type:'cms-scroll-to',selector:sel},'*');}catch(e){}},200);
+        }
+      }catch(e){}
     },150);
   }
 }
@@ -875,16 +1418,26 @@ function syncPreprod(){
   const data=buildPreviewData();
   (async()=>{
     try{
-      const files={
-        'content/preview/hero.json':data.hero,
-        'content/preview/menu.json':data.menu,
-        'content/preview/galerie.json':data.galerie,
-        'content/preview/infos.json':data.infos,
-        'content/preview/restaurateurs.json':data.restaurateurs,
-        'content/preview/footer.json':data.footer,
-        'content/preview/modale.json':data.modale,
-        'content/preview/mentions.json':data.mentions
-      };
+      const files={};
+      if(currentSite==='piennolo'){
+        files['content/preview/modale.json']=data.modale;
+        files['content/preview/hero.json']=data.hero;
+        files['content/preview/bienvenue.json']=data.bienvenue;
+        files['content/preview/menu.json']=data.menu;
+        files['content/preview/chef.json']=data.chef;
+        files['content/preview/infos.json']=data.infos;
+        files['content/preview/galerie.json']=data.galerie;
+        files['content/preview/footer.json']=data.footer;
+      } else {
+        files['content/preview/hero.json']=data.hero;
+        files['content/preview/menu.json']=data.menu;
+        files['content/preview/galerie.json']=data.galerie;
+        files['content/preview/infos.json']=data.infos;
+        files['content/preview/restaurateurs.json']=data.restaurateurs;
+        files['content/preview/footer.json']=data.footer;
+        files['content/preview/modale.json']=data.modale;
+        files['content/preview/mentions.json']=data.mentions;
+      }
       for(const[path,content] of Object.entries(files)){await putFile(path,content);}
       showToast('Préprod synchronisée ✓');
     }catch(e){showToast('Erreur sync préprod','error');}
@@ -900,6 +1453,29 @@ function showSection(name,el){
   // Ouvrir le groupe parent si replié
   const group=el.closest('.nav-group');
   if(group)group.classList.remove('collapsed');
+
+  // Navigation + scroll preview
+  const target=SECTION_TARGETS[name];
+  if(!target)return;
+  const wantPage=target.page;
+  const iframe=$('preview-iframe');
+  if(wantPage!==currentPreviewPage){
+    // Changer de page dans l'iframe
+    currentPreviewPage=wantPage;
+    previewReady=false;
+    pendingScrollSelector=target.selector;
+    const data=lastPreviewData||buildPreviewData();
+    lastPreviewData=data;
+    const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
+    const url=wantPage==='mentions'
+      ?(PREVIEW_BASE+'/mentions-legales.html?preview=1#cms='+encoded)
+      :(PREVIEW_BASE+'/?preview=1#cms='+encoded);
+    iframe.src=url;
+  } else if(previewReady){
+    iframe.contentWindow.postMessage({type:'cms-scroll-to',selector:target.selector},'*');
+  } else {
+    pendingScrollSelector=target.selector;
+  }
 }
 function toggleNavGroup(header){
   header.closest('.nav-group').classList.toggle('collapsed');
@@ -909,7 +1485,16 @@ const savedLogin=localStorage.getItem("lgp_login");
 const savedPwd=localStorage.getItem("lgp_pwd");
 if(savedLogin&&savedPwd){$("login-input").value=savedLogin;$("password-input").value=savedPwd;login();}
 
-document.addEventListener("DOMContentLoaded",function(){
+document.addEventListener("DOMContentLoaded",async function(){
+  // En localhost, bypasser le login
+  if(window.location.hostname==="localhost"){
+    $("save-btn").textContent="Mode local";
+    $("save-btn").disabled=true;
+    $("save-btn").title="Publier est désactivé en local";
+    $("login-screen").style.display="none";
+    $("app").style.display="block";
+    await loadAll();
+  }
   renderCreneaux();
   // Accordéons : chaque .divider toggle son .acc-body suivant
   document.querySelectorAll('.divider').forEach(div=>{
@@ -929,12 +1514,23 @@ document.addEventListener("DOMContentLoaded",function(){
   }
   const dz=document.getElementById("drop-zone");
   const inp=document.getElementById("photo-upload");
-  if(!dz||!inp)return;
-  dz.addEventListener("click",function(e){if(e.target===dz||e.target.parentElement===dz)inp.click();});
-  inp.addEventListener("change",e=>handleFiles(Array.from(e.target.files)));
-  dz.addEventListener("dragover",e=>{e.preventDefault();dz.style.borderColor="#c06336";dz.style.background="#fdf5ec";});
-  dz.addEventListener("dragleave",()=>{dz.style.borderColor="#c9b8a8";dz.style.background="#fff";});
-  dz.addEventListener("drop",e=>{e.preventDefault();dz.style.borderColor="#c9b8a8";dz.style.background="#fff";handleFiles(Array.from(e.dataTransfer.files));});
+  if(dz&&inp){
+    dz.addEventListener("click",function(e){if(e.target===dz||e.target.parentElement===dz)inp.click();});
+    inp.addEventListener("change",e=>handleFiles(Array.from(e.target.files)));
+    dz.addEventListener("dragover",e=>{e.preventDefault();dz.style.borderColor="#c06336";dz.style.background="#fdf5ec";});
+    dz.addEventListener("dragleave",()=>{dz.style.borderColor="#c9b8a8";dz.style.background="#fff";});
+    dz.addEventListener("drop",e=>{e.preventDefault();dz.style.borderColor="#c9b8a8";dz.style.background="#fff";handleFiles(Array.from(e.dataTransfer.files));});
+  }
+  // Piennolo drop zone
+  const pdz=document.getElementById("pi-drop-zone");
+  const pinp=document.getElementById("pi-photo-upload");
+  if(pdz&&pinp){
+    pdz.addEventListener("click",function(e){if(e.target===pdz||e.target.parentElement===pdz)pinp.click();});
+    pinp.addEventListener("change",e=>handlePiFiles(Array.from(e.target.files)));
+    pdz.addEventListener("dragover",e=>{e.preventDefault();pdz.style.borderColor="#4a7c59";pdz.style.background="#f0f7f2";});
+    pdz.addEventListener("dragleave",()=>{pdz.style.borderColor="#c9b8a8";pdz.style.background="#fff";});
+    pdz.addEventListener("drop",e=>{e.preventDefault();pdz.style.borderColor="#c9b8a8";pdz.style.background="#fff";handlePiFiles(Array.from(e.dataTransfer.files));});
+  }
 });
 </script>
 </body>
