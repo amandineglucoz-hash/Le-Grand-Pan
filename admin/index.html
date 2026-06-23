@@ -1039,12 +1039,13 @@ async function login(){
 
 function logout(){localStorage.removeItem("lgp_token");localStorage.removeItem("lgp_pwd");localStorage.removeItem("lgp_login");location.reload();}
 
+function assetBase(){if(currentSite==="piennolo")return BASE_URL.replace(/piennolo\.html$/,"");return BASE_URL;}
 function setImagePreview(prefix,src){
   const preview=$(prefix+'-preview');
   const label=$(prefix+'-label');
   const btn=$(prefix+'-btn');
   if(preview&&src){
-    preview.src=BASE_URL+src;
+    preview.src=assetBase()+src;
     preview.style.display='block';
     if(label)label.style.display='none';
     if(btn)btn.style.display='block';
@@ -1137,7 +1138,7 @@ let dragSrcIndex=null;
 function renderGallery(photos){
   galleryPhotos=photos;
   const grid=$('gallery-grid');
-  grid.innerHTML=photos.map((p,i)=>`<div class="gallery-item" draggable="true" data-index="${i}"><img src="${BASE_URL}${p.image}" alt=""><button class="gallery-item-del" onclick="removePhoto(${i})">✕</button></div>`).join('');
+  grid.innerHTML=photos.map((p,i)=>`<div class="gallery-item" draggable="true" data-index="${i}"><img src="${assetBase()}${p.image}" alt=""><button class="gallery-item-del" onclick="removePhoto(${i})">✕</button></div>`).join('');
   grid.querySelectorAll('.gallery-item').forEach(el=>{
     el.addEventListener('dragstart',e=>{dragSrcIndex=+el.dataset.index;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
     el.addEventListener('dragend',()=>grid.querySelectorAll('.gallery-item').forEach(x=>x.classList.remove('dragging','drag-over')));
@@ -1420,7 +1421,7 @@ function removePiHoraireDisplay(i){piHorairesDisplay.splice(i,1);renderPiHoraire
 let piDragSrcIndex=null;
 function renderPiGallery(){
   const grid=$('pi-gallery-grid');if(!grid)return;
-  grid.innerHTML=piGalleryPhotos.map((p,i)=>`<div class="gallery-item" draggable="true" data-index="${i}"><img src="${BASE_URL}${p.image}" alt="${escAttr(p.alt)}"><button class="gallery-item-del" onclick="removePiPhoto(${i})">✕</button></div>`).join('');
+  grid.innerHTML=piGalleryPhotos.map((p,i)=>`<div class="gallery-item" draggable="true" data-index="${i}"><img src="${assetBase()}${p.image}" alt="${escAttr(p.alt)}"><button class="gallery-item-del" onclick="removePiPhoto(${i})">✕</button></div>`).join('');
   grid.querySelectorAll('.gallery-item').forEach(el=>{
     el.addEventListener('dragstart',e=>{piDragSrcIndex=+el.dataset.index;el.classList.add('dragging');e.dataTransfer.effectAllowed='move';});
     el.addEventListener('dragend',()=>grid.querySelectorAll('.gallery-item').forEach(x=>x.classList.remove('dragging','drag-over')));
