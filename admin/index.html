@@ -581,6 +581,31 @@
           <div id="pi-menu-desserts-list"></div>
           <button class="add-ml-btn" onclick="addPiMenuItem('desserts')">+ Ajouter un dessert</button>
         </div>
+        <div class="divider">Bouton menu</div>
+        <div class="acc-body">
+          <div class="field-row">
+            <div class="field"><label class="field-label">Texte du bouton</label><input id="pi-menu-bouton_label" class="field-input" value="Menu Complet"></div>
+            <div class="field"><label class="field-label">Type</label>
+              <select id="pi-menu-bouton_type" class="field-input" onchange="togglePiMenuBoutonType()">
+                <option value="pdf">Fichier PDF</option>
+                <option value="lien">Lien externe</option>
+              </select>
+            </div>
+          </div>
+          <div id="pi-menu-bouton-lien-wrap" style="display:none">
+            <div class="field"><label class="field-label">URL du lien</label><input id="pi-menu-bouton_lien" class="field-input" placeholder="https://..."></div>
+          </div>
+          <div id="pi-menu-bouton-pdf-wrap">
+            <div class="field"><label class="field-label">Fichier PDF</label>
+              <div class="img-upload-zone" onclick="triggerUpload('pi-menu-pdf-upload')">
+                <input type="file" id="pi-menu-pdf-upload" accept=".pdf" style="display:none" onchange="handlePiMenuPdfUpload(this)">
+                <input type="hidden" id="pi-menu-bouton_pdf" value="">
+                <span id="pi-menu-pdf-label">Cliquer pour uploader un PDF</span>
+                <button id="pi-menu-pdf-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-menu-pdf-upload')">Changer</button>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
 
@@ -778,7 +803,7 @@ const SITES={
     repo:'amandineglucoz-hash/Le-Grand-Pan',
     branch:'main',
     baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://piennolo.fr/',
-    previewBase:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://piennolo.fr',
+    previewBase:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/Piennolo/piennolo.html',
     color:'#4a7c59'
   }
 };
@@ -1159,6 +1184,12 @@ async function loadAllPiennolo(){
     if(bienvenue.image_2){$('pi-bv_image_2').value=bienvenue.image_2;setImagePreview('pi-bv-img2',bienvenue.image_2);}
     if(bienvenue.image_3){$('pi-bv_image_3').value=bienvenue.image_3;setImagePreview('pi-bv-img3',bienvenue.image_3);}
     $('pi-menu-titre').value=menu.titre||'';
+    $("pi-menu-bouton_label").value=menu.bouton_label||"Menu Complet";
+    $("pi-menu-bouton_type").value=menu.bouton_type||"pdf";
+    $("pi-menu-bouton_lien").value=menu.bouton_lien||"";
+    $("pi-menu-bouton_pdf").value=menu.bouton_pdf||"";
+    if(menu.bouton_pdf){$("pi-menu-pdf-label").textContent="✓ "+menu.bouton_pdf.split("/").pop();$("pi-menu-pdf-btn").style.display="block";}
+    togglePiMenuBoutonType();
     piMenuData.antipasti=menu.antipasti||[];piMenuData.pizzas=menu.pizzas||[];piMenuData.desserts=menu.desserts||[];
     renderPiMenuList('antipasti');renderPiMenuList('pizzas');renderPiMenuList('desserts');
     $('pi-chef-titre').value=chef.titre||'';$('pi-chef-texte').value=chef.texte||'';$('pi-chef-sous_texte').value=chef.sous_texte||'';
@@ -1188,7 +1219,7 @@ async function saveAllPiennolo(){
     await putFile('content/modale.json',{active:$('pi-modale-active').checked,note:$('pi-modale-note').value,note_max:$('pi-modale-note_max').value,label_qualite:$('pi-modale-label_qualite').value,label_avis:$('pi-modale-label_avis').value,bouton_label:$('pi-modale-bouton_label').value,bouton_lien:$('pi-modale-bouton_lien').value});
     await putFile('content/hero.json',{image_header:$('pi-hero_image_header').value,image_header_mobile:$('pi-hero_image_header_mobile').value});
     await putFile('content/bienvenue.json',{titre:$('pi-bienvenue-titre').value,texte_1:$('pi-bienvenue-texte_1').value,texte_2:$('pi-bienvenue-texte_2').value,image_1:$('pi-bv_image_1').value,image_2:$('pi-bv_image_2').value,image_3:$('pi-bv_image_3').value});
-    await putFile('content/menu.json',{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts});
+    await putFile('content/menu.json',{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts,bouton_label:$('pi-menu-bouton_label').value,bouton_type:$('pi-menu-bouton_type').value,bouton_lien:$('pi-menu-bouton_lien').value,bouton_pdf:$('pi-menu-bouton_pdf').value});
     await putFile('content/chef.json',{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value});
     await putFile('content/infos.json',{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}});
     await putFile('content/galerie.json',{photos:piGalleryPhotos});
@@ -1219,6 +1250,38 @@ function renderPiMenuList(cat){
     </div>`).join('');
 }
 function addPiMenuItem(cat){piMenuData[cat].push({nom:'',badge:''});renderPiMenuList(cat);}
+
+function togglePiMenuBoutonType(){
+  var t=$("pi-menu-bouton_type").value;
+  $("pi-menu-bouton-lien-wrap").style.display=t==="lien"?"block":"none";
+  $("pi-menu-bouton-pdf-wrap").style.display=t==="pdf"?"block":"none";
+}
+async function handlePiMenuPdfUpload(input){
+  var file=input.files[0];if(!file)return;
+  var dir=currentSite==="piennolo"?"Piennolo/piennolo-assets":"le-grand-pan-assets";
+  try{
+    if(window.location.hostname==="localhost"){
+      var path=await localUpload(file,dir);
+    }else{
+      var reader=new FileReader();
+      var path=await new Promise(function(resolve,reject){
+        reader.onload=async function(e){
+          var base64=e.target.result.split(",")[1];
+          var filename=(currentSite==="piennolo"?"piennolo-assets/":"le-grand-pan-assets/")+file.name;
+          var sha=null;try{var ex=await api(filename);sha=ex.sha;}catch(e){}
+          var body={message:"Upload "+file.name,content:base64,branch:BRANCH};
+          if(sha)body.sha=sha;
+          await api(filename,{method:"PUT",body:JSON.stringify(body)});
+          resolve(filename);
+        };reader.readAsDataURL(file);
+      });
+    }
+    $("pi-menu-bouton_pdf").value=path;
+    $("pi-menu-pdf-label").textContent="✓ "+file.name;
+    $("pi-menu-pdf-btn").style.display="block";
+    showToast("PDF uploadé ✓");
+  }catch(e){showToast("Erreur upload PDF","error");console.error(e);}
+}
 function removePiMenuItem(cat,i){piMenuData[cat].splice(i,1);renderPiMenuList(cat);}
 
 // Piennolo creneaux
@@ -1354,7 +1417,7 @@ function buildPreviewDataPiennolo(){
     modale:{active:$('pi-modale-active').checked,note:$('pi-modale-note').value,note_max:$('pi-modale-note_max').value,label_qualite:$('pi-modale-label_qualite').value,label_avis:$('pi-modale-label_avis').value,bouton_label:$('pi-modale-bouton_label').value,bouton_lien:$('pi-modale-bouton_lien').value},
     hero:{image_header:$('pi-hero_image_header').value,image_header_mobile:$('pi-hero_image_header_mobile').value},
     bienvenue:{titre:$('pi-bienvenue-titre').value,texte_1:$('pi-bienvenue-texte_1').value,texte_2:$('pi-bienvenue-texte_2').value,image_1:$('pi-bv_image_1').value,image_2:$('pi-bv_image_2').value,image_3:$('pi-bv_image_3').value},
-    menu:{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts},
+    menu:{titre:$('pi-menu-titre').value,antipasti:piMenuData.antipasti,pizzas:piMenuData.pizzas,desserts:piMenuData.desserts,bouton_label:$('pi-menu-bouton_label').value,bouton_type:$('pi-menu-bouton_type').value,bouton_lien:$('pi-menu-bouton_lien').value,bouton_pdf:$('pi-menu-bouton_pdf').value},
     chef:{titre:$('pi-chef-titre').value,texte:$('pi-chef-texte').value,sous_texte:$('pi-chef-sous_texte').value,image_bg:$('pi-chef_image_bg').value},
     infos:{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}},
     galerie:{photos:piGalleryPhotos},

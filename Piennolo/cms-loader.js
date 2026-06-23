@@ -100,6 +100,12 @@ function _applyAll(modale,hero,bienvenue,menu,infos,chef,galerie,restaurateurs,f
     if(menu.antipasti){var ul=document.querySelector('[data-cms="antipasti"]');if(ul)ul.innerHTML=_menuItemsHTML(menu.antipasti);}
     if(menu.pizzas){var ul=document.querySelector('[data-cms="pizzas"]');if(ul)ul.innerHTML=_menuItemsHTML(menu.pizzas);}
     if(menu.desserts){var ul=document.querySelector('[data-cms="desserts"]');if(ul)ul.innerHTML=_menuItemsHTML(menu.desserts);}
+    var menuBtn=document.querySelector('.menu-btn');
+    if(menuBtn){
+      if(menu.bouton_label)menuBtn.textContent=menu.bouton_label;
+      if(menu.bouton_type==='pdf'&&menu.bouton_pdf){menuBtn.href='./'+menu.bouton_pdf;}
+      else if(menu.bouton_type==='lien'&&menu.bouton_lien){menuBtn.href=menu.bouton_lien;}
+    }
   }
 
   // Infos & horaires

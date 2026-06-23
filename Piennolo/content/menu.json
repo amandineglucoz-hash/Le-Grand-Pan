@@ -16,5 +16,9 @@
     { "nom": "Affogato al Caffè", "badge": "" },
     { "nom": "Tiramisù", "badge": "" },
     { "nom": "Baba parfumé au rhum", "badge": "" }
-  ]
+  ],
+  "bouton_label": "Menu Complet",
+  "bouton_type": "pdf",
+  "bouton_lien": "",
+  "bouton_pdf": "piennolo-assets/A4 - Menu-page-1.pdf"
 }
