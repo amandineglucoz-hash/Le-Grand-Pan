@@ -24,22 +24,22 @@
     .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .logout-btn { background: transparent; color: #1a1e2e; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; height: calc(100vh - 56px); overflow: hidden; }
-    .sidebar { width: 190px; background: #fff; padding: 0 0 24px; flex-shrink: 0; overflow-y: auto; display: flex; flex-direction: column; }
+    .sidebar { width: 190px; background: #0d1117; padding: 0 0 24px; flex-shrink: 0; overflow-y: auto; display: flex; flex-direction: column; }
     .site-switcher { padding: 10px 10px 8px; border-bottom: 1px solid #2a2f3d; display: flex; flex-direction: column; gap: 4px; flex-shrink: 0; }
     .site-tab { display: flex; align-items: center; gap: 8px; width: 100%; background: transparent; border: 1px solid transparent; border-radius: 6px; padding: 7px 10px; cursor: pointer; color: #8b949e; font-size: 12px; text-align: left; font-family: inherit; transition: background 0.15s, color 0.15s; }
     .site-tab:hover { background: #1a1e2e; color: #ddd; }
-    .site-tab.active { background: #F8F9FB; color: #fff; border-color: #6B7280; }
+    .site-tab.active { background: #1c2333; color: #fff; border-color: #333; }
     .site-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
     .sidebar-nav { flex: 1; padding-top: 8px; }
     .nav-group { }
-    .nav-group-header { padding: 14px 16px 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #555; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
-    .nav-group-header:hover { color: #8b949e; }
+    .nav-group-header { padding: 14px 16px 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #ED6AA7; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
+    .nav-group-header:hover { color: #f0a0c8; }
     .nav-group-header .arrow { font-size: 9px; transition: transform 0.2s; opacity: 0.6; }
     .nav-group.collapsed .nav-group-items { display: none; }
     .nav-group.collapsed .arrow { transform: rotate(-90deg); }
     .nav-item { padding: 8px 16px 8px 24px; font-size: 12px; color: #8b949e; cursor: pointer; border-left: 2px solid transparent; line-height: 1.4; }
     .nav-item:hover { color: #fff; background: #1a1e2e; }
-    .nav-item.active { color: #fff; background: #F8F9FB; border-left-color: #6B7280; }
+    .nav-item.active { color: #fff; background: #1c2333; border-left-color: #ED6AA7; }
     .edit-panel { width: 360px; flex-shrink: 0; overflow: hidden; background: #F3F4F6; display: flex; flex-direction: column; transition: width 0.28s cubic-bezier(0.4,0,0.2,1); }
     .edit-panel.collapsed { width: 0; }
     .edit-panel-scroll { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
@@ -141,7 +141,7 @@
     <nav class="sidebar">
       <div class="site-switcher">
         <button class="site-tab active" id="tab-legrandpan" onclick="switchSite('legrandpan')">
-          <span class="site-dot" style="background:#ED6AA7"></span>Le Grand Pan
+          <span class="site-dot" style="background:#c06336"></span>Le Grand Pan
         </button>
         <button class="site-tab" id="tab-piennolo" onclick="switchSite('piennolo')">
           <span class="site-dot" style="background:#4a7c59"></span>Piennolo
