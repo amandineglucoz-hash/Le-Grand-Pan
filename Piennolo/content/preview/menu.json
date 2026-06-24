@@ -1,0 +1,57 @@
+{
+  "titre": "A Tavola!",
+  "antipasti": [
+    {
+      "nom": "Bruschetta Italiana",
+      "badge": "vege"
+    },
+    {
+      "nom": "Fleurs de Courgettes",
+      "badge": "poisson"
+    },
+    {
+      "nom": "Burrata e Prosciutto",
+      "badge": ""
+    }
+  ],
+  "pizzas": [
+    {
+      "nom": "Margherita Fumée",
+      "badge": "vege"
+    },
+    {
+      "nom": "Diavola",
+      "badge": "piquant"
+    },
+    {
+      "nom": "Evergreen",
+      "badge": "vege"
+    },
+    {
+      "nom": "Prosciutto e Funghi",
+      "badge": ""
+    },
+    {
+      "nom": "Pistacchio Paradise",
+      "badge": ""
+    }
+  ],
+  "desserts": [
+    {
+      "nom": "Affogato al Caffè",
+      "badge": ""
+    },
+    {
+      "nom": "Tiramisù",
+      "badge": ""
+    },
+    {
+      "nom": "Baba parfumé au rhum",
+      "badge": ""
+    }
+  ],
+  "bouton_label": "Menu Complet",
+  "bouton_type": "pdf",
+  "bouton_lien": "",
+  "bouton_pdf": "piennolo-assets/A4 - Menu-page-1.pdf"
+}
