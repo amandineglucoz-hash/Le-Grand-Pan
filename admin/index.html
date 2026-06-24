@@ -1643,9 +1643,7 @@ function showSection(name,el){
     const data=lastPreviewData||buildPreviewData();
     lastPreviewData=data;
     const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    const url=wantPage==='mentions'
-      ?(PREVIEW_BASE+'/mentions-legales.html?preview=1#cms='+encoded)
-      :(PREVIEW_BASE+'/?preview=1#cms='+encoded);
+    let url;if(wantPage==='mentions'){const mentionsBase=currentSite==='piennolo'?PREVIEW_BASE.replace('piennolo.html','mentions-legales.html'):PREVIEW_BASE+'/mentions-legales.html';url=mentionsBase+'?preview=1#cms='+encoded;}else{url=PREVIEW_BASE+'?preview=1#cms='+encoded;}//was
     iframe.src=url;
   } else if(previewReady){
     iframe.contentWindow.postMessage({type:'cms-scroll-to',selector:target.selector},'*');
