@@ -48,11 +48,11 @@
     .panel-toggle-strip svg { transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
     .edit-panel.collapsed ~ .panel-toggle-strip svg { transform: rotate(180deg); }
     .preview-panel { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; min-width: 0; }
-    .preview-panel-bar { background: #1a1e2e; color: #1a1e2e; padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .preview-panel-bar { background: #fff; color: #1F2937; padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
     .preview-panel-bar span { font-size: 11px; font-weight: 500; opacity: 0.6; letter-spacing: 0.06em; text-transform: uppercase; }
     .preview-device-toggle { display: flex; gap: 4px; align-items: center; }
-    .preview-device-toggle button { background: rgba(255,255,255,0.1); border: none; color: #1a1e2e; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
-    .preview-device-toggle button.active { background: #98AF79; }
+    .preview-device-toggle button { background: #F3F4F6; border: 1px solid #E5E7EB; color: #6B7280; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
+    .preview-device-toggle button.active { background: #98AF79; color: #fff; border-color: #98AF79; }
     .preview-iframe-wrap { flex: 1; overflow: hidden; display: flex; justify-content: center; background: #e8e0d8; }
     .preview-iframe-wrap iframe { border: none; width: 100%; height: 100%; }
     .preview-iframe-wrap.mobile { padding: 16px; }
@@ -60,7 +60,7 @@
     .preview-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #e8e0d8; font-size: 13px; color: #8b949e; pointer-events: none; }
     .section { display: none; }
     .section.active { display: flex; flex-direction: column; flex: 1; min-height: 0; }
-    .section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: #fff; position: sticky; top: 0; z-index: 5; background: #1a1e2e; margin: 0; padding: 13px 20px; border-bottom: none; flex-shrink: 0; border-radius: 8px; text-align: center; text-transform: uppercase; }
+    .section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: #1F2937; position: sticky; top: 0; z-index: 5; background: #fff; margin: 0; padding: 13px 20px; border: 1px solid #E5E7EB; flex-shrink: 0; border-radius: 8px; text-align: center; text-transform: uppercase; }
     .section-body { flex: 1; overflow-y: auto; padding: 20px; }
     .section-body { padding: 20px; background: #F8F9FB; }
     .divider { font-size: 11px; color: #8b949e; text-transform: uppercase; letter-spacing: 0.08em; border-bottom: 1px solid #E5E7EB; padding-bottom: 6px; margin: 20px 0 14px; cursor: pointer; user-select: none; display: flex; align-items: center; justify-content: space-between; }
