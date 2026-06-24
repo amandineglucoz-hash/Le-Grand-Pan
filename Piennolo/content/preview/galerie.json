@@ -1,48 +1,28 @@
 {
   "photos": [
     {
-      "image": "le-grand-pan-assets/image-1.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
+      "image": "piennolo-assets/img-slider-1.webp",
+      "alt": "Piennolo – photo 1"
     },
     {
-      "image": "le-grand-pan-assets/image-2.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
+      "image": "piennolo-assets/img-slider-2.webp",
+      "alt": "Piennolo – photo 2"
     },
     {
-      "image": "le-grand-pan-assets/image-3.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
+      "image": "piennolo-assets/img-slider-3.webp",
+      "alt": "Piennolo – photo 3"
     },
     {
-      "image": "le-grand-pan-assets/image-5.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
+      "image": "piennolo-assets/img-slider-4.webp",
+      "alt": "Piennolo – photo 4"
     },
     {
-      "image": "le-grand-pan-assets/image-6.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
+      "image": "piennolo-assets/img-slider-5.webp",
+      "alt": "Piennolo – photo 5"
     },
     {
-      "image": "le-grand-pan-assets/image-12.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
-    },
-    {
-      "image": "le-grand-pan-assets/image-7.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
-    },
-    {
-      "image": "le-grand-pan-assets/image-4.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
-    },
-    {
-      "image": "le-grand-pan-assets/image-9.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
-    },
-    {
-      "image": "le-grand-pan-assets/image-8.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
-    },
-    {
-      "image": "le-grand-pan-assets/image-10.webp",
-      "alt": "Photo du restaurant Le Grand Pan"
+      "image": "piennolo-assets/img-slider-6.webp",
+      "alt": "Piennolo – photo 6"
     }
   ]
 }
