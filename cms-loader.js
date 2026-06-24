@@ -14,6 +14,10 @@ window.addEventListener('message',function(e){
     _applyMain(d.hero,d.menu,d.galerie,d.infos,d.restaurateurs,d.modale);
     _applyFooter(d.footer,d.mentions);
   }
+  if(e.data&&e.data.type==="cms-scroll-to"){
+    var el=document.querySelector(e.data.selector);
+    if(el)el.scrollIntoView({behavior:"smooth",block:"start"});
+  }
 });
 
 var _mainPromise=_hashData
