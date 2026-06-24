@@ -1423,7 +1423,13 @@
        RESPONSIVE — Tablette (769px – 1200px)
        Signature : passage en colonne pour éviter le contenu coupé
     ================================================ */
-    @media (min-width: 769px) and (max-width: 1560px) {
+    @media (max-width: 1560px) {
+      .about__photo { width: 400px; height: 500px; }
+      .about__text { width: 500px; max-width: 40vw; }
+      .about { gap: 48px; }
+    }
+
+    @media (min-width: 769px) and (max-width: 1200px) {
       .about {
         flex-direction: column;
         align-items: center;
