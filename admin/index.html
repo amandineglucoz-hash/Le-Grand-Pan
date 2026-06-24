@@ -11,7 +11,7 @@
     #login-screen { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; gap: 24px; padding: 24px; }
     #login-screen h1 { font-size: 20px; font-weight: 500; }
     #login-screen input { width: 340px; padding: 12px 16px; border: 1px solid #e91e8c; border-radius: 8px; font-size: 14px; background: #fff; color: #1a1e2e; }
-    #login-screen button { width: 340px; padding: 12px; background: #321D16; color: #1a1e2e; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
+    #login-screen button { width: 340px; padding: 12px; background: #1F2937; color: #1a1e2e; border: none; border-radius: 8px; font-size: 15px; cursor: pointer; }
     #login-screen button:hover { background: #ED6AA7; }
     #app { display: none; }
     .topbar { background: #1a1e2e; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
@@ -40,11 +40,11 @@
     .nav-item { padding: 8px 16px 8px 24px; font-size: 12px; color: #8b949e; cursor: pointer; border-left: 2px solid transparent; line-height: 1.4; }
     .nav-item:hover { color: #fff; background: #1a1e2e; }
     .nav-item.active { color: #fff; background: #F8F9FB; border-left-color: #6B7280; }
-    .edit-panel { width: 360px; flex-shrink: 0; overflow: hidden; background: #f5f0ea; display: flex; flex-direction: column; transition: width 0.28s cubic-bezier(0.4,0,0.2,1); }
+    .edit-panel { width: 360px; flex-shrink: 0; overflow: hidden; background: #F3F4F6; display: flex; flex-direction: column; transition: width 0.28s cubic-bezier(0.4,0,0.2,1); }
     .edit-panel.collapsed { width: 0; }
     .edit-panel-scroll { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-    .panel-toggle-strip { width: 18px; flex-shrink: 0; background: #e8e2da; display: flex; align-items: center; justify-content: center; cursor: pointer; border-left: 1px solid #d4cbc0; border-right: 1px solid #d4cbc0; transition: background 0.15s; }
-    .panel-toggle-strip:hover { background: #d4cbc0; }
+    .panel-toggle-strip { width: 18px; flex-shrink: 0; background: #E5E7EB; display: flex; align-items: center; justify-content: center; cursor: pointer; border-left: 1px solid #D1D5DB; border-right: 1px solid #D1D5DB; transition: background 0.15s; }
+    .panel-toggle-strip:hover { background: #D1D5DB; }
     .panel-toggle-strip svg { transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
     .edit-panel.collapsed ~ .panel-toggle-strip svg { transform: rotate(180deg); }
     .preview-panel { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; min-width: 0; }
@@ -86,8 +86,8 @@
     .gallery-item:active { cursor: grabbing; }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
     .gallery-item-del { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; cursor: pointer; }
-    .gallery-item.dragging { opacity: 0.35; border: 2px dashed #c06336; }
-    .gallery-item.drag-over { border: 2px solid #c06336; transform: scale(1.04); }
+    .gallery-item.dragging { opacity: 0.35; border: 2px dashed #ED6AA7; }
+    .gallery-item.drag-over { border: 2px solid #ED6AA7; transform: scale(1.04); }
     #toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%); color: #1a1e2e; padding: 12px 24px; border-radius: 8px; font-size: 14px; display: none; z-index: 9999; }
     #toast.success { background: #2d6a4f; }
     #toast.error { background: #ED6AA7; }
@@ -106,12 +106,12 @@
     .ml-remove-btn { background: transparent; border: 1px solid #e0d5c8; border-radius: 6px; padding: 3px 10px; font-size: 12px; color: #8b949e; cursor: pointer; }
     .ml-remove-btn:hover { border-color: #6B7280; color: #6B7280; }
     .rte-toolbar { display: flex; gap: 4px; margin-bottom: 4px; }
-    .rte-toolbar button { background: #f5f0ea; border: 1px solid #d0d5dd; border-radius: 4px; padding: 3px 10px; font-size: 13px; cursor: pointer; line-height: 1.4; }
-    .rte-toolbar button:hover { background: #eed5ba; }
+    .rte-toolbar button { background: #F3F4F6; border: 1px solid #d0d5dd; border-radius: 4px; padding: 3px 10px; font-size: 13px; cursor: pointer; line-height: 1.4; }
+    .rte-toolbar button:hover { background: #E5E7EB; }
     .rte-editor { min-height: 100px; padding: 10px 12px; border: 1px solid #d0d5dd; border-radius: 8px; font-size: 14px; background: #fff; color: #1a1e2e; line-height: 1.6; font-family: inherit; }
     .rte-editor:focus { outline: none; border-color: #6B7280; }
-    .add-ml-btn { width: 100%; padding: 11px; background: #f5f0ea; border: 1px dashed #c9b8a8; border-radius: 8px; font-size: 14px; color: #6B7280; cursor: pointer; font-weight: 500; margin-top: 4px; }
-    .add-ml-btn:hover { background: #eed5ba; border-color: #6B7280; }
+    .add-ml-btn { width: 100%; padding: 11px; background: #F3F4F6; border: 1px dashed #D1D5DB; border-radius: 8px; font-size: 14px; color: #6B7280; cursor: pointer; font-weight: 500; margin-top: 4px; }
+    .add-ml-btn:hover { background: #E5E7EB; border-color: #6B7280; }
   </style>
 </head>
 <body>
@@ -122,10 +122,10 @@
   <input type="password" id="password-input" placeholder="Mot de passe" autocomplete="current-password" />
   <div id="token-section" style="display:none;width:340px;">
     <p style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">Première connexion — colle ton token GitHub une seule fois :</p>
-    <input type="password" id="token-first" placeholder="ghp_..." style="width:100%;padding:12px 16px;border:1px solid #c06336;border-radius:8px;font-size:14px;background:#fff;" />
+    <input type="password" id="token-first" placeholder="ghp_..." style="width:100%;padding:12px 16px;border:1px solid #ED6AA7;border-radius:8px;font-size:14px;background:#fff;" />
   </div>
   <button onclick="login()">Se connecter</button>
-  <p id="login-error" style="display:none;color:#c06336;font-size:13px;">Identifiant ou mot de passe incorrect.</p>
+  <p id="login-error" style="display:none;color:#ED6AA7;font-size:13px;">Identifiant ou mot de passe incorrect.</p>
 </div>
 
 <div id="app">
@@ -141,7 +141,7 @@
     <nav class="sidebar">
       <div class="site-switcher">
         <button class="site-tab active" id="tab-legrandpan" onclick="switchSite('legrandpan')">
-          <span class="site-dot" style="background:#c06336"></span>Le Grand Pan
+          <span class="site-dot" style="background:#ED6AA7"></span>Le Grand Pan
         </button>
         <button class="site-tab" id="tab-piennolo" onclick="switchSite('piennolo')">
           <span class="site-dot" style="background:#4a7c59"></span>Piennolo
@@ -336,16 +336,16 @@
         <div class="gallery-grid" id="gallery-grid"></div>
         <div class="divider">Ajouter des photos</div>
         <div class="acc-body">
-        <div id="drop-zone" style="border:2px dashed #c9b8a8;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
-          <div style="font-size:28px;margin-bottom:8px;color:#c06336;">+</div>
+        <div id="drop-zone" style="border:2px dashed #D1D5DB;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
+          <div style="font-size:28px;margin-bottom:8px;color:#ED6AA7;">+</div>
           <div style="font-size:14px;color:#9f4e2f;font-weight:500;margin-bottom:4px;">Glisse tes photos ici</div>
           <div style="font-size:12px;color:#888;">ou clique pour ouvrir le Finder</div>
           <div style="font-size:11px;color:#aaa;margin-top:8px;">800×800px — WebP ou JPG recommandé</div>
           <input type="file" id="photo-upload" accept="image/*" multiple style="display:none;">
         </div>
         <div id="upload-progress" style="display:none;margin-top:12px;">
-          <div style="font-size:13px;color:#321D16;margin-bottom:6px;" id="upload-status">Upload en cours...</div>
-          <div style="background:#e0d5c8;border-radius:4px;height:6px;"><div id="upload-bar" style="background:#c06336;height:6px;border-radius:4px;width:0%;"></div></div>
+          <div style="font-size:13px;color:#1F2937;margin-bottom:6px;" id="upload-status">Upload en cours...</div>
+          <div style="background:#e0d5c8;border-radius:4px;height:6px;"><div id="upload-bar" style="background:#ED6AA7;height:6px;border-radius:4px;width:0%;"></div></div>
         </div>
         </div>
         </div>
@@ -368,7 +368,7 @@
         <div class="acc-body">
         <p style="font-size:12px;color:#888;margin-bottom:12px">Ces créneaux déterminent l'affichage "ouvert / fermé" en temps réel sur le site.</p>
         <div id="creneaux-list"></div>
-        <button onclick="addCreneau()" style="margin-bottom:20px;background:transparent;border:1px solid #c06336;color:#c06336;border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer">+ Ajouter un créneau</button>
+        <button onclick="addCreneau()" style="margin-bottom:20px;background:transparent;border:1px solid #ED6AA7;color:#ED6AA7;border-radius:4px;padding:5px 14px;font-size:12px;cursor:pointer">+ Ajouter un créneau</button>
         </div>
         <div class="divider">Horaires affichés (texte)</div>
         <div class="acc-body">
@@ -615,7 +615,7 @@
                 <input type="file" id="pi-menu-pdf-upload" accept=".pdf" style="display:none" onchange="handlePiMenuPdfUpload(this)">
                 <input type="hidden" id="pi-menu-bouton_pdf" value="">
                 <span id="pi-menu-pdf-label">Cliquer pour uploader un PDF</span>
-                <button id="pi-menu-pdf-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-menu-pdf-upload')">Changer</button>
+                <button id="pi-menu-pdf-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#ED6AA7;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-menu-pdf-upload')">Changer</button>
               </div>
             </div>
           </div>
@@ -656,7 +656,7 @@
                 <input type="file" id="pi-chef-video-file" accept="video/*" style="display:none" onchange="handlePiChefVideoUpload(this)">
                 <input type="hidden" id="pi-chef_media_video" value="">
                 <span id="pi-chef-video-label" style="font-size:12px;color:#888;padding:20px;display:block;">Cliquer pour uploader une vidéo</span>
-                <button id="pi-chef-video-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-chef-video-file')">Changer</button>
+                <button id="pi-chef-video-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#ED6AA7;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-chef-video-file')">Changer</button>
               </div>
               <p class="hint">MP4 recommandé — max 10 Mo</p>
             </div>
@@ -685,14 +685,14 @@
         <div class="gallery-grid" id="pi-gallery-grid"></div>
         <div class="divider">Ajouter des photos</div>
         <div class="acc-body">
-        <div id="pi-drop-zone" style="border:2px dashed #c9b8a8;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
+        <div id="pi-drop-zone" style="border:2px dashed #D1D5DB;border-radius:12px;padding:32px;text-align:center;cursor:pointer;background:#fff;">
           <div style="font-size:28px;margin-bottom:8px;color:#4a7c59;">+</div>
           <div style="font-size:14px;color:#4a7c59;font-weight:500;margin-bottom:4px;">Glisse tes photos ici</div>
           <div style="font-size:12px;color:#888;">ou clique pour ouvrir le Finder</div>
           <input type="file" id="pi-photo-upload" accept="image/*" multiple style="display:none;">
         </div>
         <div id="pi-upload-progress" style="display:none;margin-top:12px;">
-          <div style="font-size:13px;color:#321D16;margin-bottom:6px;" id="pi-upload-status">Upload en cours...</div>
+          <div style="font-size:13px;color:#1F2937;margin-bottom:6px;" id="pi-upload-status">Upload en cours...</div>
           <div style="background:#e0d5c8;border-radius:4px;height:6px;"><div id="pi-upload-bar" style="background:#4a7c59;height:6px;border-radius:4px;width:0%;"></div></div>
         </div>
         </div>
@@ -762,7 +762,7 @@
                   <input type="hidden" id="pi-ls_image" value="">
                   <img id="pi-ls-img-preview" class="preview" src="" style="display:none;">
                   <span id="pi-ls-img-label" style="font-size:12px;color:#888;">Cliquer pour uploader</span>
-                  <button id="pi-ls-img-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-ls-upload')">Changer</button>
+                  <button id="pi-ls-img-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#ED6AA7;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-ls-upload')">Changer</button>
                 </div>
               </div>
               <p class="hint">800×600px — WebP ou JPG recommandé</p>
@@ -786,7 +786,7 @@
                   <input type="hidden" id="pi-gp_image" value="">
                   <img id="pi-gp-img-preview" class="preview" src="" style="display:none;">
                   <span id="pi-gp-img-label" style="font-size:12px;color:#888;">Cliquer pour uploader</span>
-                  <button id="pi-gp-img-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#c06336;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-gp-upload')">Changer</button>
+                  <button id="pi-gp-img-btn" type="button" style="display:none;font-size:11px;margin-top:4px;background:#ED6AA7;color:#fff;border:none;border-radius:4px;padding:4px 10px;cursor:pointer;" onclick="event.stopPropagation();triggerUpload('pi-gp-upload')">Changer</button>
                 </div>
               </div>
               <p class="hint">800×600px — WebP ou JPG recommandé</p>
@@ -856,7 +856,7 @@ const SITES={
     branch:'main',
     baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/',
     previewBase:window.location.hostname==='localhost'?'http://localhost:3941':'https://amandineglucoz-hash.github.io/Le-Grand-Pan',
-    color:'#c06336'
+    color:'#ED6AA7'
   },
   piennolo:{
     name:'Piennolo',
@@ -928,16 +928,16 @@ function renderCreneaux(){
   const list=document.getElementById('creneaux-list');
   if(!list)return;
   list.innerHTML=horairesMachine.map((c,i)=>`
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:#f9f5f1;padding:10px;border-radius:6px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:#F3F4F6;padding:10px;border-radius:6px;">
       <div style="display:flex;gap:6px;">${JOURS_LABELS.map((j,d)=>`
         <label style="display:flex;flex-direction:column;align-items:center;font-size:10px;gap:2px;cursor:pointer;color:#555">
-          <input type="checkbox" ${c.jours.includes(d)?'checked':''} onchange="toggleJour(${i},${d},this.checked)" style="margin:0;accent-color:#c06336">
+          <input type="checkbox" ${c.jours.includes(d)?'checked':''} onchange="toggleJour(${i},${d},this.checked)" style="margin:0;accent-color:#ED6AA7">
           ${j}
         </label>`).join('')}</div>
       <input type="time" value="${c.debut}" onchange="updateCreneau(${i},'debut',this.value)" style="padding:5px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px">
       <span style="font-size:12px;color:#999">→</span>
       <input type="time" value="${c.fin}" onchange="updateCreneau(${i},'fin',this.value)" style="padding:5px 8px;border:1px solid #ddd;border-radius:4px;font-size:13px">
-      <button onclick="removeCreneau(${i})" style="background:transparent;border:none;color:#c06336;cursor:pointer;font-size:18px;line-height:1;padding:0 4px">×</button>
+      <button onclick="removeCreneau(${i})" style="background:transparent;border:none;color:#ED6AA7;cursor:pointer;font-size:18px;line-height:1;padding:0 4px">×</button>
     </div>`).join('');
   updateComputedStatus();
 }
@@ -980,7 +980,7 @@ function renderMentionsSections(){
       </div>
       <div class="field">
         <label>Titre</label>
-        <input type="text" value="${escAttr(s.titre)}" oninput="mentionsSections[${i}].titre=this.value" style="width:100%;padding:10px 12px;border:1px solid #c9b8a8;border-radius:8px;font-size:14px;background:#fff;color:#321D16;font-family:inherit;">
+        <input type="text" value="${escAttr(s.titre)}" oninput="mentionsSections[${i}].titre=this.value" style="width:100%;padding:10px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:14px;background:#fff;color:#1F2937;font-family:inherit;">
       </div>
       <div class="field">
         <label>Paragraphe</label>
@@ -1315,7 +1315,7 @@ function renderPiMenuList(cat){
         <button class="ml-remove-btn" onclick="removePiMenuItem('${cat}',${i})">Supprimer</button>
       </div>
       <div class="field"><label>Nom</label><input type="text" value="${escAttr(item.nom)}" oninput="piMenuData['${cat}'][${i}].nom=this.value"></div>
-      <div class="field"><label>Badge</label><select onchange="piMenuData['${cat}'][${i}].badge=this.value" style="width:100%;padding:10px 12px;border:1px solid #c9b8a8;border-radius:8px;font-size:14px;background:#fff;color:#321D16;font-family:inherit;">
+      <div class="field"><label>Badge</label><select onchange="piMenuData['${cat}'][${i}].badge=this.value" style="width:100%;padding:10px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:14px;background:#fff;color:#1F2937;font-family:inherit;">
         ${PI_BADGE_OPTIONS.map(o=>`<option value="${o.value}"${item.badge===o.value?' selected':''}>${o.label}</option>`).join('')}
       </select></div>
     </div>`).join('');
@@ -1331,7 +1331,7 @@ function renderPiMentionsSections(){
       </div>
       <div class="field">
         <label>Titre</label>
-        <input type="text" value="${escAttr(s.titre)}" oninput="piMentionsSections[${i}].titre=this.value" style="width:100%;padding:10px 12px;border:1px solid #c9b8a8;border-radius:8px;font-size:14px;background:#fff;color:#321D16;font-family:inherit;">
+        <input type="text" value="${escAttr(s.titre)}" oninput="piMentionsSections[${i}].titre=this.value" style="width:100%;padding:10px 12px;border:1px solid #D1D5DB;border-radius:8px;font-size:14px;background:#fff;color:#1F2937;font-family:inherit;">
       </div>
       <div class="field">
         <label>Paragraphe</label>
@@ -1426,7 +1426,7 @@ function renderPiCreneaux(){
   const list=$('pi-creneaux-list');
   if(!list)return;
   list.innerHTML=piHorairesMachine.map((c,i)=>`
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:#f9f5f1;padding:10px;border-radius:6px;">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;flex-wrap:wrap;background:#F3F4F6;padding:10px;border-radius:6px;">
       <div style="display:flex;gap:6px;">${JOURS_LABELS.map((j,d)=>`
         <label style="display:flex;flex-direction:column;align-items:center;font-size:10px;gap:2px;cursor:pointer;color:#555">
           <input type="checkbox" ${c.jours.includes(d)?'checked':''} onchange="togglePiJour(${i},${d},this.checked)" style="margin:0;accent-color:#4a7c59">
@@ -1717,9 +1717,9 @@ document.addEventListener("DOMContentLoaded",async function(){
   if(dz&&inp){
     dz.addEventListener("click",function(e){if(e.target===dz||e.target.parentElement===dz)inp.click();});
     inp.addEventListener("change",e=>handleFiles(Array.from(e.target.files)));
-    dz.addEventListener("dragover",e=>{e.preventDefault();dz.style.borderColor="#c06336";dz.style.background="#fdf5ec";});
-    dz.addEventListener("dragleave",()=>{dz.style.borderColor="#c9b8a8";dz.style.background="#fff";});
-    dz.addEventListener("drop",e=>{e.preventDefault();dz.style.borderColor="#c9b8a8";dz.style.background="#fff";handleFiles(Array.from(e.dataTransfer.files));});
+    dz.addEventListener("dragover",e=>{e.preventDefault();dz.style.borderColor="#ED6AA7";dz.style.background="#F3F4F6";});
+    dz.addEventListener("dragleave",()=>{dz.style.borderColor="#D1D5DB";dz.style.background="#fff";});
+    dz.addEventListener("drop",e=>{e.preventDefault();dz.style.borderColor="#D1D5DB";dz.style.background="#fff";handleFiles(Array.from(e.dataTransfer.files));});
   }
   // Piennolo drop zone
   const pdz=document.getElementById("pi-drop-zone");
@@ -1728,8 +1728,8 @@ document.addEventListener("DOMContentLoaded",async function(){
     pdz.addEventListener("click",function(e){if(e.target===pdz||e.target.parentElement===pdz)pinp.click();});
     pinp.addEventListener("change",e=>handlePiFiles(Array.from(e.target.files)));
     pdz.addEventListener("dragover",e=>{e.preventDefault();pdz.style.borderColor="#4a7c59";pdz.style.background="#f0f7f2";});
-    pdz.addEventListener("dragleave",()=>{pdz.style.borderColor="#c9b8a8";pdz.style.background="#fff";});
-    pdz.addEventListener("drop",e=>{e.preventDefault();pdz.style.borderColor="#c9b8a8";pdz.style.background="#fff";handlePiFiles(Array.from(e.dataTransfer.files));});
+    pdz.addEventListener("dragleave",()=>{pdz.style.borderColor="#D1D5DB";pdz.style.background="#fff";});
+    pdz.addEventListener("drop",e=>{e.preventDefault();pdz.style.borderColor="#D1D5DB";pdz.style.background="#fff";handlePiFiles(Array.from(e.dataTransfer.files));});
   }
 });
 </script>
