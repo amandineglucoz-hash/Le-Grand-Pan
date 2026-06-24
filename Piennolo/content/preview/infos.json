@@ -1,42 +1,56 @@
 {
+  "msg_ouvert": "Nous sommes ouverts !",
+  "msg_ferme": "Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard",
   "horaires_machine": [
     {
       "jours": [
-        1,
-        2,
-        3,
-        4,
-        5
+        0
       ],
-      "debut": "12:00",
-      "fin": "14:30"
+      "debut": "19:00",
+      "fin": "22:30"
     },
     {
       "jours": [
-        1,
         2,
         3,
         4,
-        5
+        5,
+        6
       ],
-      "debut": "19:30",
-      "fin": "23:00"
+      "debut": "12:00",
+      "fin": "14:00"
+    },
+    {
+      "jours": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "debut": "19:00",
+      "fin": "22:30"
     }
   ],
-  "msg_ouvert": "Nous sommes ouverts !",
-  "msg_ferme": "Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard",
-  "horaires_semaine": {
-    "jours": "Lun - Ven",
-    "heures": "12h-14h / 19h30-23h"
-  },
-  "horaires_weekend": {
-    "jours": "Dim - Samedi",
-    "statut": "Fermé"
-  },
-  "adresse": "20 Rue Rosenwald",
-  "telephone": "01 42 50 02 50",
+  "horaires_display": [
+    {
+      "jours": "Lundi",
+      "heures": "Fermé"
+    },
+    {
+      "jours": "Mar – Sam",
+      "heures": "12h–14h / 19h–22h30"
+    },
+    {
+      "jours": "Dimanche",
+      "heures": "19h–22h30"
+    }
+  ],
+  "adresse": "18 Rue Rosenwald",
+  "ville": "75 015 Paris",
+  "telephone": "01 XX XX XX XX",
   "bouton_reservation": {
     "label": "Réserver",
-    "lien": "https://www.google.com/maps/reserve/v/dine/c/j8u8_CBT7dM"
+    "lien": "https://www.google.com/maps/reserve/v/dine/c/Qj06-Yg_K9c?source=pa&opi=89978449&hl=fr-FR"
   }
 }
