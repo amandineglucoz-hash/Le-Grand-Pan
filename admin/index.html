@@ -48,16 +48,16 @@
     .panel-toggle-strip svg { transition: transform 0.28s cubic-bezier(0.4,0,0.2,1); }
     .edit-panel.collapsed ~ .panel-toggle-strip svg { transform: rotate(180deg); }
     .preview-panel { flex: 1; display: flex; flex-direction: column; background: #fff; overflow: hidden; min-width: 0; }
-    .preview-panel-bar { background: #fff; color: #1F2937; padding: 8px 14px; display: flex; align-items: center; justify-content: space-between; flex-shrink: 0; }
+    .preview-panel-bar { background: #fff; color: #1F2937; padding: 8px 14px; display: flex; align-items: center; justify-content: flex-end; flex-shrink: 0; border-bottom: 1px solid #E5E7EB; }
     .preview-panel-bar span { font-size: 11px; font-weight: 500; opacity: 0.6; letter-spacing: 0.06em; text-transform: uppercase; }
     .preview-device-toggle { display: flex; gap: 4px; align-items: center; }
     .preview-device-toggle button { background: #F3F4F6; border: 1px solid #E5E7EB; color: #6B7280; border-radius: 4px; padding: 4px 10px; font-size: 12px; cursor: pointer; }
     .preview-device-toggle button.active { background: #98AF79; color: #fff; border-color: #98AF79; }
-    .preview-iframe-wrap { flex: 1; overflow: hidden; display: flex; justify-content: center; background: #e8e0d8; }
+    .preview-iframe-wrap { flex: 1; overflow: hidden; display: flex; justify-content: center; background: #F3F4F6; }
     .preview-iframe-wrap iframe { border: none; width: 100%; height: 100%; }
     .preview-iframe-wrap.mobile { padding: 16px; }
     .preview-iframe-wrap.mobile iframe { max-width: 390px; border-radius: 16px; box-shadow: 0 4px 32px rgba(0,0,0,0.2); }
-    .preview-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #e8e0d8; font-size: 13px; color: #8b949e; pointer-events: none; }
+    .preview-loading { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: #F3F4F6; font-size: 13px; color: #8b949e; pointer-events: none; }
     .section { display: none; }
     .section.active { display: flex; flex-direction: column; flex: 1; min-height: 0; }
     .section h2 { font-size: 13px; font-weight: 600; letter-spacing: 0.03em; color: #1F2937; position: sticky; top: 0; z-index: 5; background: #fff; margin: 0; padding: 13px 20px; border: 1px solid #E5E7EB; flex-shrink: 0; border-radius: 8px; text-align: center; text-transform: uppercase; }
@@ -82,7 +82,7 @@
     .toggle input:checked + .toggle-slider:before { transform: translateX(20px); }
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 16px; }
-    .gallery-item { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #d0d5dd; background: #e8e0d8; cursor: grab; }
+    .gallery-item { position: relative; aspect-ratio: 1; border-radius: 8px; overflow: hidden; border: 1px solid #d0d5dd; background: #F3F4F6; cursor: grab; }
     .gallery-item:active { cursor: grabbing; }
     .gallery-item img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
     .gallery-item-del { position: absolute; top: 4px; right: 4px; background: rgba(0,0,0,0.6); color: #fff; border: none; border-radius: 50%; width: 22px; height: 22px; font-size: 12px; cursor: pointer; }
@@ -832,7 +832,7 @@
     <!-- PREVIEW PANEL — toujours visible -->
     <div class="preview-panel">
       <div class="preview-panel-bar">
-        <span>Prévisualisation en direct</span>
+        <span></span>
         <div class="preview-device-toggle">
           <button class="active" id="btn-desktop" onclick="setDevice('desktop')">Desktop</button>
           <button id="btn-mobile" onclick="setDevice('mobile')">Mobile</button>
