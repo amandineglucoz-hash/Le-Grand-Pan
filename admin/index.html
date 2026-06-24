@@ -189,7 +189,15 @@
           <div class="nav-item" onclick="showSection('pi-infos',this)">Infos pratiques</div>
           <div class="nav-item" onclick="showSection('pi-restaurants',this)">La Suite &amp; Le Grand Pan</div>
           <div class="nav-item" onclick="showSection('pi-footer',this)">Footer</div>
-          <div class="nav-item" onclick="showSection('pi-mentions',this)">Mentions légales</div>
+        </div>
+      </div>
+      <div class="nav-group" data-site="piennolo">
+        <div class="nav-group-header" onclick="toggleNavGroup(this)">
+          <span>Mentions légales</span>
+          <span class="arrow">▾</span>
+        </div>
+        <div class="nav-group-items">
+          <div class="nav-item" onclick="showSection('pi-mentions',this)">Contenu</div>
         </div>
       </div>
       </div><!-- end sidebar-nav -->
@@ -810,9 +818,8 @@
       <div class="section" id="section-pi-mentions">
         <h2>Mentions légales</h2>
         <div class="section-body">
-          <p style="font-size:12px;color:#888;margin-bottom:12px;">Ajoutez, modifiez ou supprimez les sections des mentions légales.</p>
-          <div id="pi-mentions-list"></div>
-          <button class="add-ml-btn" onclick="addPiMention()" style="margin-top:12px;">+ Ajouter une section</button>
+        <div id="pi-mentions-sections"></div>
+        <button class="add-ml-btn" onclick="addPiMentionsSection()">+ Ajouter une section</button>
         </div>
       </div>
 
@@ -1269,7 +1276,7 @@ async function loadAllPiennolo(){
     piGalleryPhotos=galerie.photos||[];renderPiGallery();
     $('pi-footer-titre').value=footer.titre||'';$('pi-footer-instagram').value=footer.instagram||'';
     if(footer.image){$('pi-footer_image').value=footer.image;setImagePreview('pi-footer-img',footer.image);}
-    piMentionsSections=mentions.sections||[];renderPiMentions();
+    piMentionsSections=mentions.sections||[];renderPiMentionsSections();
     showToast('Contenu Piennolo chargé ✓');
     previewReady=false;refreshPreview();
   }catch(e){showToast('Erreur chargement Piennolo','error');console.error(e);}
@@ -1287,6 +1294,7 @@ async function saveAllPiennolo(){
     await putFile('content/galerie.json',{photos:piGalleryPhotos});
     await putFile("content/restaurateurs.json",{lasuite:{image:$("pi-ls_image").value,tag:$("pi-ls-tag").value,titre:$("pi-ls-titre").value,texte:$("pi-ls-texte").value,bouton_label:$("pi-ls-bouton_label").value,bouton_lien:$("pi-ls-bouton_lien").value},legrandpan:{image:$("pi-gp_image").value,tag:$("pi-gp-tag").value,titre:$("pi-gp-titre").value,texte:$("pi-gp-texte").value,bouton_label:$("pi-gp-bouton_label").value,bouton_lien:$("pi-gp-bouton_lien").value}});
     await putFile('content/footer.json',{titre:$('pi-footer-titre').value,instagram:$('pi-footer-instagram').value,image:$('pi-footer_image').value});
+    document.querySelectorAll('#section-pi-mentions .rte-editor').forEach((el,i)=>{if(piMentionsSections[i])piMentionsSections[i].contenu=el.innerHTML;});
     await putFile("content/mentions.json",{sections:piMentionsSections});
     // Refresh SHAs
     await Promise.all(['content/modale.json','content/hero.json','content/bienvenue.json','content/menu.json','content/chef.json','content/infos.json','content/galerie.json','content/footer.json'].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
@@ -1314,21 +1322,39 @@ function renderPiMenuList(cat){
 }
 function addPiMenuItem(cat){piMenuData[cat].push({nom:'',badge:''});renderPiMenuList(cat);}
 
-function renderPiMentions(){
-  var list=$("pi-mentions-list");if(!list)return;
-  list.innerHTML=piMentionsSections.map(function(s,i){
-    return '<div style="background:#f9f5f1;padding:12px;border-radius:8px;margin-bottom:10px;">'+
-      '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;">'+
-      '<label class="field-label" style="margin:0;">Section '+(i+1)+'</label>'+
-      '<button onclick="removePiMention('+i+')" style="background:none;border:none;color:#c06336;cursor:pointer;font-size:18px;">✕</button>'+
-      '</div>'+
-      '<div class="field"><label class="field-label">Titre</label><input class="field-input" value="'+escAttr(s.titre)+'" oninput="piMentionsSections['+i+'].titre=this.value;schedulePreview();"></div>'+
-      '<div class="field"><label class="field-label">Contenu (HTML)</label><textarea class="field-input" rows="5" oninput="piMentionsSections['+i+'].contenu=this.value;schedulePreview();">'+escAttr(s.contenu)+'</textarea></div>'+
-      '</div>';
-  }).join("");
+function renderPiMentionsSections(){
+  $('pi-mentions-sections').innerHTML=piMentionsSections.map((s,i)=>`
+    <div class="ml-block">
+      <div class="ml-block-header">
+        <span class="ml-block-label">Section ${i+1}</span>
+        <button class="ml-remove-btn" onclick="removePiMentionsSection(${i})">Supprimer</button>
+      </div>
+      <div class="field">
+        <label>Titre</label>
+        <input type="text" value="${escAttr(s.titre)}" oninput="piMentionsSections[${i}].titre=this.value" style="width:100%;padding:10px 12px;border:1px solid #c9b8a8;border-radius:8px;font-size:14px;background:#fff;color:#321D16;font-family:inherit;">
+      </div>
+      <div class="field">
+        <label>Paragraphe</label>
+        <div class="rte-toolbar">
+          <button type="button" onmousedown="event.preventDefault();document.execCommand('bold')" title="Gras"><b>G</b></button>
+          <button type="button" onmousedown="event.preventDefault();document.execCommand('italic')" title="Italique"><i>I</i></button>
+          <button type="button" onmousedown="event.preventDefault();rteLink()" title="Lien">Lien</button>
+          <button type="button" onmousedown="event.preventDefault();document.execCommand('unlink')" title="Supprimer lien">Sans lien</button>
+        </div>
+        <div class="rte-editor" contenteditable="true">${s.contenu||''}</div>
+      </div>
+    </div>`).join('');
 }
-function addPiMention(){piMentionsSections.push({titre:"",contenu:""});renderPiMentions();}
-function removePiMention(i){piMentionsSections.splice(i,1);renderPiMentions();schedulePreview();}
+function addPiMentionsSection(){
+  piMentionsSections.push({titre:'',contenu:''});
+  renderPiMentionsSections();
+  const inputs=$('pi-mentions-sections').querySelectorAll('input[type=text]');
+  if(inputs.length)inputs[inputs.length-1].focus();
+}
+function removePiMentionsSection(i){
+  piMentionsSections.splice(i,1);
+  renderPiMentionsSections();
+}
 
 function togglePiChefMedia(){
   var t=$("pi-chef-media_type").value;
@@ -1534,7 +1560,7 @@ function buildPreviewDataPiennolo(){
     infos:{msg_ouvert:$('pi-infos-msg-ouvert').value,msg_ferme:$('pi-infos-msg-ferme').value,horaires_machine:piHorairesMachine,horaires_display:piHorairesDisplay,adresse:$('pi-infos-adresse').value,ville:$('pi-infos-ville').value,telephone:$('pi-infos-telephone').value,bouton_reservation:{label:$('pi-infos-bouton_label').value,lien:$('pi-infos-bouton_lien').value}},
     galerie:{photos:piGalleryPhotos},
     restaurateurs:{lasuite:{image:$('pi-ls_image').value,tag:$('pi-ls-tag').value,titre:$('pi-ls-titre').value,texte:$('pi-ls-texte').value,bouton_label:$('pi-ls-bouton_label').value,bouton_lien:$('pi-ls-bouton_lien').value},legrandpan:{image:$('pi-gp_image').value,tag:$('pi-gp-tag').value,titre:$('pi-gp-titre').value,texte:$('pi-gp-texte').value,bouton_label:$('pi-gp-bouton_label').value,bouton_lien:$('pi-gp-bouton_lien').value}},    footer:{titre:$('pi-footer-titre').value,instagram:$('pi-footer-instagram').value,image:$('pi-footer_image').value},
-    mentions:{sections:piMentionsSections}
+    mentions:(()=>{document.querySelectorAll('#section-pi-mentions .rte-editor').forEach((el,i)=>{if(piMentionsSections[i])piMentionsSections[i].contenu=el.innerHTML;});return{sections:piMentionsSections};})()
   };
 }
 
