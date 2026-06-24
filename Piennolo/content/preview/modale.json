@@ -1,8 +1,9 @@
 {
   "active": true,
-  "titre": "Hello world ! ",
-  "contenu": "Nous sommes ouvert \nle 1er mai !\nRéservez vite votre table !",
-  "sous_texte": "",
-  "bouton_label": "Reserver",
-  "bouton_lien": "mailto:contact@legrandpan.fr"
+  "note": "4,9",
+  "note_max": "5",
+  "label_qualite": "Excellent",
+  "label_avis": "Note Google sur 514 avis",
+  "bouton_label": "Réserver",
+  "bouton_lien": "https://www.google.com/maps/reserve/v/dine/c/Qj06-Yg_K9c?source=pa&opi=89978449&hl=fr-FR"
 }
