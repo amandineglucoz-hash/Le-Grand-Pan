@@ -88,38 +88,94 @@ a { color: #D8502A; }
 .ml-section a { color: #D8502A; }
 .ml-section strong { font-weight: 600; }
 
-/* Footer bar */
-.ml-footer {
-  border-top: 1px solid rgba(5,32,46,0.1);
+/* Footer — identique à piennolo.html */
+footer {
+  position: relative;
+  height: 800px;
+  overflow: hidden;
   display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  background: #1f140d;
+}
+.footer-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.footer-bg img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+.footer-content {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-between;
-  padding: 24px 80px;
+  justify-content: center;
+  padding: 0 20px;
 }
-.ml-footer-logo img {
-  height: 40px;
-  width: auto;
-}
-.ml-footer-links {
+.footer-title-row {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.footer-title {
+  font-family: 'Bontang', sans-serif;
+  font-size: 48px;
+  font-weight: 400;
+  color: white;
+  text-transform: uppercase;
+  text-align: center;
+  line-height: 1;
+}
+.footer-insta-btn {
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px;
+  background: #6c7c59;
+  border-radius: 9999px;
+  text-decoration: none;
+}
+.footer-insta-btn svg { width: 28px; height: 28px; }
+.footer-insta-btn:hover { opacity: 0.85; }
+.footer-bar {
+  position: relative;
+  z-index: 1;
+  padding: 24px 40px 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border-top: 1px solid rgba(255,255,255,0.2);
+}
+.footer-bar-logo img {
+  height: 48px;
+  width: auto;
+  filter: brightness(0) invert(1);
+}
+.footer-links {
+  display: flex; gap: 24px;
   list-style: none;
 }
-.ml-footer-links a {
-  font-size: 13px;
-  color: #05202E;
+.footer-links a {
+  font-family: 'Geist', sans-serif;
+  font-size: 14px;
+  color: white;
   text-decoration: none;
-  opacity: 0.6;
-  transition: opacity 0.2s;
+  opacity: 0.85;
 }
-.ml-footer-links a:hover { opacity: 1; }
+.footer-links a:hover { opacity: 1; }
 
 /* Responsive */
 @media (max-width: 768px) {
   .ml-header { padding: 32px 20px 0; gap: 24px; }
   .ml-content { padding: 32px 20px 80px; gap: 36px; }
-  .ml-footer { padding: 20px; flex-direction: column; gap: 16px; align-items: center; }
-  .ml-footer-links { gap: 20px; }
+  footer { height: auto; }
+  .footer-bar { padding: 24px 20px 80px; }
 }
 </style>
 </head>
@@ -127,7 +183,7 @@ a { color: #D8502A; }
 
 <div class="ml-header">
   <div class="ml-logo">
-    <img src="./piennolo-assets/logo-piennolo.svg" alt="Piennolo">
+    <img src="./piennolo-assets/logo-piennolo-vert.svg" alt="Piennolo">
   </div>
   <h1 class="ml-main-title">Mentions légales</h1>
 </div>
@@ -162,15 +218,32 @@ a { color: #D8502A; }
   </section>
 </main>
 
-<div class="ml-footer">
-  <div class="ml-footer-logo">
-    <img src="./piennolo-assets/logo-piennolo.svg" alt="Piennolo">
+<footer>
+  <div class="footer-bg">
+    <img src="./piennolo-assets/img-footer.png" alt="" loading="lazy">
   </div>
-  <ul class="ml-footer-links">
-    <li><a href="./mentions-legales.html">Mentions légales</a></li>
-    <li><a href="mailto:contact@legrandpan.fr">Contact</a></li>
-  </ul>
-</div>
+  <div class="footer-content">
+    <div class="footer-title-row">
+      <h2 class="footer-title">Suivez-nous&nbsp;!</h2>
+      <a class="footer-insta-btn" href="https://www.instagram.com/piennolo_paris/" target="_blank" aria-label="Instagram">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <rect x="2" y="2" width="20" height="20" rx="5.5" stroke="white" stroke-width="1.8"/>
+          <circle cx="12" cy="12" r="4.5" stroke="white" stroke-width="1.8"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="white"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+  <div class="footer-bar">
+    <div class="footer-bar-logo">
+      <img src="./piennolo-assets/logo-piennolo-vert.svg" alt="Piennolo">
+    </div>
+    <ul class="footer-links">
+      <li><a href="./mentions-legales.html">Mentions légales</a></li>
+      <li><a href="mailto:contact@legrandpan.fr">Contact</a></li>
+    </ul>
+  </div>
+</footer>
 
 <script>
 // CMS loader pour mentions légales
