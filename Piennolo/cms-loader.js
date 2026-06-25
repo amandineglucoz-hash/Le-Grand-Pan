@@ -4,7 +4,7 @@ var _dir=_isPreview?'./content/preview/':'./content/';
 var _hashData=null;
 try{var _m=window.location.hash.match(/^#cms=(.+)/);if(_m)_hashData=JSON.parse(decodeURIComponent(escape(atob(_m[1]))));}catch(e){}
 
-if(_isPreview){document.title='[PREPROD] '+document.title;var bar=document.createElement('div');bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#c06336;color:#fff;text-align:center;padding:8px 16px;font-size:13px;z-index:9999;font-family:sans-serif;display:flex;align-items:center;justify-content:center;gap:16px;';bar.innerHTML='<span>⚠ Mode préprod — modifications non publiées</span><a href="'+window.location.pathname+'" style="color:#fff;font-size:12px;border:1px solid rgba(255,255,255,0.5);border-radius:4px;padding:2px 10px;text-decoration:none;">Voir la prod</a>';document.body.appendChild(bar);document.body.style.paddingTop='36px';}
+if(_isPreview){document.title='[PREPROD] '+document.title;var bar=document.createElement('div');bar.style.cssText='position:fixed;top:0;left:0;right:0;background:#ED6AA7;color:#fff;text-align:center;padding:8px 16px;font-size:13px;z-index:9999;font-family:sans-serif;display:flex;align-items:center;justify-content:center;gap:16px;';bar.innerHTML='<span>⚠ Mode préprod — modifications non publiées</span><a href="'+window.location.pathname+'" style="color:#fff;font-size:12px;border:1px solid rgba(255,255,255,0.5);border-radius:4px;padding:2px 10px;text-decoration:none;">Voir la prod</a>';document.body.appendChild(bar);document.body.style.paddingTop='36px';}
 
 window.addEventListener('message',function(e){
   if(e.data&&e.data.type==='cms-preview'){
