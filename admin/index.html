@@ -1147,6 +1147,7 @@ async function loadAll(){
     $("footer-instagram").value=footer.instagram||"https://www.instagram.com/restaurant_legrandpan/";
     mentionsSections=mentions.sections||[];renderMentionsSections();
     showToast('Contenu chargé ✓');
+    previewReady=false;refreshPreview();
     // Lancer la preview avec les vraies données
     previewReady=false;
     refreshPreview();
