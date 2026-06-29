@@ -55,7 +55,8 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&family=Geist:wght@300;400&display=swap" rel="stylesheet">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&family=Geist:wght@300;400&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+<noscript><link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600;700&family=Playfair+Display:ital,wght@0,700;1,700&family=DM+Sans:wght@300;400;500;600&family=Geist:wght@300;400&display=swap" rel="stylesheet"></noscript>
 <style>
 
 @font-face {
@@ -176,7 +177,7 @@ label[for], select, [cursor="pointer"], *[style*="cursor: url('./piennolo-assets
 }
 
 /* ── REOPEN BUTTON ── */
-.hero-card-reopen {
+.hero-card-reopen { display: none !important; } .hero-card-reopen-hidden {
   position: fixed;
   right: 0;
   bottom: 80px;
@@ -199,7 +200,7 @@ label[for], select, [cursor="pointer"], *[style*="cursor: url('./piennolo-assets
 .hero-card-reopen:hover svg { transform: rotate(90deg); }
 
 /* ── CROSS BUTTON ── */
-.hero-card-close {
+.hero-card-close { display: none !important; } .hero-card-close-hidden {
   position: absolute;
   top: 1rem; right: 1rem;
   width: 32px; height: 32px;
@@ -310,10 +311,10 @@ nav {
   transform-origin: center center;
 }
 .hero-card {
-  position: absolute;
-  bottom: 12px; right: 12px; top: auto;
+  position: fixed;
+  bottom: 90px; right: 20px; top: auto;
   transform: none;
-  z-index: 10;
+  z-index: 50;
   background: #05202E;
   border-radius: 20px;
   padding: 32px;
@@ -1664,7 +1665,7 @@ footer {
   }
 
   /* Reopen visible sur mobile */
-  .hero-card-reopen {
+  .hero-card-reopen { display: none !important; } .hero-card-reopen-hidden {
     bottom: 84px;
   }
 
@@ -2376,17 +2377,11 @@ footer {
     closeBtn.classList.remove('closing');
   }
 
-  if (card && closeBtn) closeBtn.addEventListener('click', closeCard);
-  if (reopenBtn) reopenBtn.addEventListener('click', openCard);
+  // Carte toujours visible - fermeture désactivée
+  // if (card && closeBtn) closeBtn.addEventListener('click', closeCard);
+  // if (reopenBtn) reopenBtn.addEventListener('click', openCard);
 
   // Sur mobile, masquer la carte au chargement et afficher le bouton +
-  if (isMobile() && card && reopenBtn) {
-    card.style.display = 'none';
-    card.style.opacity = '0';
-    card.style.transform = 'translateX(calc(100% + 60px))';
-    card.style.pointerEvents = 'none';
-    reopenBtn.classList.add('is-visible');
-  }
 </script>
 <script>
   // ── Photo slider — auto-scroll + drag (même pattern que Le Grand Pan) ──
