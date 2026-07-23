@@ -1,59 +1,10 @@
 {
-  "image_menu": "le-grand-pan-assets/Image-menu.webp",
-  "titre_midi": "Déjeuner",
-  "titre_soir": "Dîner",
-  "titre_formules": "À la carte",
-  "titre_suggestion": "Suggestion du chef",
-  "titre_classiques": "Les classiques",
-  "midi": {
-    "formules": [
-      {
-        "texte": "4 entrées"
-      },
-      {
-        "texte": "4 plats"
-      },
-      {
-        "texte": "4 desserts"
-      }
-    ],
-    "suggestion": "Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
-    "classiques": [
-      {
-        "nom": "Côte de veau"
-      },
-      {
-        "nom": "Côte de boeuf"
-      },
-      {
-        "nom": "Côte de porc"
-      },
-      {
-        "nom": "Saint-Jaques en hiver"
-      },
-      {
-        "nom": "Homard en été"
-      }
-    ]
-  },
-  "soir": {
-    "suggestion": "Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
-    "classiques": [
-      {
-        "nom": "Côte de veau"
-      },
-      {
-        "nom": "Côte de boeuf"
-      },
-      {
-        "nom": "Côte de porc"
-      },
-      {
-        "nom": "Saint-Jaques en hiver"
-      },
-      {
-        "nom": "Homard en été"
-      }
-    ]
-  }
+  "titre": "",
+  "antipasti": [],
+  "pizzas": [],
+  "desserts": [],
+  "bouton_label": "Menu Complet",
+  "bouton_type": "pdf",
+  "bouton_lien": "",
+  "bouton_pdf": ""
 }
