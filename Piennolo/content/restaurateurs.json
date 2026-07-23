@@ -1,18 +1,18 @@
 {
   "lasuite": {
-    "image": "piennolo-assets/img-lasuite.webp",
+    "image": "le-grand-pan-assets/img-lasuite.webp",
     "tag": "Salle privée",
     "titre": "Privatisation & réservation",
     "texte": "Notre restaurant Le Grand Pan vous propose également la possibilité de réserver ou privatiser une salle pour vos événements.",
     "bouton_label": "Privatiser",
-    "bouton_lien": "#"
+    "bouton_lien": "mailto:contact@legrandpan.fr"
   },
-  "legrandpan": {
-    "image": "piennolo-assets/image-legrandpan.webp",
-    "tag": "Brasserie",
-    "titre": "Le Grand Pan",
-    "texte": "Découvrez aussi Le Grand Pan, notre restaurant, où nous vous proposons des pizzas artisanales et des plats préparés avec des produits frais et de qualité. Dans une ambiance chaleureuse et conviviale, Le Grand Pan est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.",
-    "bouton_label": "Le restaurant",
-    "bouton_lien": "https://amandineglucoz-hash.github.io/Le-Grand-Pan/"
+  "piennolo": {
+    "image": "le-grand-pan-assets/image-piennolo.webp",
+    "tag": "Pizzeria",
+    "titre": "Piennolo",
+    "texte": "Découvrez aussi Piennolo notre restaurant italien avec nos pizzas artisanales et nos plats préparés avec des produits frais. Dans une ambiance chaleureuse et conviviale, c'est l'adresse idéale pour partager un moment gourmand entre amis, en famille ou entre collègues.",
+    "bouton_label": "Découvrir la carte",
+    "bouton_lien": "le-grand-pan-assets/Menu-piennolo.pdf"
   }
 }
