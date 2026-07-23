@@ -1190,17 +1190,6 @@
       transform: rotate(7.83deg);
     }
     .about__stampWrap img { display: block; }
-    .about__stampStar {
-      width: 140px;
-      height: 140px;
-      margin-bottom: -40px;
-      object-fit: contain;
-      transform: rotate(7.32deg) translateY(var(--px-star, 0px));
-      will-change: transform;
-      flex-shrink: 0;
-      position: relative;
-      z-index: 0;
-    }
     .about__stampEllipse {
       width: 218px;
       height: 218px;
@@ -1562,7 +1551,6 @@
       .about__photo        { width: 300px; height: 366px; }
       .about__photoWrap    { padding: 8px; }          /* contour plus proche — 8px */
       .about__stampWrap    { width: 110px; height: 160px; padding-bottom: 16px; }
-      .about__stampStar    { width: 70px; height: 70px; margin-bottom: -24px; }
       .about__stampEllipse { width: 105px; height: 105px; }
     }
   </style>
@@ -1838,7 +1826,6 @@
           <img class="about__photo" alt="Benoît Gauthier, chef du Grand Pan" src="./le-grand-pan-assets/img-restaurateurs.webp" />
         </div>
         <div class="about__stampWrap" aria-hidden="true">
-          <img class="about__stampStar" alt="" src="./le-grand-pan-assets/Star-1.webp" />
           <img class="about__stampEllipse" alt="" src="./le-grand-pan-assets/plate.webp" />
         </div>
       </div>
@@ -1950,7 +1937,6 @@
     const pxMenuWrap    = document.querySelector('.menuPage__imgWrap');
     const pxMenuImg     = pxMenuWrap?.querySelector('img') ?? null;
     const pxAboutWrap   = document.querySelector('.about__stampWrap');
-    const pxStarImg     = pxAboutWrap?.querySelector('.about__stampStar') ?? null;
     const pxPlateImg    = pxAboutWrap?.querySelector('.about__stampEllipse') ?? null;
     const pxFollowWrap  = document.querySelector('.follow__bgWrap');
     const pxFooterImg   = pxFollowWrap?.querySelector('.follow__bg') ?? null;
@@ -1961,7 +1947,6 @@
       [
         [pxWelcomeWrap, pxWelcomeImg, '--px-welcome', 0.12, 40],
         [pxMenuWrap,    pxMenuImg,    '--px-menu',    0.12, 40],
-        [pxAboutWrap,   pxStarImg,    '--px-star',    0.18, 40],
         [pxAboutWrap,   pxPlateImg,   '--px-plate',   0.08, 25],
         [pxFollowWrap,  pxFooterImg,  '--px-footer',  0.15, 60],
       ].forEach(([wrap, el, prop, strength, range]) => {
