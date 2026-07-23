@@ -121,10 +121,11 @@
   <input type="text" id="login-input" placeholder="Identifiant" autocomplete="username" />
   <input type="password" id="password-input" placeholder="Mot de passe" autocomplete="current-password" />
   <div id="token-section" style="display:none;width:340px;">
-    <p style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">Première connexion — colle ton token GitHub une seule fois :</p>
+    <p style="font-size:13px;color:#1a1e2e;font-weight:600;margin-bottom:8px;text-align:center;">Identifiant/mot de passe OK — une dernière étape :</p>
+    <p style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">Colle ton token GitHub une seule fois (il sera mémorisé sur cet appareil) :</p>
     <input type="password" id="token-first" placeholder="ghp_..." style="width:100%;padding:12px 16px;border:1px solid #ED6AA7;border-radius:8px;font-size:14px;background:#fff;" />
   </div>
-  <button onclick="login()">Se connecter</button>
+  <button onclick="login()" id="login-btn">Se connecter</button>
   <p id="login-error" style="display:none;color:#ED6AA7;font-size:13px;">Identifiant ou mot de passe incorrect.</p>
 </div>
 
@@ -1033,19 +1034,48 @@ async function putFile(path,content){
 async function login(){
   const lgn=$("login-input").value.trim();
   const pwd=$("password-input").value.trim();
-  $("login-error").style.display="none";
+  const err=$("login-error");
+  err.style.display="none";
   try{
-    const r=await fetch("https://raw.githubusercontent.com/"+REPO+"/"+BRANCH+"/content/config.json?v="+Date.now());
-    const cfg=await r.json();
+    let cfg;
+    try{
+      const r=await fetch("https://raw.githubusercontent.com/"+REPO+"/"+BRANCH+"/content/config.json?v="+Date.now());
+      if(!r.ok)throw new Error("http "+r.status);
+      cfg=await r.json();
+    }catch(e){
+      err.textContent="Impossible de vérifier tes identifiants (problème réseau). Réessaie dans un instant.";
+      err.style.display="block";
+      return;
+    }
     const user=cfg.users.find(u=>u.login===lgn&&u.password===pwd);
-    if(!user){$("login-error").style.display="block";return;}
+    if(!user){
+      err.textContent="Identifiant ou mot de passe incorrect.";
+      err.style.display="block";
+      return;
+    }
     const savedToken=localStorage.getItem("lgp_token");
     if(savedToken){TOKEN=savedToken;}
     else{
       const ts=$("token-section");
-      if(ts.style.display==="none"){ts.style.display="block";return;}
+      if(ts.style.display==="none"){
+        ts.style.display="block";
+        $("login-btn").textContent="Valider le token";
+        ts.scrollIntoView({behavior:"smooth",block:"center"});
+        $("token-first").focus();
+        return;
+      }
       const t=$("token-first").value.trim();
-      if(!t.startsWith("ghp_")&&!t.startsWith("github_pat_")){$("login-error").style.display="block";return;}
+      if(!t){
+        err.textContent="Colle ton token GitHub ci-dessus pour continuer.";
+        err.style.display="block";
+        $("token-first").focus();
+        return;
+      }
+      if(!t.startsWith("ghp_")&&!t.startsWith("github_pat_")){
+        err.textContent="Ce token ne ressemble pas à un token GitHub valide (il doit commencer par ghp_ ou github_pat_).";
+        err.style.display="block";
+        return;
+      }
       TOKEN=t;localStorage.setItem("lgp_token",t);
     }
     localStorage.setItem("lgp_login",lgn);
@@ -1053,7 +1083,10 @@ async function login(){
     $("login-screen").style.display="none";
     $("app").style.display="block";
     await loadAll();
-  }catch(e){$("login-error").style.display="block";}
+  }catch(e){
+    err.textContent="Une erreur est survenue pendant la connexion. Réessaie.";
+    err.style.display="block";
+  }
 }
 
 function logout(){localStorage.removeItem("lgp_token");localStorage.removeItem("lgp_pwd");localStorage.removeItem("lgp_login");location.reload();}
@@ -1671,7 +1704,7 @@ function showSection(name,el){
     const data=lastPreviewData||buildPreviewData();
     lastPreviewData=data;
     const encoded=btoa(unescape(encodeURIComponent(JSON.stringify(data))));
-    let url;if(wantPage==='mentions'){const mentionsBase=PREVIEW_BASE.replace(//?$/,'/')+'mentions-legales.html';url=mentionsBase+'?preview=1#cms='+encoded;}else{url=PREVIEW_BASE+'?preview=1#cms='+encoded;}//was
+    let url;if(wantPage==='mentions'){const mentionsBase=(PREVIEW_BASE.endsWith('/')?PREVIEW_BASE:PREVIEW_BASE+'/')+'mentions-legales.html';url=mentionsBase+'?preview=1#cms='+encoded;}else{url=PREVIEW_BASE+'?preview=1#cms='+encoded;}
     iframe.src=url;
   } else if(previewReady){
     iframe.contentWindow.postMessage({type:'cms-scroll-to',selector:target.selector},'*');
