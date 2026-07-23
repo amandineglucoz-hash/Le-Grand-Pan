@@ -1,6 +1,4 @@
 {
-  "msg_ouvert": "Nous sommes ouverts !",
-  "msg_ferme": "Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard",
   "horaires_machine": [
     {
       "jours": [
@@ -25,14 +23,17 @@
       "fin": "23:00"
     }
   ],
-  "horaires_display": [
-    {
-      "jours": "",
-      "heures": ""
-    }
-  ],
+  "msg_ouvert": "Nous sommes ouverts !",
+  "msg_ferme": "Nous sommes actuellement fermés ! Prenez le temps de réserver pour plus tard",
+  "horaires_semaine": {
+    "jours": "Lun - Ven",
+    "heures": "12h-14h / 19h30-23h"
+  },
+  "horaires_weekend": {
+    "jours": "Dim - Samedi",
+    "statut": "Fermé"
+  },
   "adresse": "20 Rue Rosenwald",
-  "ville": "",
   "telephone": "01 42 50 02 50",
   "bouton_reservation": {
     "label": "Réserver",
