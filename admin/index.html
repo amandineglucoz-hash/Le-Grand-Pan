@@ -30,6 +30,10 @@
     .site-tab:hover { background: #1a1e2e; color: #ddd; }
     .site-tab.active { background: #1c2333; color: #fff; border-color: #333; }
     .site-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+    .site-tab-row { display: flex; align-items: center; gap: 2px; }
+    .site-tab-row .site-tab { flex: 1; min-width: 0; }
+    .site-visit-link { flex-shrink: 0; display: flex; align-items: center; justify-content: center; width: 26px; height: 26px; border-radius: 6px; color: #8b949e; text-decoration: none; font-size: 13px; }
+    .site-visit-link:hover { background: #1a1e2e; color: #fff; }
     .sidebar-nav { flex: 1; padding-top: 8px; }
     .nav-group { }
     .nav-group-header { padding: 14px 16px 6px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: space-between; user-select: none; }
@@ -141,12 +145,18 @@
   <div class="layout">
     <nav class="sidebar">
       <div class="site-switcher">
-        <button class="site-tab active" id="tab-legrandpan" onclick="switchSite('legrandpan')">
-          <span class="site-dot" style="background:#c06336"></span>Le Grand Pan
-        </button>
-        <button class="site-tab" id="tab-piennolo" onclick="switchSite('piennolo')">
-          <span class="site-dot" style="background:#4a7c59"></span>Piennolo
-        </button>
+        <div class="site-tab-row">
+          <button class="site-tab active" id="tab-legrandpan" onclick="switchSite('legrandpan')">
+            <span class="site-dot" style="background:#c06336"></span>Le Grand Pan
+          </button>
+          <a class="site-visit-link" href="https://amandineglucoz-hash.github.io/Le-Grand-Pan/" target="_blank" rel="noopener noreferrer" title="Voir le site Le Grand Pan" onclick="event.stopPropagation()">↗</a>
+        </div>
+        <div class="site-tab-row">
+          <button class="site-tab" id="tab-piennolo" onclick="switchSite('piennolo')">
+            <span class="site-dot" style="background:#4a7c59"></span>Piennolo
+          </button>
+          <a class="site-visit-link" href="https://amandineglucoz-hash.github.io/Piennolo/" target="_blank" rel="noopener noreferrer" title="Voir le site Piennolo" onclick="event.stopPropagation()">↗</a>
+        </div>
       </div>
       <div class="sidebar-nav">
       <!-- Le Grand Pan nav -->
