@@ -179,7 +179,7 @@ function _applyAll(modale,hero,bienvenue,menu,infos,chef,galerie,restaurateurs,f
     var slider=document.getElementById('piennolo-slider');
     if(slider){
       slider.innerHTML=galerie.photos.map(function(p){
-        return '<div class="photoSlide" style="width:550px"><img alt="'+(p.alt||'Photo Piennolo')+'" src="./'+p.image+'" loading="lazy" /></div>';
+        return '<div class="photoSlide" style="width:550px"><img alt="'+(p.alt||'Photo Piennolo')+'" src="./'+p.image+'" loading="lazy" onerror="this.parentElement.style.display=\'none\'"/></div>';
       }).join('');
       Array.from(slider.children).forEach(function(slide){
         slider.appendChild(slide.cloneNode(true));

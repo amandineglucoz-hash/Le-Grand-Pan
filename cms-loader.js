@@ -82,7 +82,7 @@ function _applyMain(hero,menu,galerie,infos,restau,modale,parcours){
     if(slider){
       var photos=galerie.photos;
       slider.innerHTML=photos.map(function(p){
-        return '<div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./'+p.image+'"/></div>';
+        return '<div class="photoSlide" style="width:550px"><img alt="Photo du restaurant" src="./'+p.image+'" onerror="this.parentElement.style.display=\'none\'"/></div>';
       }).join('');
       Array.from(slider.children).forEach(function(slide){
         slider.appendChild(slide.cloneNode(true));
