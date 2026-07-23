@@ -1155,7 +1155,6 @@
       position: relative;
       display: flex;
       align-items: flex-end;
-      padding-right: 200px;
     }
     .about__photoWrap {
       transform: rotate(-4.49deg);
@@ -1163,7 +1162,6 @@
       border-radius: 3000px;
       padding: 20px;
       display: flex;
-      margin-right: -200px;
       flex-shrink: 0;
     }
     .about__photo {
@@ -1175,18 +1173,12 @@
       display: block;
     }
     .about__stampWrap {
-      position: relative;
-      flex-shrink: 0;
-      width: 264px;
-      height: 385px;
-      margin-right: -200px;
+      position: absolute;
+      right: -109px;
+      bottom: 70px;
+      width: 218px;
+      height: 218px;
       pointer-events: none;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding-bottom: 52px;
-      padding-top: 12px;
       transform: rotate(7.83deg);
     }
     .about__stampWrap img { display: block; }
@@ -1194,7 +1186,6 @@
       width: 218px;
       height: 218px;
       object-fit: contain;
-      flex-shrink: 0;
       transform: translateY(var(--px-plate, 0px));
       will-change: transform;
       position: relative;
