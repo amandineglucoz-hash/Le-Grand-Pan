@@ -19,9 +19,7 @@
     .save-btn { background: #ED6AA7; color: #fff; border: none; border-radius: 6px; padding: 8px 20px; font-size: 14px; cursor: pointer; font-weight: 500; }
     .save-btn:hover { background: #d45a95; }
     .save-btn:disabled { background: #888; cursor: not-allowed; }
-    .sync-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.4); border-radius: 6px; padding: 7px 16px; font-size: 13px; cursor: pointer; }
-    .sync-btn:hover { background: rgba(255,255,255,0.1); }
-    .sync-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .last-published { color: rgba(255,255,255,0.6); font-size: 12px; }
     .logout-btn { background: transparent; color: #fff; border: 1px solid rgba(255,255,255,0.3); border-radius: 6px; padding: 7px 14px; font-size: 13px; cursor: pointer; }
     .layout { display: flex; height: calc(100vh - 56px); overflow: hidden; }
     .sidebar { width: 190px; background: #0d1117; padding: 0 0 24px; flex-shrink: 0; overflow-y: auto; display: flex; flex-direction: column; }
@@ -137,7 +135,7 @@
   <div class="topbar">
     <span class="topbar-logo" id="topbar-site-name">MES RESTAURANTS — ADMIN</span>
     <div class="topbar-right">
-      <button class="sync-btn" id="sync-btn" onclick="syncPreprod()">↑ Sync préprod</button>
+      <span class="last-published" id="last-published"></span>
       <button class="save-btn" id="save-btn" onclick="saveAll()">Publier</button>
       <button class="logout-btn" onclick="logout()">Déconnexion</button>
     </div>
@@ -894,8 +892,8 @@ const SITES={
     name:'Piennolo',
     repo:'amandineglucoz-hash/Le-Grand-Pan',
     branch:'main',
-    baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://amandineglucoz-hash.github.io/Piennolo/',
-    previewBase:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/piennolo.html':'https://amandineglucoz-hash.github.io/Piennolo/',
+    baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/':'https://amandineglucoz-hash.github.io/Piennolo/',
+    previewBase:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/':'https://amandineglucoz-hash.github.io/Piennolo/',
     color:'#4a7c59'
   }
 };
@@ -1045,7 +1043,7 @@ const $=id=>document.getElementById(id);
 
 function showToast(msg,type='success'){const t=$('toast');t.textContent=msg;t.className=type;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
-function sitePrefix(path){return path;}
+function sitePrefix(path){return currentSite==='piennolo'?'Piennolo/'+path:path;}
 async function api(path,opts={}){path=sitePrefix(path);
   const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{...opts,headers:{Authorization:`token ${TOKEN}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json',...(opts.headers||{})}});
   if(!r.ok)throw new Error(r.status);
@@ -1212,6 +1210,7 @@ async function loadAll(){
     mentionsSections=mentions.sections||[];renderMentionsSections();
     $('parcours-kicker').value=parc.kicker||'';$('parcours-texte').value=parc.texte||'';
     if(parc.image){$('parcours_image').value=parc.image;setImagePreview('parcours-img',parc.image);}
+    loadLastPublished();
     showToast('Contenu chargé ✓');
     previewReady=false;refreshPreview();
     // Lancer la preview avec les vraies données
@@ -1286,8 +1285,11 @@ async function saveAll(){
     document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
     await putFile('content/mentions.json',{sections:mentionsSections});
     await putFile('content/parcours.json',{image:$('parcours_image').value,kicker:$('parcours-kicker').value,texte:$('parcours-texte').value});
+    const nowIso=new Date().toISOString();
+    await putFile('content/last_published.json',{date:nowIso});
+    $('last-published').textContent=formatLastPublished(nowIso);
     // Rafraîchit seulement les SHA sans écraser les champs
-await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json","content/parcours.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
+await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json","content/parcours.json","content/last_published.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Publié avec succès ✓');
   }catch(e){showToast('Erreur publication','error');}
   finally{btn.disabled=false;btn.textContent='Publier';}
@@ -1345,6 +1347,7 @@ async function loadAllPiennolo(){
     $('pi-footer-titre').value=footer.titre||'';$('pi-footer-instagram').value=footer.instagram||'';
     if(footer.image){$('pi-footer_image').value=footer.image;setImagePreview('pi-footer-img',footer.image);}
     piMentionsSections=mentions.sections||[];renderPiMentionsSections();
+    loadLastPublished();
     showToast('Contenu Piennolo chargé ✓');
     previewReady=false;refreshPreview();
   }catch(e){showToast('Erreur chargement Piennolo','error');console.error(e);}
@@ -1364,8 +1367,11 @@ async function saveAllPiennolo(){
     await putFile('content/footer.json',{titre:$('pi-footer-titre').value,instagram:$('pi-footer-instagram').value,image:$('pi-footer_image').value});
     document.querySelectorAll('#section-pi-mentions .rte-editor').forEach((el,i)=>{if(piMentionsSections[i])piMentionsSections[i].contenu=el.innerHTML;});
     await putFile("content/mentions.json",{sections:piMentionsSections});
+    const nowIsoPi=new Date().toISOString();
+    await putFile('content/last_published.json',{date:nowIsoPi});
+    $('last-published').textContent=formatLastPublished(nowIsoPi);
     // Refresh SHAs
-    await Promise.all(['content/modale.json','content/hero.json','content/bienvenue.json','content/menu.json','content/chef.json','content/infos.json','content/galerie.json','content/footer.json'].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
+    await Promise.all(['content/modale.json','content/hero.json','content/bienvenue.json','content/menu.json','content/chef.json','content/infos.json','content/galerie.json','content/footer.json','content/last_published.json'].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Piennolo publié avec succès ✓');
   }catch(e){showToast('Erreur publication Piennolo','error');console.error(e);}
   finally{btn.disabled=false;btn.textContent='Publier';}
@@ -1684,39 +1690,24 @@ function toggleEditPanel(){
   p.classList.toggle('collapsed');
 }
 
-// ─── Sync préprod (sauvegarde GitHub) ───────────────────────────
-function syncPreprod(){
-  const btn=$('sync-btn');
-  btn.disabled=true;btn.textContent='Sync...';
-  const data=buildPreviewData();
-  (async()=>{
-    try{
-      const files={};
-      if(currentSite==='piennolo'){
-        files['content/preview/modale.json']=data.modale;
-        files['content/preview/hero.json']=data.hero;
-        files['content/preview/bienvenue.json']=data.bienvenue;
-        files['content/preview/menu.json']=data.menu;
-        files['content/preview/chef.json']=data.chef;
-        files['content/preview/infos.json']=data.infos;
-        files['content/preview/galerie.json']=data.galerie;
-        files['content/preview/footer.json']=data.footer;
-      } else {
-        files['content/preview/hero.json']=data.hero;
-        files['content/preview/menu.json']=data.menu;
-        files['content/preview/galerie.json']=data.galerie;
-        files['content/preview/infos.json']=data.infos;
-        files['content/preview/restaurateurs.json']=data.restaurateurs;
-        files['content/preview/footer.json']=data.footer;
-        files['content/preview/modale.json']=data.modale;
-        files['content/preview/mentions.json']=data.mentions;
-        files['content/preview/parcours.json']=data.parcours;
-      }
-      for(const[path,content] of Object.entries(files)){await putFile(path,content);}
-      showToast('Préprod synchronisée ✓');
-    }catch(e){showToast('Erreur sync préprod','error');}
-    finally{btn.disabled=false;btn.textContent='↑ Sync préprod';}
-  })();
+// ─── Dernière publication ────────────────────────────────────────
+function formatLastPublished(iso){
+  const d=new Date(iso);
+  const datePart=d.toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit',year:'numeric'});
+  const timePart=d.toLocaleTimeString('fr-FR',{hour:'2-digit',minute:'2-digit'});
+  return 'Dernière publication : '+datePart+' à '+timePart;
+}
+async function loadLastPublished(){
+  const el=$('last-published');
+  if(!el)return;
+  el.textContent='';
+  try{
+    const localFallback=window.location.hostname==='localhost';
+    const data=localFallback
+      ?await fetch((currentSite==='piennolo'?'http://localhost:3941/Piennolo/':'http://localhost:3941/legrandpan-cms/')+'content/last_published.json?v='+Date.now()).then(r=>r.json()).catch(()=>null)
+      :await getFile('content/last_published.json').catch(()=>null);
+    if(data&&data.date)el.textContent=formatLastPublished(data.date);
+  }catch(e){}
 }
 
 function showSection(name,el){
