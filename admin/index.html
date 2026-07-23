@@ -1700,6 +1700,7 @@ function syncPreprod(){
         files['content/preview/footer.json']=data.footer;
         files['content/preview/modale.json']=data.modale;
         files['content/preview/mentions.json']=data.mentions;
+        files['content/preview/parcours.json']=data.parcours;
       }
       for(const[path,content] of Object.entries(files)){await putFile(path,content);}
       showToast('Préprod synchronisée ✓');

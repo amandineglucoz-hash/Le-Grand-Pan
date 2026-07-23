@@ -132,6 +132,14 @@ collections:
               - { label: "Texte du bouton", name: "bouton_label", widget: "string" }
               - { label: "Lien du bouton", name: "bouton_lien", widget: "string" }
 
+      - name: "parcours"
+        label: "Parcours du chef"
+        file: "content/parcours.json"
+        fields:
+          - { label: "Photo", name: "image", widget: "image" }
+          - { label: "Accroche", name: "kicker", widget: "string" }
+          - { label: "Texte", name: "texte", widget: "text", hint: "Un paragraphe par ligne. Balises <strong> possibles." }
+
       - name: "footer"
         label: "Footer & Instagram"
         file: "content/footer.json"

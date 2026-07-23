@@ -11,7 +11,7 @@ if(_isPreview){document.title='[PREPROD] '+document.title;}
 window.addEventListener('message',function(e){
   if(e.data&&e.data.type==='cms-preview'){
     var d=e.data.data;
-    _applyMain(d.hero,d.menu,d.galerie,d.infos,d.restaurateurs,d.modale);
+    _applyMain(d.hero,d.menu,d.galerie,d.infos,d.restaurateurs,d.modale,d.parcours);
     _applyFooter(d.footer,d.mentions);
   }
   if(e.data&&e.data.type==="cms-scroll-to"){
@@ -21,7 +21,7 @@ window.addEventListener('message',function(e){
 });
 
 var _mainPromise=_hashData
-  ?Promise.resolve([_hashData.hero,_hashData.menu,_hashData.galerie,_hashData.infos,_hashData.restaurateurs,_hashData.modale])
+  ?Promise.resolve([_hashData.hero,_hashData.menu,_hashData.galerie,_hashData.infos,_hashData.restaurateurs,_hashData.modale,_hashData.parcours])
   :Promise.all([
     fetch(_dir+'hero.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
     fetch(_dir+'menu.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
@@ -29,9 +29,10 @@ var _mainPromise=_hashData
     fetch(_dir+'infos.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
     fetch(_dir+'restaurateurs.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
     fetch(_dir+'modale.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch(_dir+'parcours.json?v='+Date.now()).then(function(r){return r.json();}).catch(function(){return null;}),
   ]);
 
-function _applyMain(hero,menu,galerie,infos,restau,modale){
+function _applyMain(hero,menu,galerie,infos,restau,modale,parcours){
 
   // Hero image
   if(hero&&hero.image_header){var e=document.querySelector('.header__hero img');if(e)e.src='./'+hero.image_header;}
@@ -189,9 +190,17 @@ function _applyMain(hero,menu,galerie,infos,restau,modale){
     }
   }
 
+  // Parcours du chef
+  if(parcours&&parcours.image){var e=document.querySelector('.about__photo');if(e)e.src='./'+parcours.image;}
+  if(parcours&&parcours.kicker){var e=document.querySelector('.about__kicker');if(e)e.textContent=parcours.kicker;}
+  if(parcours&&parcours.texte){
+    var e=document.querySelector('.about__body');
+    if(e)e.innerHTML=parcours.texte.split('\n').filter(function(l){return l.trim();}).map(function(l){return '<p>'+l+'</p>';}).join('');
+  }
+
 }
 
-_mainPromise.then(function(r){_applyMain(r[0],r[1],r[2],r[3],r[4],r[5]);});
+_mainPromise.then(function(r){_applyMain(r[0],r[1],r[2],r[3],r[4],r[5],r[6]);});
 
 // Footer
 var _footerPromise=_hashData
