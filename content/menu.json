@@ -2,19 +2,19 @@
   "image_menu": "le-grand-pan-assets/Image-menu.webp",
   "titre_midi": "Déjeuner",
   "titre_soir": "Dîner",
-  "titre_formules": "Formules",
+  "titre_formules": "À la carte",
   "titre_suggestion": "Suggestion du chef",
   "titre_classiques": "Les classiques",
   "midi": {
     "formules": [
       {
-        "texte": "Entrée + Plat— 25€"
+        "texte": "4 entrées"
       },
       {
-        "texte": "Plat + dessert— 26€"
+        "texte": "4 plats"
       },
       {
-        "texte": "Entrée + Plat + dessert— 34€"
+        "texte": "4 desserts"
       }
     ],
     "suggestion": "Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
