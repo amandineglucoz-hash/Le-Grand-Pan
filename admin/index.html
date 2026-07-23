@@ -162,6 +162,7 @@
           <div class="nav-item" onclick="showSection('galerie',this)">Galerie photos</div>
           <div class="nav-item" onclick="showSection('infos',this)">Infos pratiques</div>
           <div class="nav-item" onclick="showSection('restaurateurs',this)">La Suite & Piennolo</div>
+          <div class="nav-item" onclick="showSection('parcours',this)">Parcours du chef</div>
           <div class="nav-item" onclick="showSection('footer',this)">Footer</div>
         </div>
       </div>
@@ -439,6 +440,26 @@
           <div class="field"><label>Lien bouton</label><input type="text" id="pi-bouton_lien"></div>
         </div>
         </div>
+        </div>
+      </div>
+
+      <!-- PARCOURS -->
+      <div class="section" id="section-parcours">
+        <h2>Parcours du chef</h2>
+        <div class="section-body">
+        <div class="field">
+          <label>Photo</label>
+          <div class="img-upload-zone" onclick="triggerUpload('parcours-img-file')">
+            <img id="parcours-img-preview" class="preview" src="" style="display:none;">
+            <div class="upload-label" id="parcours-img-label"><span>+ Changer l'image</span></div>
+            <button class="img-change-btn" style="display:none;" id="parcours-img-btn">Changer</button>
+            <input type="file" id="parcours-img-file" accept="image/*" onchange="handleSingleUpload(this,'parcours-img','parcours_image')">
+          </div>
+          <p class="hint">Format portrait — WebP ou JPG recommandé</p>
+          <input type="hidden" id="parcours_image" value="le-grand-pan-assets/img-restaurateurs.webp">
+        </div>
+        <div class="field"><label>Accroche</label><input type="text" id="parcours-kicker"></div>
+        <div class="field"><label>Texte (parcours)</label><textarea id="parcours-texte" rows="8"></textarea><p class="hint">Un paragraphe par ligne</p></div>
         </div>
       </div>
 
@@ -1147,7 +1168,7 @@ async function loadAll(){
   try{
     const localFallbackGP=window.location.hostname==='localhost';
     const fetchJsonGP=p=>localFallbackGP?fetch('http://localhost:3941/legrandpan-cms/'+p+'?v='+Date.now()).then(r=>r.json()).catch(()=>({})):getFile(p).catch(()=>({}));
-    const[m,h,menu,g,inf,r,footer,mentions]=await Promise.all(['content/modale.json','content/hero.json','content/menu.json','content/galerie.json','content/infos.json','content/restaurateurs.json','content/footer.json','content/mentions.json'].map(fetchJsonGP));
+    const[m,h,menu,g,inf,r,footer,mentions,parc]=await Promise.all(['content/modale.json','content/hero.json','content/menu.json','content/galerie.json','content/infos.json','content/restaurateurs.json','content/footer.json','content/mentions.json','content/parcours.json'].map(fetchJsonGP));
     $('modale-active').checked=m.active;
     $('modale-titre').value=m.titre||'';$('modale-contenu').value=m.contenu||'';$('modale-sous_texte').value=m.sous_texte||'';$('modale-bouton_label').value=m.bouton_label||'';$('modale-bouton_lien').value=m.bouton_lien||'';
     const pts=(h.titre||'bienvenue a table').split(' '),mid=Math.ceil(pts.length/2);
@@ -1179,6 +1200,8 @@ async function loadAll(){
     $("footer-suivez").value=footer.suivez||"suivez-nous !";
     $("footer-instagram").value=footer.instagram||"https://www.instagram.com/restaurant_legrandpan/";
     mentionsSections=mentions.sections||[];renderMentionsSections();
+    $('parcours-kicker').value=parc.kicker||'';$('parcours-texte').value=parc.texte||'';
+    if(parc.image){$('parcours_image').value=parc.image;setImagePreview('parcours-img',parc.image);}
     showToast('Contenu chargé ✓');
     previewReady=false;refreshPreview();
     // Lancer la preview avec les vraies données
@@ -1252,8 +1275,9 @@ async function saveAll(){
     await putFile('content/footer.json',{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value});
     document.querySelectorAll('.rte-editor').forEach((el,i)=>{if(mentionsSections[i])mentionsSections[i].contenu=el.innerHTML;});
     await putFile('content/mentions.json',{sections:mentionsSections});
+    await putFile('content/parcours.json',{image:$('parcours_image').value,kicker:$('parcours-kicker').value,texte:$('parcours-texte').value});
     // Rafraîchit seulement les SHA sans écraser les champs
-await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
+await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json","content/parcours.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Publié avec succès ✓');
   }catch(e){showToast('Erreur publication','error');}
   finally{btn.disabled=false;btn.textContent='Publier';}
@@ -1555,6 +1579,7 @@ const SECTION_TARGETS={
   galerie:       {page:'index',    selector:'.photoSlider'},
   infos:         {page:'index',    selector:'.infos'},
   restaurateurs: {page:'index',    selector:'.privPanel'},
+  parcours:      {page:'index',    selector:'.about'},
   footer:        {page:'index',    selector:'.follow'},
   mentions:      {page:'mentions', selector:'main'},
   'pi-modale':   {page:'index',    selector:'.hero-card'},
@@ -1580,7 +1605,8 @@ function buildPreviewData(){
     restaurateurs:{lasuite:{image:$('ls_image').value,tag:$('ls-tag').value,titre:$('ls-titre').value,texte:$('ls-texte').value,bouton_label:$('ls-bouton_label').value,bouton_lien:$('ls-bouton_lien').value},piennolo:{image:$('pi_image').value,tag:$('pi-tag').value,titre:$('pi-titre').value,texte:$('pi-texte').value,bouton_label:$('pi-bouton_label').value,bouton_lien:$('pi-bouton_lien').value}},
     footer:{image:$('footer_image').value,suivez:$('footer-suivez').value,instagram:$('footer-instagram').value},
     modale:{active:$('modale-active').checked,titre:$('modale-titre').value,contenu:$('modale-contenu').value,sous_texte:$('modale-sous_texte').value,bouton_label:$('modale-bouton_label').value,bouton_lien:$('modale-bouton_lien').value},
-    mentions:{sections:mentionsSections}
+    mentions:{sections:mentionsSections},
+    parcours:{image:$('parcours_image').value,kicker:$('parcours-kicker').value,texte:$('parcours-texte').value}
   };
 }
 
