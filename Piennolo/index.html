@@ -175,7 +175,7 @@ label[for], select, [cursor="pointer"], *[style*="cursor: url('./piennolo-assets
 }
 
 /* ── REOPEN BUTTON ── */
-.hero-card-reopen { display: none !important; } .hero-card-reopen-hidden {
+.hero-card-reopen {
   position: fixed;
   right: 0;
   bottom: 80px;
@@ -198,7 +198,7 @@ label[for], select, [cursor="pointer"], *[style*="cursor: url('./piennolo-assets
 .hero-card-reopen:hover svg { transform: rotate(90deg); }
 
 /* ── CROSS BUTTON ── */
-.hero-card-close { display: none !important; } .hero-card-close-hidden {
+.hero-card-close {
   position: absolute;
   top: 1rem; right: 1rem;
   width: 32px; height: 32px;
@@ -1663,7 +1663,7 @@ footer {
   }
 
   /* Reopen visible sur mobile */
-  .hero-card-reopen { display: none !important; } .hero-card-reopen-hidden {
+  .hero-card-reopen {
     bottom: 84px;
   }
 
@@ -2375,11 +2375,8 @@ footer {
     closeBtn.classList.remove('closing');
   }
 
-  // Carte toujours visible - fermeture désactivée
-  // if (card && closeBtn) closeBtn.addEventListener('click', closeCard);
-  // if (reopenBtn) reopenBtn.addEventListener('click', openCard);
-
-  // Sur mobile, masquer la carte au chargement et afficher le bouton +
+  if (card && closeBtn) closeBtn.addEventListener('click', closeCard);
+  if (reopenBtn) reopenBtn.addEventListener('click', openCard);
 </script>
 <script>
   // ── Photo slider — auto-scroll + drag (même pattern que Le Grand Pan) ──
