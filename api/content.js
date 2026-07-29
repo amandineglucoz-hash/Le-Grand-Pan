@@ -20,8 +20,9 @@ function isSafePath(path) {
 }
 
 async function githubFetch(path, opts = {}) {
-  const token = process.env.GITHUB_TOKEN;
+  const token = (process.env.GITHUB_TOKEN || '').trim();
   if (!token) throw new Error('GITHUB_TOKEN is not set');
+  if (!/^[\x21-\x7e]+$/.test(token)) throw new Error('GITHUB_TOKEN contains an invalid character — re-copy it from GitHub, it may have been pasted from a masked display');
   const r = await fetch(`https://api.github.com${path}`, {
     ...opts,
     headers: {
