@@ -17,7 +17,7 @@
         "texte": "4 desserts"
       }
     ],
-    "suggestion": "Pour votre déjeuner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
+    "suggestion": "Pour votre déjeuner, laissez-vous surprendre par les suggestions du chef qui changent en fonction des arrivages et des saisons, parfois agrémentés de produits nobles.",
     "classiques": [
       {
         "nom": "Côte de veau"
@@ -37,7 +37,7 @@
     ]
   },
   "soir": {
-    "suggestion": "Pour votre dîner laissez-vous tenter par les plats phares du moment, des produits de saison et nobles.",
+    "suggestion": "Pour votre dîner, laissez-vous tenter par les suggestions du chef et les produits de saison. Selon les arrivages, le chef propose des produits nobles.",
     "classiques": [
       {
         "nom": "Côte de veau"
