@@ -1,13 +1,3 @@
 {
-  "users": [
-    {
-      "login": "amandine",
-      "password": "LeGrandTest.2026"
-    },
-    {
-      "login": "restaurant",
-      "password": "GrandPan2026"
-    }
-  ],
-  "github_token": ""
+  "_deprecated": "Identifiants déplacés côté serveur (variable d'environnement ADMIN_USERS sur Vercel). Ce fichier n'est plus utilisé par le BO."
 }

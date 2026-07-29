@@ -5,3 +5,6 @@ serve-admin.py
 legrandpan-cms/
 __pycache__/
 *.pyc
+.vercel
+.env
+.env.local

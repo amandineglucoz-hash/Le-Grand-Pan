@@ -122,11 +122,6 @@
   <h1>Le Grand Pan — Administration</h1>
   <input type="text" id="login-input" placeholder="Identifiant" autocomplete="username" />
   <input type="password" id="password-input" placeholder="Mot de passe" autocomplete="current-password" />
-  <div id="token-section" style="display:none;width:340px;">
-    <p style="font-size:13px;color:#1a1e2e;font-weight:600;margin-bottom:8px;text-align:center;">Identifiant/mot de passe OK — une dernière étape :</p>
-    <p style="font-size:12px;color:#888;margin-bottom:8px;text-align:center;">Colle ton token GitHub une seule fois (il sera mémorisé sur cet appareil) :</p>
-    <input type="password" id="token-first" placeholder="ghp_..." style="width:100%;padding:12px 16px;border:1px solid #ED6AA7;border-radius:8px;font-size:14px;background:#fff;" />
-  </div>
   <button onclick="login()" id="login-btn">Se connecter</button>
   <p id="login-error" style="display:none;color:#ED6AA7;font-size:13px;">Identifiant ou mot de passe incorrect.</p>
 </div>
@@ -882,28 +877,22 @@
 const SITES={
   legrandpan:{
     name:'Le Grand Pan',
-    repo:'amandineglucoz-hash/Le-Grand-Pan',
-    branch:'main',
     baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/':'https://amandineglucoz-hash.github.io/Le-Grand-Pan/',
     previewBase:window.location.hostname==='localhost'?'http://localhost:3941':'https://amandineglucoz-hash.github.io/Le-Grand-Pan',
     color:'#ED6AA7'
   },
   piennolo:{
     name:'Piennolo',
-    repo:'amandineglucoz-hash/Piennolo',
-    branch:'main',
     baseUrl:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/':'https://amandineglucoz-hash.github.io/Piennolo/',
     previewBase:window.location.hostname==='localhost'?'http://localhost:3941/Piennolo/':'https://amandineglucoz-hash.github.io/Piennolo/',
     color:'#4a7c59'
   }
 };
 let currentSite='legrandpan';
-let REPO=SITES.legrandpan.repo;
-let BRANCH=SITES.legrandpan.branch;
 let BASE_URL=SITES.legrandpan.baseUrl;
 let PREVIEW_BASE=SITES.legrandpan.previewBase;
 
-let TOKEN='',filesData={},galleryPhotos=[],mentionsSections=[];
+let galleryPhotos=[],mentionsSections=[];
 let horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
 
 // Piennolo state
@@ -920,7 +909,7 @@ async function switchSite(key){
   if(key===currentSite)return;
   currentSite=key;
   const site=SITES[key];
-  REPO=site.repo; BRANCH=site.branch; BASE_URL=site.baseUrl; PREVIEW_BASE=site.previewBase;
+  BASE_URL=site.baseUrl; PREVIEW_BASE=site.previewBase;
   // UI
   document.querySelectorAll('.site-tab').forEach(t=>t.classList.remove('active'));
   const tab=document.getElementById('tab-'+key);
@@ -928,7 +917,7 @@ async function switchSite(key){
   const logo=document.getElementById('topbar-site-name');
   if(logo)logo.textContent='MES RESTAURANTS — ADMIN';
   // Reset
-  filesData={};galleryPhotos=[];mentionsSections=[];
+  galleryPhotos=[];mentionsSections=[];
   horairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
   piGalleryPhotos=[];piHorairesMachine=[{jours:[1,2,3,4,5],debut:'12:00',fin:'14:30'},{jours:[1,2,3,4,5],debut:'19:30',fin:'23:00'}];
   piHorairesDisplay=[{jours:'',heures:''}];piMenuData={antipasti:[],pizzas:[],desserts:[]};
@@ -1043,21 +1032,22 @@ const $=id=>document.getElementById(id);
 
 function showToast(msg,type='success'){const t=$('toast');t.textContent=msg;t.className=type;t.style.display='block';setTimeout(()=>t.style.display='none',3000);}
 
-function sitePrefix(path){return path;}
-async function api(path,opts={}){path=sitePrefix(path);
-  const r=await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`,{...opts,headers:{Authorization:`token ${TOKEN}`,Accept:'application/vnd.github.v3+json','Content-Type':'application/json',...(opts.headers||{})}});
+// Content read/write goes through our own /api/content — the GitHub
+// token lives server-side only, the browser just carries a session cookie.
+async function getFile(path){
+  const r=await fetch('/api/content?site='+currentSite+'&path='+encodeURIComponent(path),{credentials:'include'});
+  if(!r.ok)throw new Error(r.status);
+  return (await r.json()).content;
+}
+async function putFile(path,content){
+  const r=await fetch('/api/content',{method:'PUT',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({site:currentSite,path,content})});
   if(!r.ok)throw new Error(r.status);
   return r.json();
 }
-
-async function getFile(path){const d=await api(path);filesData[path]={sha:d.sha};return JSON.parse(decodeURIComponent(escape(atob(d.content.replace(/\n/g,'')))));}
-async function putFile(path,content){
-  let sha=null;
-  try{const fresh=await api(path);sha=fresh.sha;}catch(e){}
-  filesData[path]={sha};
-  const body={message:`Update ${path}`,content:btoa(unescape(encodeURIComponent(JSON.stringify(content,null,2)))),branch:BRANCH};
-  if(sha)body.sha=sha;
-  return api(path,{method:'PUT',body:JSON.stringify(body)});
+async function uploadFile(path,base64,message){
+  const r=await fetch('/api/content',{method:'PUT',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({site:currentSite,path,base64,message})});
+  if(!r.ok)throw new Error(r.status);
+  return r.json();
 }
 
 async function login(){
@@ -1065,50 +1055,19 @@ async function login(){
   const pwd=$("password-input").value.trim();
   const err=$("login-error");
   err.style.display="none";
+  if(!lgn||!pwd){
+    err.textContent="Merci de renseigner l'identifiant et le mot de passe.";
+    err.style.display="block";
+    return;
+  }
   try{
-    let cfg;
-    try{
-      const r=await fetch("https://raw.githubusercontent.com/"+REPO+"/"+BRANCH+"/content/config.json?v="+Date.now());
-      if(!r.ok)throw new Error("http "+r.status);
-      cfg=await r.json();
-    }catch(e){
-      err.textContent="Impossible de vérifier tes identifiants (problème réseau). Réessaie dans un instant.";
+    const r=await fetch('/api/login',{method:'POST',credentials:'include',headers:{'Content-Type':'application/json'},body:JSON.stringify({login:lgn,password:pwd})});
+    if(!r.ok){
+      const d=await r.json().catch(()=>({}));
+      err.textContent=d.error||"Identifiant ou mot de passe incorrect.";
       err.style.display="block";
       return;
     }
-    const user=cfg.users.find(u=>u.login===lgn&&u.password===pwd);
-    if(!user){
-      err.textContent="Identifiant ou mot de passe incorrect.";
-      err.style.display="block";
-      return;
-    }
-    const savedToken=localStorage.getItem("lgp_token");
-    if(savedToken){TOKEN=savedToken;}
-    else{
-      const ts=$("token-section");
-      if(ts.style.display==="none"){
-        ts.style.display="block";
-        $("login-btn").textContent="Valider le token";
-        ts.scrollIntoView({behavior:"smooth",block:"center"});
-        $("token-first").focus();
-        return;
-      }
-      const t=$("token-first").value.trim();
-      if(!t){
-        err.textContent="Colle ton token GitHub ci-dessus pour continuer.";
-        err.style.display="block";
-        $("token-first").focus();
-        return;
-      }
-      if(!t.startsWith("ghp_")&&!t.startsWith("github_pat_")){
-        err.textContent="Ce token ne ressemble pas à un token GitHub valide (il doit commencer par ghp_ ou github_pat_).";
-        err.style.display="block";
-        return;
-      }
-      TOKEN=t;localStorage.setItem("lgp_token",t);
-    }
-    localStorage.setItem("lgp_login",lgn);
-    localStorage.setItem("lgp_pwd",pwd);
     $("login-screen").style.display="none";
     $("app").style.display="block";
     await loadAll();
@@ -1118,7 +1077,10 @@ async function login(){
   }
 }
 
-function logout(){localStorage.removeItem("lgp_token");localStorage.removeItem("lgp_pwd");localStorage.removeItem("lgp_login");location.reload();}
+async function logout(){
+  try{await fetch('/api/logout',{method:'POST',credentials:'include'});}catch(e){}
+  location.reload();
+}
 
 function assetBase(){return BASE_URL;}
 function setImagePreview(prefix,src){
@@ -1153,11 +1115,7 @@ async function handleSingleUpload(input,prefix,hiddenId){  if(window.location.ho
     reader.onload=async function(e){
       const base64=e.target.result.split(",")[1];
       const filename=(currentSite==='piennolo'?'piennolo-assets/':'le-grand-pan-assets/')+file.name;
-      let sha=null;
-      try{const ex=await api(filename);sha=ex.sha;}catch(e){}
-      const body={message:"Upload "+file.name,content:base64,branch:BRANCH};
-      if(sha)body.sha=sha;
-      await api(filename,{method:"PUT",body:JSON.stringify(body)});
+      await uploadFile(filename,base64,"Upload "+file.name);
       $(hiddenId).value=filename;
       const preview=$(prefix+'-preview');
       const label=$(prefix+'-label');
@@ -1241,11 +1199,7 @@ async function uploadPhoto(file){  if(window.location.hostname==='localhost'){  
       const base64=e.target.result.split(",")[1];
       const filename=(currentSite==='piennolo'?'piennolo-assets/':'le-grand-pan-assets/')+file.name;
       try{
-        let sha=null;
-        try{const ex=await api(filename);sha=ex.sha;}catch(e){}
-        const body={message:"Upload "+file.name,content:base64,branch:BRANCH};
-        if(sha)body.sha=sha;
-        await api(filename,{method:"PUT",body:JSON.stringify(body)});
+        await uploadFile(filename,base64,"Upload "+file.name);
         resolve(filename);
       }catch(e){reject(e);}
     };
@@ -1288,8 +1242,6 @@ async function saveAll(){
     const nowIso=new Date().toISOString();
     await putFile('content/last_published.json',{date:nowIso});
     $('last-published').textContent=formatLastPublished(nowIso);
-    // Rafraîchit seulement les SHA sans écraser les champs
-await Promise.all(["content/modale.json","content/hero.json","content/menu.json","content/galerie.json","content/infos.json","content/restaurateurs.json","content/footer.json","content/mentions.json","content/parcours.json","content/last_published.json"].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Publié avec succès ✓');
   }catch(e){showToast('Erreur publication','error');}
   finally{btn.disabled=false;btn.textContent='Publier';}
@@ -1370,8 +1322,6 @@ async function saveAllPiennolo(){
     const nowIsoPi=new Date().toISOString();
     await putFile('content/last_published.json',{date:nowIsoPi});
     $('last-published').textContent=formatLastPublished(nowIsoPi);
-    // Refresh SHAs
-    await Promise.all(['content/modale.json','content/hero.json','content/bienvenue.json','content/menu.json','content/chef.json','content/infos.json','content/galerie.json','content/footer.json','content/last_published.json'].map(async p=>{const d=await api(p);filesData[p]={sha:d.sha};}));
     showToast('Piennolo publié avec succès ✓');
   }catch(e){showToast('Erreur publication Piennolo','error');console.error(e);}
   finally{btn.disabled=false;btn.textContent='Publier';}
@@ -1447,10 +1397,7 @@ async function handlePiChefVideoUpload(input){
         reader.onload=async function(e){
           var base64=e.target.result.split(",")[1];
           var filename=(currentSite==="piennolo"?"piennolo-assets/":"le-grand-pan-assets/")+file.name;
-          var sha=null;try{var ex=await api(filename);sha=ex.sha;}catch(e){}
-          var body={message:"Upload "+file.name,content:base64,branch:BRANCH};
-          if(sha)body.sha=sha;
-          await api(filename,{method:"PUT",body:JSON.stringify(body)});
+          await uploadFile(filename,base64,"Upload "+file.name);
           resolve(filename);
         };reader.readAsDataURL(file);
       });
@@ -1479,10 +1426,7 @@ async function handlePiMenuPdfUpload(input){
         reader.onload=async function(e){
           var base64=e.target.result.split(",")[1];
           var filename=(currentSite==="piennolo"?"piennolo-assets/":"le-grand-pan-assets/")+file.name;
-          var sha=null;try{var ex=await api(filename);sha=ex.sha;}catch(e){}
-          var body={message:"Upload "+file.name,content:base64,branch:BRANCH};
-          if(sha)body.sha=sha;
-          await api(filename,{method:"PUT",body:JSON.stringify(body)});
+          await uploadFile(filename,base64,"Upload "+file.name);
           resolve(filename);
         };reader.readAsDataURL(file);
       });
@@ -1744,10 +1688,6 @@ function toggleNavGroup(header){
   header.closest('.nav-group').classList.toggle('collapsed');
 }
 
-const savedLogin=localStorage.getItem("lgp_login");
-const savedPwd=localStorage.getItem("lgp_pwd");
-if(savedLogin&&savedPwd){$("login-input").value=savedLogin;$("password-input").value=savedPwd;login();}
-
 document.addEventListener("DOMContentLoaded",async function(){
   // En localhost, bypasser le login
   if(window.location.hostname==="localhost"){
@@ -1757,6 +1697,17 @@ document.addEventListener("DOMContentLoaded",async function(){
     $("login-screen").style.display="none";
     $("app").style.display="block";
     await loadAll();
+  } else {
+    // Session déjà valide (cookie httpOnly) ? On saute l'écran de connexion.
+    try{
+      const r=await fetch('/api/whoami',{credentials:'include'});
+      const d=await r.json();
+      if(d.login){
+        $("login-screen").style.display="none";
+        $("app").style.display="block";
+        await loadAll();
+      }
+    }catch(e){}
   }
   renderCreneaux();
   // Accordéons : chaque .divider toggle son .acc-body suivant
