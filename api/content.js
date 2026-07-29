@@ -35,6 +35,14 @@ async function githubFetch(path, opts = {}) {
 }
 
 module.exports = async function handler(req, res) {
+  try {
+    await handleRequest(req, res);
+  } catch (e) {
+    res.status(500).json({ error: 'Server error', detail: e.message });
+  }
+};
+
+async function handleRequest(req, res) {
   const login = requireSession(req, res);
   if (!login) return;
 
