@@ -73,7 +73,7 @@ function _applyMain(hero,menu,galerie,infos,restau,modale,parcours){
   }
   if(menu&&menu.midi&&menu.midi.suggestion){var els=document.querySelectorAll('.menuBlock__text');if(els[0])els[0].textContent=menu.midi.suggestion;}
   if(menu&&menu.midi&&menu.midi.classiques){var ul=document.querySelectorAll('.menuList')[0];if(ul)ul.innerHTML=menu.midi.classiques.map(function(p){return '<li>'+p.nom+'</li>';}).join('');}
-  if(menu&&menu.soir&&menu.soir.suggestion){var els=document.querySelectorAll('.menuBlock__text');if(els[2])els[2].textContent=menu.soir.suggestion;}
+  if(menu&&menu.soir&&menu.soir.suggestion){var els=document.querySelectorAll('.menuBlock__text');if(els[1])els[1].textContent=menu.soir.suggestion;}
   if(menu&&menu.soir&&menu.soir.classiques){var ul=document.querySelectorAll('.menuList')[1];if(ul)ul.innerHTML=menu.soir.classiques.map(function(p){return '<li>'+p.nom+'</li>';}).join('');}
 
   // Galerie — reconstruit le slider et relance l'animation
